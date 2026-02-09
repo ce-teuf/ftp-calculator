@@ -8,7 +8,6 @@ where
     let (nrows, ncols) = arr.dim();
     // Create empty Vec<f64>
     let mut numbers: Vec<f64> = Vec::new();
-    // numbers.push(3.14);
     if nrows < ncols {
         for i in 0..nrows {
             numbers.push(arr[[nrows - i - 1, i]]);
@@ -22,8 +21,6 @@ where
     }
 
     numbers
-    // let len = std::cmp::min(rows, cols);
-    // (0..len).map(|i| arr[(i, cols - 1 - i)].clone()).collect()
 }
 
 #[cfg(test)]

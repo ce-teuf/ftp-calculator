@@ -2,7 +2,7 @@
 name = "ftp_core_bindings_c"
 version = "0.1.796"
 edition = "2021"
-description = "Core FTP calculation library"
+description = "C bindings for the FTP core calculation library"
 authors = ["Votre Nom <votre.email@example.com>"]
 license = "MIT OR Apache-2.0"
 documentation = "https://votre-username.github.io/votre-repo"
@@ -13,15 +13,14 @@ categories = ["finance", "science"]
 
 [lib]
 name = "ftp_core_bindings_c"
-crate-type = ["cdylib"]  # Pour les bindings C, on veut seulement cdylib
+crate-type = ["cdylib"]
 
 [dependencies]
+ftp_core = { path = "../ftp_core", version = "0.1.796" }
 ndarray = "0.16.1"
-ftp_core = { path = "../ftp_core", version = "0.1.796" }  # ADD THIS LINE
-cbindgen = "0.29.0"
 
 [build-dependencies]
-cbindgen = "0.29.0"  # Pour générer le header C
+cbindgen = "0.29.0"
 
 [dev-dependencies]
-approx = "0.5"  # Pour les comparaisons de nombres à virgule flottante
+approx = "0.5"

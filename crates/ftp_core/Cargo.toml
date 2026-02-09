@@ -3,28 +3,20 @@ name = "ftp_core"
 version = "0.1.796"
 edition = "2021"
 description = "Core FTP calculation library"
-authors = ["Votre Nom <votre.email@example.com>"]
 license = "MIT OR Apache-2.0"
-documentation = "https://votre-username.github.io/votre-repo"
-repository = "https://github.com/votre-username/votre-repo"
-readme = "README.md"
 keywords = ["ftp", "calculator", "finance"]
 categories = ["finance", "science"]
 
 [lib]
 name = "ftp_core"
-crate-type = ["rlib", "cdylib"]
+crate-type = ["rlib"]
 
 [dependencies]
 ndarray = "0.16.1"
 
 [dev-dependencies]
-approx = "0.5"  # Pour les comparaisons de nombres à virgule flottante
+approx = "0.5"
 
 [[test]]
 name = "integration_tests"
 path = "tests/integration_tests.rs"
-
-[[test]]
-name = "matrix_operations"
-path = "tests/matrix_operations.rs"

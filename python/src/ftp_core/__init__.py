@@ -1,4 +1,6 @@
-from .utils import batch_process
-from.wrapper import add, safe_divide, MonWrapper
+"""FTP Core — Funds Transfer Pricing calculator powered by Rust."""
 
-__all__ = ['add', 'safe_divide', 'MonWrapper', 'batch_process']
+from ftp_core._core import FtpCalculator, compute_stock, compute_flux
+
+__all__ = ["FtpCalculator", "compute_stock", "compute_flux"]
+__version__ = "0.1.796"

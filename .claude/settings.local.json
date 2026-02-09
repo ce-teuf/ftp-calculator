@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cargo test:*)",
+      "Bash(cargo run:*)",
+      "Bash(cargo build:*)",
+      "Bash(dotnet --version:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet build:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:crates.io)",
+      "Bash(cargo check:*)",
+      "Bash(pip install:*)",
+      "Bash(maturin develop:*)",
+      "Bash(python -m venv:*)",
+      "Bash(source:*)",
+      "Bash(/z/Projects/ftp-calculator/python/.venv/Scripts/python.exe -m pip install:*)",
+      "Bash(ls:*)",
+      "Bash(/z/Projects/ftp-calculator/python/.venv/bin/python.exe -m pip install:*)",
+      "Bash(/z/Projects/ftp-calculator/python/.venv/bin/python.exe:*)",
+      "Bash(/c/Users/charl/AppData/Local/Programs/Python/Python310/python.exe --version)",
+      "Bash(/c/Users/charl/AppData/Local/Programs/Python/Python311/python.exe --version)",
+      "Bash(/c/Users/charl/AppData/Local/Programs/Python/Python312/python.exe:*)",
+      "Bash(/c/Users/charl/AppData/Local/Programs/Python/Python310/python.exe -m venv:*)",
+      "Bash(/z/Projects/ftp-calculator/python/.venv/Scripts/python.exe:*)",
+      "Bash(VIRTUAL_ENV=/z/Projects/ftp-calculator/python/.venv /z/Projects/ftp-calculator/python/.venv/Scripts/python.exe -m maturin:*)"
+    ]
+  }
+}
