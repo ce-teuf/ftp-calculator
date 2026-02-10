@@ -1,3 +1,43 @@
+## v0.1.814 - 2026-02-10
+
+### Nouvelles fonctionnalités
+- À compléter
+
+### Corrections
+- À compléter
+
+### Modifications
+- 3090acd Add native DLL auto-loading for Excel add-in
+- 8f17253 Release v0.1.812
+- 5343ac4 Fix Excel add-in native DLL packaging
+- 05dd26b Release v0.1.810
+- 11d0cb9 Fix Excel add-in packed XLL upload path in workflow
+- 3ac0fe0 Release v0.1.809
+- cc60396 Upload only packed XLL file to releases
+- 57a4bbc Enable Excel-DNA packed build
+- 484f979 Release v0.1.808
+- 5e232ec Disable Linux aarch64 builds (cross-compilation issues)
+
+## v0.1.813 - 2026-02-10
+
+### Nouvelles fonctionnalités
+- À compléter
+
+### Corrections
+- À compléter
+
+### Modifications
+- 3090acd Add native DLL auto-loading for Excel add-in
+- 8f17253 Release v0.1.812
+- 5343ac4 Fix Excel add-in native DLL packaging
+- 05dd26b Release v0.1.810
+- 11d0cb9 Fix Excel add-in packed XLL upload path in workflow
+- 3ac0fe0 Release v0.1.809
+- cc60396 Upload only packed XLL file to releases
+- 57a4bbc Enable Excel-DNA packed build
+- 484f979 Release v0.1.808
+- 5e232ec Disable Linux aarch64 builds (cross-compilation issues)
+
 ## v0.1.812 - 2026-02-10
 
 ### Nouvelles fonctionnalités

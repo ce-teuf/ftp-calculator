@@ -155,7 +155,7 @@ checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
 
 [[package]]
 name = "ftp-calculator-bindings-c"
-version = "0.1.810"
+version = "0.1.812"
 dependencies = [
  "approx",
  "cbindgen",
@@ -165,7 +165,7 @@ dependencies = [
 
 [[package]]
 name = "ftp-calculator-bindings-pyo3"
-version = "0.1.810"
+version = "0.1.812"
 dependencies = [
  "ftp-calculator-core",
  "ndarray",
@@ -175,7 +175,7 @@ dependencies = [
 
 [[package]]
 name = "ftp-calculator-core"
-version = "0.1.810"
+version = "0.1.812"
 dependencies = [
  "approx",
  "ndarray",
