@@ -1,9 +1,10 @@
+#%%
 import numpy as np
 import pytest
 
 from ftp_core import FtpCalculator, compute_stock, compute_flux
 
-
+#%%
 # --- Reference data (same as integration_tests.rs) ---
 
 STOCK_OUTSTANDING = np.array([[1000.0], [1200.0], [1350.0]])

@@ -53,24 +53,34 @@ jobs:
         env:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
 
-#  release-excel:
-#    needs: create-release
-#    runs-on: windows-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Install Rust
-#        run: rustup update stable && rustup default stable
-#      - name: Build C bindings
-#        run: cd crates/ftp_core_bindings_c && cargo build --release
-#      - name: Upload DLL to Release
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ needs.create-release.outputs.upload_url }}
-#          asset_path: crates/ftp_core_bindings_c/target/release/ftp_core_bindings_c.dll
-#          asset_name: ftp_core_bindings_c.dll
-#          asset_content_type: application/octet-stream
+  release-excel:
+    needs: create-release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        run: rustup update stable && rustup default stable
+      - name: Install .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Build C bindings
+        run: cd crates/ftp_core_bindings_c && cargo build --release
+      - name: Copy DLL to Excel add-in folder
+        run: |
+          mkdir -p excel-addin/Interop
+          cp target/release/ftp_core_bindings_c.dll excel-addin/Interop/
+      - name: Build Excel add-in
+        run: cd excel-addin/ftp_addin && dotnet build --configuration Release
+      - name: Upload packed XLL to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: excel-addin/ftp_addin/bin/Release/net6.0-windows/ftp_addin-AddIn64-packed.xll
+          asset_name: ftp_calculator-${{ github.ref_name }}-AddIn64.xll
+          asset_content_type: application/octet-stream
 
   release-python:
     needs: create-release
@@ -103,7 +113,7 @@ jobs:
         run: pip install setuptools wheel build
       - name: Build wheel
         run: |
-          cd python
+          cd python-lib
           python -m build --outdir ../dist/
       - name: Install twine build
         run: pip install twine build
@@ -160,12 +170,12 @@ jobs:
         run: pip install setuptools wheel build
       - name: Build wheel
         run: |
-          cd python
+          cd python-lib
           python -m build --outdir ../dist/
       - name: Set wheel file path
         id: wheel
         run: |
-          WHL_FILE=$(ls dist/ftp_core-*-py3-none-any.whl)
+          WHL_FILE=$(ls dist/ftp_calculator-*-py3-none-any.whl)
           echo "whl_path=$WHL_FILE" >> $GITHUB_OUTPUT
       - name: Upload wheel to Release
         uses: actions/upload-release-asset@v1
@@ -174,7 +184,7 @@ jobs:
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ${{ steps.wheel.outputs.whl_path }}
-          asset_name: ftp_core-${{ github.ref_name }}-py3-none-any.whl
+          asset_name: ftp_calculator-${{ github.ref_name }}-py3-none-any.whl
           asset_content_type: application/octet-stream
 
   release-python-wheel-package-targz:
@@ -190,12 +200,12 @@ jobs:
         run: pip install setuptools wheel build
       - name: Build wheel
         run: |
-          cd python
+          cd python-lib
           python -m build --outdir ../dist/
       - name: Set wheel file path
         id: wheel
         run: |
-          WHL_FILE=$(ls dist/ftp_core-*.tar.gz)
+          WHL_FILE=$(ls dist/ftp_calculator-*.tar.gz)
           echo "whl_path=$WHL_FILE" >> $GITHUB_OUTPUT
       - name: Upload wheel to Release
         uses: actions/upload-release-asset@v1
@@ -204,5 +214,5 @@ jobs:
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ${{ steps.wheel.outputs.whl_path }}
-          asset_name: ftp_core-${{ github.ref_name }}.tar.gz
+          asset_name: ftp_calculator-${{ github.ref_name }}.tar.gz
           asset_content_type: application/octet-stream

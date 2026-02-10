@@ -12,7 +12,7 @@ CRATES_DIR = crates
 CORE_DIR = $(CRATES_DIR)/ftp_core
 C_BINDINGS_DIR = $(CRATES_DIR)/ftp_core_bindings_c
 PY_BINDINGS_DIR = $(CRATES_DIR)/ftp_core_bindings_pyo3
-EXCEL_DIR = excel
+EXCEL_DIR = excel-addin
 DOCS_DIR = docs
 SCRIPTS_DIR = scripts
 
@@ -21,10 +21,10 @@ GREEN = \033[0;32m
 RED = \033[0;31m
 YELLOW = \033[0;33m
 BLUE = \033[0;34m
-NC = \033[0m # No Color
+NC = \033[0m
 
 .PHONY: all test unit integration detailed clean help bench doc tarpaulin docs \
-        build-c-bindings build-py-bindings build-docs build-excel \
+        build-c-bindings build-py-bindings build-docs build-excel-addin \
         deploy-docs setup-dev
 
 # Cible par défaut
@@ -63,10 +63,13 @@ UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
 LIB_NAME := libftp_core_bindings_c.so
+VENV_BIN := .venv/bin
 else ifeq ($(UNAME), Darwin)
 LIB_NAME := libftp_core_bindings_c.dylib
+VENV_BIN := .venv/bin
 else
 LIB_NAME := ftp_core_bindings_c.dll
+VENV_BIN := .venv/Scripts
 endif
 
 # Builder les bindings C (pour Excel)
@@ -76,20 +79,20 @@ build-c-bindings:
 	@echo "$(GREEN)✓ Bindings C construits$(NC)"
 	@echo "$(BLUE)Copie des artefacts...$(NC)"
 	@echo "$(GREEN)✓ Lib selectionnee: $(LIB_NAME)$(NC)"
-	@mkdir -p ../excel/Interop/
-	@cp target/release/$(LIB_NAME) excel/Interop/
+	@mkdir -p ../excel-addin/Interop/
+	@cp target/release/$(LIB_NAME) excel-addin/Interop/
 	@echo "$(GREEN)✓ Artefacts copiés$(NC)"
 
 # Builder les bindings Python
 build-py-bindings:
 	@echo "$(BLUE)Construction des bindings Python...$(NC)"
-	@cd $(PY_BINDINGS_DIR) && $(MATURIN) build --release
+	@cd python-lib && ../$(VENV_BIN)/maturin build --release
 	@echo "$(GREEN)✓ Bindings Python construits$(NC)"
 
 # Builder l'add-in Excel (nécessite Windows et .NET)
-build-excel:
+build-excel-addin:
 	@echo "$(BLUE)Construction de l'add-in Excel...$(NC)"
-	@cd $(EXCEL_DIR)/AddIn && $(DOTNET) build --configuration Release
+	@cd $(EXCEL_DIR)/ftp_addin && $(DOTNET) build --configuration Release
 	@echo "$(GREEN)✓ Add-in Excel construit$(NC)"
 
 # Builder tous les bindings
@@ -104,12 +107,12 @@ build-all: build-c-bindings build-py-bindings
 build_docs:
 	@echo "$(BLUE)Construction de la documentation Rust...$(NC)"
 	@$(CARGO) doc --target-dir $(DOCS_DIR)/site/rust-generated/ --workspace --no-deps --open
-	@.venv/bin/python -m pdoc -o $(DOCS_DIR)/site/python-generated/ python/src/
+	@$(VENV_BIN)/python -m pdoc -o $(DOCS_DIR)/site/python-generated/ python-lib/src/
 
 # Servir la documentation localement
 serve-docs:
 	@echo "$(BLUE)Lancement du serveur de documentation...$(NC)"
-	@cd $(DOCS_DIR)/site/ && python3.12 -m http.server 8000 --bind 127.0.0.1
+	@cd $(DOCS_DIR)/site/ && ../../$(VENV_BIN)/python -m http.server 8000 --bind 127.0.0.1
 
 
 # Déployer la documentation (pour GitHub Pages)
@@ -144,7 +147,9 @@ setup-dev:
 	@rustup component add clippy
 	@rustup component add rustfmt
 	@cargo install cargo-tarpaulin 2>/dev/null || echo "$(YELLOW)tarpaulin déjà installé ou échec d'installation$(NC)"
-	@pip install maturin mkdocs-material mkdocstrings mkdocstrings-python 2>/dev/null || echo "$(YELLOW)Outils Python déjà installés$(NC)"
+	@test -d .venv || python -m venv .venv
+	@$(VENV_BIN)/pip install maturin mkdocs-material mkdocstrings mkdocstrings-python pdoc 2>/dev/null || echo "$(YELLOW)Outils Python déjà installés$(NC)"
+	@cd python-lib && ../$(VENV_BIN)/pip install -e ".[dev]"
 	@echo "$(GREEN)✓ Environnement de développement configuré$(NC)"
 
 # Vérification du code sans exécution des tests
@@ -262,23 +267,27 @@ help:
 # Gestion des releases
 release-prepare:
 	@echo "$(BLUE)Préparation de la release...$(NC)"
-	@python scripts/release.py prepare
+	@$(VENV_BIN)/python scripts/release.py prepare
 
 release-version:
 	@echo "$(BLUE)Affichage de la version...$(NC)"
-	@python scripts/release.py version
+	@$(VENV_BIN)/python scripts/release.py version
 
 release-bump-patch:
 	@echo "$(BLUE)Création d'une release patch...$(NC)"
-	@python scripts/release.py release --bump patch
+	@$(VENV_BIN)/python scripts/release.py release --bump patch
 
 release-bump-minor:
 	@echo "$(BLUE)Création d'une release mineure...$(NC)"
-	@python scripts/release.py release --bump minor
+	@$(VENV_BIN)/python scripts/release.py release --bump minor
 
 release-bump-major:
 	@echo "$(BLUE)Création d'une release majeure...$(NC)"
-	@python scripts/release.py release --bump major
+	@$(VENV_BIN)/python scripts/release.py release --bump major
+
+release-dry-run:
+	@echo "$(BLUE)Simulation d'une release patch (dry-run)...$(NC)"
+	@$(VENV_BIN)/python scripts/release.py release --bump patch --dry-run
 
 # Alias
 release: release-bump-patch

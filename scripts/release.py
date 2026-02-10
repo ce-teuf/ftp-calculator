@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Script de release automatisé pour FTP_CALCULATOR
 Gère le versioning, la création de tags, et la préparation des artefacts
@@ -13,11 +14,17 @@ from pathlib import Path
 from datetime import datetime
 import toml
 
+# Force UTF-8 encoding for Windows
+if sys.platform == 'win32':
+    import codecs
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
+
 class ReleaseManager:
     def __init__(self):
         self.project_root = Path(__file__).parent.parent
         self.cargo_toml = self.project_root / "Cargo.toml"
-        self.pyproject_toml = self.project_root / "python" / "pyproject.toml"
+        self.pyproject_toml = self.project_root / "python-lib" / "pyproject.toml"
 
     def run_command(self, cmd, cwd=None):
         """Exécute une commande shell"""
@@ -64,7 +71,7 @@ class ReleaseManager:
                     toml.dump(data, f)
                 print(f"✅ {crate_toml} mis à jour")
 
-        # Met à jour old_pyproject.toml Python
+        # Met à jour pyproject.toml Python
         if self.pyproject_toml.exists():
             with open(self.pyproject_toml, 'r') as f:
                 data = toml.load(f)
@@ -127,6 +134,7 @@ class ReleaseManager:
             content = f.read()
             f.seek(0, 0)
 
+            commits_text = ''.join(f'- {commit}\n' for commit in commits if commit)
             changelog_entry = f"""## v{version} - {datetime.now().strftime('%Y-%m-%d')}
 
 ### Nouvelles fonctionnalités
@@ -136,8 +144,7 @@ class ReleaseManager:
 - À compléter
 
 ### Modifications
-{''.join(f'- {commit}\\n' for commit in commits if commit)}
-
+{commits_text}
 """
             f.write(changelog_entry + content)
 

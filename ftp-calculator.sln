@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "excel", "excel", "{F4A27CA2-A98B-9BA4-06DE-958D2E3B2285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ftp_addin", "excel\ftp_addin\ftp_addin.csproj", "{1225C4F2-AAE4-274F-BCC8-3C339B0C7349}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1225C4F2-AAE4-274F-BCC8-3C339B0C7349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1225C4F2-AAE4-274F-BCC8-3C339B0C7349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1225C4F2-AAE4-274F-BCC8-3C339B0C7349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1225C4F2-AAE4-274F-BCC8-3C339B0C7349}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1225C4F2-AAE4-274F-BCC8-3C339B0C7349} = {F4A27CA2-A98B-9BA4-06DE-958D2E3B2285}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB303864-8C92-4C8B-928F-9A8EF45F5098}
+	EndGlobalSection
+EndGlobal

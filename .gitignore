@@ -11,9 +11,23 @@ crates/ftp_core/debug/
 crates/ftp_core/target/
 target/
 .env
-python/.venv/
-python/.pytest_cache/
+.claude/
+# Python
+python-lib/.pytest_cache/
+python-lib/__pycache__/
+python-lib/dist/
+python-lib/build/
+python-lib/*.egg-info/
+dist/
+build/
+*.pyc
+__pycache__/
+
+# Excel
 excel/ftp_addin/obj/
+excel-addin/ftp_addin/obj/
+excel-addin/ftp_addin/bin/
+excel-addin/Interop/
 # Remove Cargo.lock from gitignore if creating an executable, leave it for libraries
 # More information here https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html
 crates/ftp_core/Cargo.lock

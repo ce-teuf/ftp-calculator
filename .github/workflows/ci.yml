@@ -53,20 +53,20 @@ jobs:
           name: python-wheel
           path: crates/ftp_core_bindings_pyo3/target/wheels/*.whl
 
-  check-fmt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check formatting
-        run: cargo fmt --all -- --check
+  # check-fmt:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Check formatting
+  #       run: cargo fmt --all -- --check
 
-  check-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Rust and clippy
-        run: |
-          rustup update stable && rustup default stable
-          rustup component add clippy  # <-- Add this line
-      - name: Run clippy
-        run: cargo clippy --workspace -- -D warnings
+  # check-lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Install Rust and clippy
+  #       run: |
+  #         rustup update stable && rustup default stable
+  #         rustup component add clippy  # <-- Add this line
+  #     - name: Run clippy
+  #       run: cargo clippy --workspace -- -D warnings

@@ -18,11 +18,14 @@ namespace FtpAddIn
             Description = "Compute FTP using the Stock method. Returns all output matrices.",
             Category = "FTP Calculator")]
         public static object FtpComputeStock(
-            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object[,] outstanding,
-            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object[,] profiles,
-            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object[,] rates)
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates)
         {
-            return ComputeAll(outstanding, profiles, rates, method: 0);
+            if (!TryGetRange(outstanding, out object[,] o)) return ExcelError.ExcelErrorValue;
+            if (!TryGetRange(profiles, out object[,] p)) return ExcelError.ExcelErrorValue;
+            if (!TryGetRange(rates, out object[,] r)) return ExcelError.ExcelErrorValue;
+            return ComputeAll(o, p, r, method: 0);
         }
 
         [ExcelFunction(
@@ -30,11 +33,14 @@ namespace FtpAddIn
             Description = "Compute FTP using the Flux method. Returns all output matrices.",
             Category = "FTP Calculator")]
         public static object FtpComputeFlux(
-            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object[,] outstanding,
-            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object[,] profiles,
-            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object[,] rates)
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates)
         {
-            return ComputeAll(outstanding, profiles, rates, method: 1);
+            if (!TryGetRange(outstanding, out object[,] o)) return ExcelError.ExcelErrorValue;
+            if (!TryGetRange(profiles, out object[,] p)) return ExcelError.ExcelErrorValue;
+            if (!TryGetRange(rates, out object[,] r)) return ExcelError.ExcelErrorValue;
+            return ComputeAll(o, p, r, method: 1);
         }
 
         // --------------------------------------------------------------------
@@ -42,52 +48,80 @@ namespace FtpAddIn
         // --------------------------------------------------------------------
 
         [ExcelFunction(Name = "FTP_STOCK_AMORT", Description = "Stock amortization matrix", Category = "FTP Calculator")]
-        public static object FtpStockAmort(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpStockAmort(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_stock_amort);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_stock_amort);
         }
 
         [ExcelFunction(Name = "FTP_STOCK_INSTAL", Description = "Stock installment matrix", Category = "FTP Calculator")]
-        public static object FtpStockInstal(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpStockInstal(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_stock_instal);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_stock_instal);
         }
 
         [ExcelFunction(Name = "FTP_VARSTOCK_AMORT", Description = "Variation stock amortization matrix", Category = "FTP Calculator")]
-        public static object FtpVarstockAmort(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpVarstockAmort(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_varstock_amort);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_varstock_amort);
         }
 
         [ExcelFunction(Name = "FTP_VARSTOCK_INSTAL", Description = "Variation stock installment matrix", Category = "FTP Calculator")]
-        public static object FtpVarstockInstal(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpVarstockInstal(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_varstock_instal);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_varstock_instal);
         }
 
         [ExcelFunction(Name = "FTP_FTP_RATE", Description = "FTP rate matrix", Category = "FTP Calculator")]
-        public static object FtpFtpRate(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpFtpRate(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_ftp_rate);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_ftp_rate);
         }
 
         [ExcelFunction(Name = "FTP_FTP_INT", Description = "FTP interest matrix", Category = "FTP Calculator")]
-        public static object FtpFtpInt(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpFtpInt(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_ftp_int);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_ftp_int);
         }
 
         [ExcelFunction(Name = "FTP_MARKET_RATE", Description = "Market rate matrix", Category = "FTP Calculator")]
-        public static object FtpMarketRate(object[,] outstanding, object[,] profiles, object[,] rates,
-            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] int method)
+        public static object FtpMarketRate(
+            [ExcelArgument(Name = "outstanding", Description = "Column vector of outstanding amounts")] object outstanding,
+            [ExcelArgument(Name = "profiles", Description = "Profiles matrix")] object profiles,
+            [ExcelArgument(Name = "rates", Description = "Rates matrix")] object rates,
+            [ExcelArgument(Name = "method", Description = "0=Stock, 1=Flux")] object method)
         {
-            return ComputeSingle(outstanding, profiles, rates, method, FtpNative.ftp_get_market_rate);
+            if (!TryValidateArgs(outstanding, profiles, rates, method, out var args)) return ExcelError.ExcelErrorValue;
+            return ComputeSingle(args.o, args.p, args.r, args.m, FtpNative.ftp_get_market_rate);
         }
 
         // --------------------------------------------------------------------
@@ -95,6 +129,52 @@ namespace FtpAddIn
         // --------------------------------------------------------------------
 
         private delegate int GetterDelegate(IntPtr handle, double[] buf, int buf_len);
+
+        private static bool IsMissing(object arg)
+        {
+            return arg is ExcelMissing || arg is ExcelEmpty;
+        }
+
+        private static bool TryGetRange(object arg, out object[,] range)
+        {
+            range = null;
+            if (IsMissing(arg)) return false;
+            if (arg is object[,] arr)
+            {
+                range = arr;
+                return true;
+            }
+            // Single cell value — wrap into 1x1 array
+            range = new object[1, 1] { { arg } };
+            return true;
+        }
+
+        private static bool TryParseMethod(object method, out int result)
+        {
+            result = 0;
+            if (IsMissing(method)) return false;
+            try
+            {
+                result = Convert.ToInt32(method);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static bool TryValidateArgs(object outstanding, object profiles, object rates, object method,
+            out (object[,] o, object[,] p, object[,] r, int m) args)
+        {
+            args = default;
+            if (!TryGetRange(outstanding, out var o)) return false;
+            if (!TryGetRange(profiles, out var p)) return false;
+            if (!TryGetRange(rates, out var r)) return false;
+            if (!TryParseMethod(method, out int m)) return false;
+            args = (o, p, r, m);
+            return true;
+        }
 
         /// <summary>
         /// Runs compute and returns a single output matrix.
