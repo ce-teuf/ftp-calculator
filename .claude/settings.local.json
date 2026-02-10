@@ -44,7 +44,9 @@
       "Bash(dotnet clean:*)",
       "Bash(make:*)",
       "Bash(unset:*)",
-      "Bash(RUSTC_WRAPPER=\"\" cargo build:*)"
+      "Bash(RUSTC_WRAPPER=\"\" cargo build:*)",
+      "Bash(python -c:*)",
+      "Bash(python -m pytest:*)"
     ]
   }
 }
