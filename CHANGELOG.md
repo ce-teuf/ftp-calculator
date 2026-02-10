@@ -1,3 +1,23 @@
+## v0.1.803 - 2026-02-10
+
+### Nouvelles fonctionnalités
+- À compléter
+
+### Corrections
+- À compléter
+
+### Modifications
+- 5f5385b Fix Windows PowerShell syntax in release workflow
+- cbdd672 Release v0.1.802
+- cf38f4c Fix release workflow: use modern action and add permissions
+- 4c6ed9a Release v0.1.801
+- 671b940 Release v0.1.800
+- 55141b2 Rename Rust crates to follow consistent naming convention
+- e08ede6 Release v0.1.799
+- af7cb99 Release v0.1.798
+- c8a219c Release v0.1.797
+- de9df83 Configure multi-platform builds and fix release workflow
+
 ## v0.1.802 - 2026-02-10
 
 ### Nouvelles fonctionnalités
