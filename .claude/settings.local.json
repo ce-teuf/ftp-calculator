@@ -41,7 +41,10 @@
       "Bash(find:*)",
       "Bash(grep:*)",
       "Bash(git reset:*)",
-      "Bash(dotnet clean:*)"
+      "Bash(dotnet clean:*)",
+      "Bash(make:*)",
+      "Bash(unset:*)",
+      "Bash(RUSTC_WRAPPER=\"\" cargo build:*)"
     ]
   }
 }
