@@ -5,28 +5,25 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   create-release:
     runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
+      - uses: actions/checkout@v4
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+          generate_release_notes: true
 
   release-crates-io-rust-libs:
-    needs: create-release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +40,7 @@ jobs:
         env:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
       - name: Wait for ftp-calculator-core to be available in the index
-        run: sleep 60  # Adjust the time as needed
+        run: sleep 60
       - name: Publish ftp-calculator-bindings-c to crates.io
         run: cargo publish -p ftp-calculator-bindings-c --token ${CRATES_IO_TOKEN}
         env:
@@ -54,7 +51,6 @@ jobs:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
 
   release-excel:
-    needs: create-release
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -69,22 +65,18 @@ jobs:
       - name: Copy DLL to Excel add-in folder
         run: |
           mkdir -p excel-addin/Interop
-          cp target/release/ftp-calculator-bindings-c.dll excel-addin/Interop/
+          cp target/release/ftp_calculator_bindings_c.dll excel-addin/Interop/
       - name: Build Excel add-in
         run: cd excel-addin/ftp_addin && dotnet build --configuration Release
       - name: Upload packed XLL to Release
-        uses: actions/upload-release-asset@v1
+        shell: bash
+        run: |
+          gh release upload ${{ github.ref_name }} excel-addin/ftp_addin/bin/Release/net6.0-windows/ftp_addin-AddIn64-packed.xll --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
-          asset_path: excel-addin/ftp_addin/bin/Release/net6.0-windows/ftp_addin-AddIn64-packed.xll
-          asset_name: ftp_calculator-${{ github.ref_name }}-AddIn64.xll
-          asset_content_type: application/octet-stream
 
   release-python-pypi:
     name: Publish to PyPI
-    needs: create-release
     strategy:
       fail-fast: false
       matrix:
@@ -124,7 +116,6 @@ jobs:
 
   release-python-wheels-github:
     name: Upload wheels to GitHub Releases
-    needs: create-release
     strategy:
       fail-fast: false
       matrix:
@@ -172,7 +163,6 @@ jobs:
 
   release-python-sdist-github:
     name: Upload source distribution to GitHub Releases
-    needs: create-release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
