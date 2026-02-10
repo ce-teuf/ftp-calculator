@@ -69,10 +69,21 @@ jobs:
           cp target/release/ftp_calculator_bindings_c.dll excel-addin/Interop/
       - name: Build Excel add-in
         run: cd excel-addin/ftp_addin && dotnet build --configuration Release
-      - name: Upload packed XLL to Release
+      - name: List Excel build output
         shell: bash
         run: |
-          gh release upload ${{ github.ref_name }} excel-addin/ftp_addin/bin/Release/net6.0-windows/ftp_addin-AddIn64-packed.xll --clobber
+          echo "Listing Excel add-in build output:"
+          ls -la excel-addin/ftp_addin/bin/Release/net6.0-windows/
+      - name: Upload XLL to Release
+        shell: bash
+        run: |
+          # Upload all .xll files found
+          for xll in excel-addin/ftp_addin/bin/Release/net6.0-windows/*.xll; do
+            if [ -f "$xll" ]; then
+              echo "Uploading $xll"
+              gh release upload ${{ github.ref_name }} "$xll" --clobber
+            fi
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
