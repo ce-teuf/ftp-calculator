@@ -74,13 +74,13 @@ jobs:
         run: |
           echo "Listing Excel add-in build output:"
           ls -la excel-addin/ftp_addin/bin/Release/net6.0-windows/
-      - name: Upload XLL to Release
+      - name: Upload packed XLL to Release
         shell: bash
         run: |
-          # Upload all .xll files found
-          for xll in excel-addin/ftp_addin/bin/Release/net6.0-windows/*.xll; do
+          # Upload only the packed .xll (contains all dependencies)
+          for xll in excel-addin/ftp_addin/bin/Release/net6.0-windows/*-packed.xll; do
             if [ -f "$xll" ]; then
-              echo "Uploading $xll"
+              echo "Uploading packed XLL: $xll"
               gh release upload ${{ github.ref_name }} "$xll" --clobber
             fi
           done
