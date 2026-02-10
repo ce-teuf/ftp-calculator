@@ -28,6 +28,6 @@ Issues = "https://github.com/ce-teuf/FTP_CALCULATOR/issues"
 dev = [ "pytest", "numpy",]
 
 [tool.maturin]
-module-name = "ftp_core._core"
+module-name = "ftp_calculator._core"
 manifest-path = "../crates/ftp-calculator-bindings-pyo3/Cargo.toml"
 python-source = "src"

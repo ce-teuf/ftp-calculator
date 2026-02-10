@@ -28,7 +28,7 @@ pip install ftp-calculator
 
 ```python
 import numpy as np
-from ftp_core import FtpCalculator, compute_stock
+from ftp_calculator import FtpCalculator, compute_stock
 
 outstanding = np.array([[1000.0], [1200.0], [1350.0]])
 profiles = np.array([

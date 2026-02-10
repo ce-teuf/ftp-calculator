@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from ftp_core import FtpCalculator, compute_stock, compute_flux
+from ftp_calculator import FtpCalculator, compute_stock, compute_flux
 
 #%%
 # --- Reference data (same as integration_tests.rs) ---
