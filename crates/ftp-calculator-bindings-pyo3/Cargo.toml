@@ -1,0 +1,28 @@
+[package]
+name = "ftp-calculator-bindings-pyo3"
+version = "0.1.799"
+edition = "2021"
+description = "Python bindings for FTP Core library"
+authors = [ "Charles Teuf <charles.teuf@example.com>",]
+license = "MIT OR Apache-2.0"
+documentation = "https://ce-teuf.github.io/FTP_CALCULATOR"
+repository = "https://github.com/ce-teuf/FTP_CALCULATOR"
+readme = "README.md"
+keywords = [ "ftp", "calculator", "python",]
+categories = [ "finance", "api-bindings",]
+
+[lib]
+name = "_core"
+crate-type = [ "cdylib",]
+
+[dependencies]
+numpy = "0.26.0"
+ndarray = "0.16.1"
+
+[dependencies.ftp-calculator-core]
+path = "../ftp-calculator-core"
+version = "0.1.799"
+
+[dependencies.pyo3]
+version = "0.26.0"
+features = [ "extension-module",]

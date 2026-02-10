@@ -38,18 +38,18 @@ jobs:
         run: cargo login ${CRATES_IO_TOKEN}
         env:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-      - name: Publish ftp_core to crates.io
-        run: cargo publish -p ftp_core --token ${CRATES_IO_TOKEN}
+      - name: Publish ftp-calculator-core to crates.io
+        run: cargo publish -p ftp-calculator-core --token ${CRATES_IO_TOKEN}
         env:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-      - name: Wait for ftp_core to be available in the index
+      - name: Wait for ftp-calculator-core to be available in the index
         run: sleep 60  # Adjust the time as needed
-      - name: Publish ftp_core_bindings_c to crates.io
-        run: cargo publish -p ftp_core_bindings_c --token ${CRATES_IO_TOKEN}
+      - name: Publish ftp-calculator-bindings-c to crates.io
+        run: cargo publish -p ftp-calculator-bindings-c --token ${CRATES_IO_TOKEN}
         env:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-      - name: Publish ftp_core_bindings_pyo3 to crates.io
-        run: cargo publish -p ftp_core_bindings_pyo3 --token ${CRATES_IO_TOKEN}
+      - name: Publish ftp-calculator-bindings-pyo3 to crates.io
+        run: cargo publish -p ftp-calculator-bindings-pyo3 --token ${CRATES_IO_TOKEN}
         env:
           CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
 
@@ -65,11 +65,11 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Build C bindings
-        run: cd crates/ftp_core_bindings_c && cargo build --release
+        run: cd crates/ftp-calculator-bindings-c && cargo build --release
       - name: Copy DLL to Excel add-in folder
         run: |
           mkdir -p excel-addin/Interop
-          cp target/release/ftp_core_bindings_c.dll excel-addin/Interop/
+          cp target/release/ftp-calculator-bindings-c.dll excel-addin/Interop/
       - name: Build Excel add-in
         run: cd excel-addin/ftp_addin && dotnet build --configuration Release
       - name: Upload packed XLL to Release

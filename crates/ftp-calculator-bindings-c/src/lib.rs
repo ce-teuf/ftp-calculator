@@ -2,7 +2,7 @@ use std::cell::RefCell;
 use std::ffi::c_char;
 use std::slice;
 
-use ftp_core::{ComputeMethod, FtpResult};
+use ftp_calculator_core::{ComputeMethod, FtpResult};
 use ndarray::Array2;
 
 // Thread-local storage for the last error message.

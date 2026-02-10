@@ -10,7 +10,7 @@
 //! ## Usage
 //!
 //! ```rust
-//! use ftp_core::{FtpResult, ComputeMethod};
+//! use ftp_calculator_core::{FtpResult, ComputeMethod};
 //! use ndarray::array;
 //!
 //! let mut result = FtpResult::new(

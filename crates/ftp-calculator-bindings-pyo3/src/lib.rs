@@ -3,7 +3,7 @@ use numpy::{IntoPyArray, PyArray2, PyReadonlyArray2};
 use pyo3::prelude::*;
 use pyo3::types::PyDict;
 
-use ftp_core::{ComputeMethod, FtpError, FtpResult};
+use ftp_calculator_core::{ComputeMethod, FtpError, FtpResult};
 
 /// Convert an FtpError into a Python ValueError.
 fn ftp_err(e: FtpError) -> PyErr {

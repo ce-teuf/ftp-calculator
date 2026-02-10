@@ -1,0 +1,29 @@
+[package]
+name = "ftp-calculator-bindings-c"
+version = "0.1.799"
+edition = "2021"
+description = "C bindings for the FTP core calculation library"
+authors = [ "Charles Teuf <charles.teuf@example.com>",]
+license = "MIT OR Apache-2.0"
+documentation = "https://ce-teuf.github.io/FTP_CALCULATOR"
+repository = "https://github.com/ce-teuf/FTP_CALCULATOR"
+readme = "README.md"
+keywords = [ "ftp", "calculator", "finance",]
+categories = [ "finance", "science",]
+
+[lib]
+name = "ftp_calculator_bindings_c"
+crate-type = [ "cdylib",]
+
+[dependencies]
+ndarray = "0.16.1"
+
+[build-dependencies]
+cbindgen = "0.29.0"
+
+[dev-dependencies]
+approx = "0.5"
+
+[dependencies.ftp-calculator-core]
+path = "../ftp-calculator-core"
+version = "0.1.799"

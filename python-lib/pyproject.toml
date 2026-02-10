@@ -29,5 +29,5 @@ dev = [ "pytest", "numpy",]
 
 [tool.maturin]
 module-name = "ftp_core._core"
-manifest-path = "../crates/ftp_core_bindings_pyo3/Cargo.toml"
+manifest-path = "../crates/ftp-calculator-bindings-pyo3/Cargo.toml"
 python-source = "src"

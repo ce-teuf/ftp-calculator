@@ -154,31 +154,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
 
 [[package]]
-name = "ftp_core"
-version = "0.1.798"
-dependencies = [
- "approx",
- "ndarray",
-]
-
-[[package]]
-name = "ftp_core_bindings_c"
-version = "0.1.798"
+name = "ftp-calculator-bindings-c"
+version = "0.1.799"
 dependencies = [
  "approx",
  "cbindgen",
- "ftp_core",
+ "ftp-calculator-core",
  "ndarray",
 ]
 
 [[package]]
-name = "ftp_core_bindings_pyo3"
-version = "0.1.798"
+name = "ftp-calculator-bindings-pyo3"
+version = "0.1.799"
 dependencies = [
- "ftp_core",
+ "ftp-calculator-core",
  "ndarray",
  "numpy",
  "pyo3",
+]
+
+[[package]]
+name = "ftp-calculator-core"
+version = "0.1.799"
+dependencies = [
+ "approx",
+ "ndarray",
 ]
 
 [[package]]

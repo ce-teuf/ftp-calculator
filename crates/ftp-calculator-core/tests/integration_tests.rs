@@ -1,4 +1,4 @@
-use ftp_core::{ComputeMethod, FtpResult};
+use ftp_calculator_core::{ComputeMethod, FtpResult};
 use ndarray::array;
 
 #[test]

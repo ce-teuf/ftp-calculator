@@ -170,7 +170,7 @@ cd python-lib
 pip install -e ".[dev]"
 
 # Or use maturin for development (faster iteration)
-cd ../crates/ftp_core_bindings_pyo3
+cd ../crates/ftp-calculator-bindings-pyo3
 maturin develop
 ```
 
@@ -194,17 +194,17 @@ make build-excel-addin
 ```
 ftp-calculator/
 ├── crates/
-│   ├── ftp_core/                  # Core Rust calculation library
-│   ├── ftp_core_bindings_c/       # C bindings (for Excel)
-│   └── ftp_core_bindings_pyo3/    # Python bindings (PyO3)
-├── python-lib/                    # Python wrapper package (published to PyPI)
-├── excel-addin/                   # .NET Excel Add-In
-├── docs/                          # MkDocs documentation site
-├── scripts/                       # Release management
-├── .github/workflows/             # CI/CD pipelines
-├── .venv/                         # Python virtual environment
-├── Makefile                       # Build orchestration
-└── ftp-core-test.ods              # Test data spreadsheet
+│   ├── ftp-calculator-core/           # Core Rust calculation library
+│   ├── ftp-calculator-bindings-c/     # C bindings (for Excel)
+│   └── ftp-calculator-bindings-pyo3/  # Python bindings (PyO3)
+├── python-lib/                        # Python wrapper package (published to PyPI)
+├── excel-addin/                       # .NET Excel Add-In
+├── docs/                              # MkDocs documentation site
+├── scripts/                           # Release management
+├── .github/workflows/                 # CI/CD pipelines
+├── .venv/                             # Python virtual environment
+├── Makefile                           # Build orchestration
+└── ftp-core-test.ods                  # Test data spreadsheet
 ```
 
 ---

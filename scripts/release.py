@@ -60,7 +60,7 @@ class ReleaseManager:
         print(f"📦 Mise à jour de la version vers {new_version}")
 
         # Met à jour tous les Cargo.toml des crates
-        for member in ["ftp_core", "ftp_core_bindings_c", "ftp_core_bindings_pyo3"]:
+        for member in ["ftp-calculator-core", "ftp-calculator-bindings-c", "ftp-calculator-bindings-pyo3"]:
             crate_toml = self.project_root / "crates" / member / "Cargo.toml"
             if crate_toml.exists():
                 with open(crate_toml, 'r') as f:

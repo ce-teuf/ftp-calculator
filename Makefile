@@ -9,9 +9,9 @@ PROJECT_NAME = $(shell grep '^name' Cargo.toml | head -1 | cut -d '"' -f 2)
 
 # Chemins des projets
 CRATES_DIR = crates
-CORE_DIR = $(CRATES_DIR)/ftp_core
-C_BINDINGS_DIR = $(CRATES_DIR)/ftp_core_bindings_c
-PY_BINDINGS_DIR = $(CRATES_DIR)/ftp_core_bindings_pyo3
+CORE_DIR = $(CRATES_DIR)/ftp-calculator-core
+C_BINDINGS_DIR = $(CRATES_DIR)/ftp-calculator-bindings-c
+PY_BINDINGS_DIR = $(CRATES_DIR)/ftp-calculator-bindings-pyo3
 EXCEL_DIR = excel-addin
 DOCS_DIR = docs
 SCRIPTS_DIR = scripts
@@ -62,13 +62,13 @@ detailed:
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-LIB_NAME := libftp_core_bindings_c.so
+LIB_NAME := libftp_calculator_bindings_c.so
 VENV_BIN := .venv/bin
 else ifeq ($(UNAME), Darwin)
-LIB_NAME := libftp_core_bindings_c.dylib
+LIB_NAME := libftp_calculator_bindings_c.dylib
 VENV_BIN := .venv/bin
 else
-LIB_NAME := ftp_core_bindings_c.dll
+LIB_NAME := ftp_calculator_bindings_c.dll
 VENV_BIN := .venv/Scripts
 endif
 

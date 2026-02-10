@@ -1,0 +1,22 @@
+[[test]]
+name = "integration_tests"
+path = "tests/integration_tests.rs"
+
+[package]
+name = "ftp-calculator-core"
+version = "0.1.799"
+edition = "2021"
+description = "Core FTP calculation library"
+license = "MIT OR Apache-2.0"
+keywords = [ "ftp", "calculator", "finance",]
+categories = [ "finance", "science",]
+
+[lib]
+name = "ftp_calculator_core"
+crate-type = [ "rlib",]
+
+[dependencies]
+ndarray = "0.16.1"
+
+[dev-dependencies]
+approx = "0.5"
