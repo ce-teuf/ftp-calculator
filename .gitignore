@@ -3,6 +3,7 @@
 # will have compiled files and executables
 .idea/
 .venv/
+.claude/
 
 Python-3.12.0/
 
