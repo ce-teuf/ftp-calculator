@@ -20,6 +20,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Pack>true</Pack>
     </None>
+
+    <!-- Also embed as managed resource for extraction -->
+    <EmbeddedResource Include="..\Interop\ftp_calculator_bindings_c.dll" Condition="Exists('..\Interop\ftp_calculator_bindings_c.dll')">
+      <LogicalName>ftp_calculator_bindings_c.dll</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
