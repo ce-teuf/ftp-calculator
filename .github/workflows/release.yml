@@ -119,12 +119,10 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist
           working-directory: python-lib
           manylinux: auto
           command: publish
-          username: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          args: --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
 
   release-python-wheels-github:
     name: Upload wheels to GitHub Releases
@@ -163,12 +161,14 @@ jobs:
           manylinux: auto
       - name: List wheels
         shell: bash
-        run: ls -la dist/
+        run: ls -la python-lib/dist/
       - name: Upload wheels to GitHub Release
         shell: bash
         run: |
-          for wheel in dist/*.whl; do
-            gh release upload ${{ github.ref_name }} "$wheel" --clobber
+          for wheel in python-lib/dist/*.whl; do
+            if [ -f "$wheel" ]; then
+              gh release upload ${{ github.ref_name }} "$wheel" --clobber
+            fi
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -190,8 +190,10 @@ jobs:
       - name: Upload sdist to GitHub Release
         shell: bash
         run: |
-          for tarball in dist/*.tar.gz; do
-            gh release upload ${{ github.ref_name }} "$tarball" --clobber
+          for tarball in python-lib/dist/*.tar.gz; do
+            if [ -f "$tarball" ]; then
+              gh release upload ${{ github.ref_name }} "$tarball" --clobber
+            fi
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
