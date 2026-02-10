@@ -37,7 +37,10 @@
       "Bash(git commit:*)",
       "Bash(git config:*)",
       "Bash(git tag:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(git reset:*)"
     ]
   }
 }
