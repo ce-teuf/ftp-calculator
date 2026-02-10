@@ -4,7 +4,7 @@ path = "tests/integration_tests.rs"
 
 [package]
 name = "ftp-calculator-core"
-version = "0.1.803"
+version = "0.1.804"
 edition = "2021"
 description = "Core FTP calculation library"
 license = "MIT OR Apache-2.0"

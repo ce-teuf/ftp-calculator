@@ -1,6 +1,6 @@
 [package]
 name = "ftp-calculator-bindings-c"
-version = "0.1.803"
+version = "0.1.804"
 edition = "2021"
 description = "C bindings for the FTP core calculation library"
 authors = [ "Charles Teuf <charles.teuf@example.com>",]
