@@ -1,6 +1,6 @@
 [package]
 name = "ftp-calculator-bindings-pyo3"
-version = "0.1.806"
+version = "0.1.807"
 edition = "2021"
 description = "Python bindings for FTP Core library"
 authors = [ "Charles Teuf <charles.teuf@example.com>",]
