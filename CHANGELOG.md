@@ -1,3 +1,23 @@
+## v0.1.808 - 2026-02-10
+
+### Nouvelles fonctionnalités
+- À compléter
+
+### Corrections
+- À compléter
+
+### Modifications
+- 5e232ec Disable Linux aarch64 builds (cross-compilation issues)
+- 5112a19 Release v0.1.807
+- b6baa86 Add QEMU setup for aarch64 cross-compilation
+- 5f33bf5 Release v0.1.806
+- 510da9f Fix cross-platform Python builds
+- 06b223f Release v0.1.805
+- d52a660 Fix maturin publish command and dist paths
+- 246b2f8 Release v0.1.804
+- 07a312b Fix Excel XLL upload: list and upload all .xll files
+- 3dc6727 Release v0.1.803
+
 ## v0.1.807 - 2026-02-10
 
 ### Nouvelles fonctionnalités
