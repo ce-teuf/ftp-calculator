@@ -63,6 +63,7 @@ jobs:
       - name: Build C bindings
         run: cd crates/ftp-calculator-bindings-c && cargo build --release
       - name: Copy DLL to Excel add-in folder
+        shell: bash
         run: |
           mkdir -p excel-addin/Interop
           cp target/release/ftp_calculator_bindings_c.dll excel-addin/Interop/
