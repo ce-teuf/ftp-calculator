@@ -1,3 +1,23 @@
+## v0.1.805 - 2026-02-10
+
+### Nouvelles fonctionnalités
+- À compléter
+
+### Corrections
+- À compléter
+
+### Modifications
+- d52a660 Fix maturin publish command and dist paths
+- 246b2f8 Release v0.1.804
+- 07a312b Fix Excel XLL upload: list and upload all .xll files
+- 3dc6727 Release v0.1.803
+- 5f5385b Fix Windows PowerShell syntax in release workflow
+- cbdd672 Release v0.1.802
+- cf38f4c Fix release workflow: use modern action and add permissions
+- 4c6ed9a Release v0.1.801
+- 671b940 Release v0.1.800
+- 55141b2 Rename Rust crates to follow consistent naming convention
+
 ## v0.1.804 - 2026-02-10
 
 ### Nouvelles fonctionnalités
