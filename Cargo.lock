@@ -155,7 +155,7 @@ checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
 
 [[package]]
 name = "ftp_core"
-version = "0.1.796"
+version = "0.1.797"
 dependencies = [
  "approx",
  "ndarray",
@@ -163,7 +163,7 @@ dependencies = [
 
 [[package]]
 name = "ftp_core_bindings_c"
-version = "0.1.796"
+version = "0.1.797"
 dependencies = [
  "approx",
  "cbindgen",
@@ -173,7 +173,7 @@ dependencies = [
 
 [[package]]
 name = "ftp_core_bindings_pyo3"
-version = "0.1.796"
+version = "0.1.797"
 dependencies = [
  "ftp_core",
  "ndarray",

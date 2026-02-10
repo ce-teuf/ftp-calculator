@@ -29,7 +29,12 @@
       "Bash(make release-version:*)",
       "Bash(.venv/Scripts/pip install:*)",
       "Bash(make release-bump-patch:*)",
-      "Bash(make release-dry-run:*)"
+      "Bash(make release-dry-run:*)",
+      "Bash(cargo clippy:*)",
+      "Bash(export RUSTC_WRAPPER=\"\")",
+      "Bash(cargo fmt:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
