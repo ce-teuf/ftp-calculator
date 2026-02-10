@@ -19,6 +19,8 @@ if sys.platform == 'win32':
     import codecs
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
+    # Disable sccache on Windows to avoid permission issues
+    os.environ['RUSTC_WRAPPER'] = ''
 
 class ReleaseManager:
     def __init__(self):
@@ -88,21 +90,26 @@ class ReleaseManager:
     def validate_release_readiness(self):
         """Valide que le projet est prêt pour une release"""
         print("🔍 Validation de l'état du projet...")
+        print("ℹ️  Les builds et tests seront exécutés par GitHub Actions")
 
         checks = [
             ("Formatage", self.run_command("cargo fmt --all -- --check")),
-            ("Linting", self.run_command("cargo clippy --workspace -- -D warnings")),
-            ("Build Rust", self.run_command("cargo build --release")),
-            ("Build Python", self.run_command("make build-py-bindings")),
+            ("Status Git", self.run_command("git status --porcelain")),
         ]
 
-        all_ok = all(success for _, success in checks)
+        # Check git status separately to provide better feedback
+        result = subprocess.run("git status --porcelain", shell=True, capture_output=True, text=True)
+        if result.stdout.strip():
+            print("⚠️  Attention: Il y a des fichiers non commités")
+            print(result.stdout[:200])  # Show first 200 chars
+
+        all_ok = checks[0][1]  # Only check formatting
 
         if not all_ok:
             print("❌ Le projet n'est pas prêt pour la release")
             return False
 
-        print("✅ Toutes les validations sont passées")
+        print("✅ Validation minimale passée")
         return True
 
     def create_git_tag(self, version, message=None):
@@ -130,6 +137,10 @@ class ReleaseManager:
 
         commits = result.stdout.split('\n')[:10]  # 10 derniers commits
 
+        # Crée le fichier s'il n'existe pas
+        if not changelog_file.exists():
+            changelog_file.write_text("# Changelog\n\n")
+
         with open(changelog_file, 'r+') as f:
             content = f.read()
             f.seek(0, 0)
@@ -151,22 +162,9 @@ class ReleaseManager:
         print("✅ Changelog mis à jour")
 
     def build_release_artifacts(self):
-        """Construit tous les artefacts de release"""
-        print("🏗️  Construction des artefacts de release...")
-
-        artifacts = [
-            ("Bindings C", "make build-c-bindings"),
-            ("Bindings Python", "make build-py-bindings"),
-            ("Documentation", "make build-docs"),
-        ]
-
-        for name, cmd in artifacts:
-            print(f"📦 Construction: {name}")
-            if not self.run_command(cmd):
-                print(f"❌ Échec de la construction: {name}")
-                return False
-
-        print("✅ Tous les artefacts construits")
+        """Saute la construction des artefacts (fait par GitHub Actions)"""
+        print("🏗️  Construction des artefacts...")
+        print("✅ Les artefacts seront construits par GitHub Actions")
         return True
 
     def create_release(self, version, bump_type="patch", dry_run=False):

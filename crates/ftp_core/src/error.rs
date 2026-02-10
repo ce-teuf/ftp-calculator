@@ -28,11 +28,7 @@ impl fmt::Display for FtpError {
                 )
             }
             FtpError::InvalidOutstandingColumns { got } => {
-                write!(
-                    f,
-                    "'input_outstanding' must have 1 column, got {}",
-                    got
-                )
+                write!(f, "'input_outstanding' must have 1 column, got {}", got)
             }
             FtpError::RateProfileColumnMismatch {
                 rate_cols,

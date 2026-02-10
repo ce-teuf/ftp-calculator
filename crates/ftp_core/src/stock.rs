@@ -93,7 +93,11 @@ fn compute_ftp_rate(r: &mut FtpResult, rownum: usize, colnum: usize, ncols: usiz
             num += varstock_instal[[0, k + 1]] * input_rate[[0, k]];
             denum += varstock_instal[[0, k + 1]];
         }
-        if denum != 0.0 { num / denum } else { 0.0 }
+        if denum != 0.0 {
+            num / denum
+        } else {
+            0.0
+        }
     } else {
         let mut num1 = 0.0;
         let mut num2 = 0.0;
@@ -108,7 +112,11 @@ fn compute_ftp_rate(r: &mut FtpResult, rownum: usize, colnum: usize, ncols: usiz
             }
         }
         let denum = denum1 + denum2;
-        if denum != 0.0 { (num1 + num2) / denum } else { 0.0 }
+        if denum != 0.0 {
+            (num1 + num2) / denum
+        } else {
+            0.0
+        }
     };
 
     r.ftp_rate.as_mut().unwrap()[[rownum, colnum]] = value;
@@ -163,7 +171,11 @@ fn compute_market_rate(r: &mut FtpResult, rownum: usize, colnum: usize, ncols: u
             c += stock_instal[[rownum, k]] * r.market_rate.as_ref().unwrap()[[rownum, k]];
         }
 
-        if d != 0.0 { ((a * b) - c) / d } else { 0.0 }
+        if d != 0.0 {
+            ((a * b) - c) / d
+        } else {
+            0.0
+        }
     };
 
     r.market_rate.as_mut().unwrap()[[rownum, colnum]] = value;

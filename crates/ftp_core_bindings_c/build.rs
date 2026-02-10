@@ -16,14 +16,12 @@ fn main() {
     let out_dir = PathBuf::from(&crate_dir)
         .join("..")
         .join("..")
-        .join("excel")
+        .join("excel-addin")
         .join("Interop");
-    println!("cargo:warning=Output directory: {:?}", out_dir);
 
-    // Crée le dossier Interop s'il n'existe pas
-    match std::fs::create_dir_all(&out_dir) {
-        Ok(_) => println!("cargo:warning=Directory created or already exists"),
-        Err(e) => {
+    // Crée le dossier Interop uniquement s'il n'existe pas déjà
+    if !out_dir.exists() {
+        if let Err(e) = std::fs::create_dir_all(&out_dir) {
             eprintln!("Error creating directory: {}", e);
             return;
         }

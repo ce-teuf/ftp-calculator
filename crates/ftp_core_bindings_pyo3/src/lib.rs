@@ -135,13 +135,31 @@ fn run_compute<'py>(
     r.compute(method).map_err(ftp_err)?;
 
     let dict = PyDict::new(py);
-    dict.set_item("stock_amort", r.stock_amort().unwrap().to_owned().into_pyarray(py))?;
-    dict.set_item("stock_instal", r.stock_instal().unwrap().to_owned().into_pyarray(py))?;
-    dict.set_item("varstock_amort", r.varstock_amort().unwrap().to_owned().into_pyarray(py))?;
-    dict.set_item("varstock_instal", r.varstock_instal().unwrap().to_owned().into_pyarray(py))?;
-    dict.set_item("ftp_rate", r.ftp_rate().unwrap().to_owned().into_pyarray(py))?;
+    dict.set_item(
+        "stock_amort",
+        r.stock_amort().unwrap().to_owned().into_pyarray(py),
+    )?;
+    dict.set_item(
+        "stock_instal",
+        r.stock_instal().unwrap().to_owned().into_pyarray(py),
+    )?;
+    dict.set_item(
+        "varstock_amort",
+        r.varstock_amort().unwrap().to_owned().into_pyarray(py),
+    )?;
+    dict.set_item(
+        "varstock_instal",
+        r.varstock_instal().unwrap().to_owned().into_pyarray(py),
+    )?;
+    dict.set_item(
+        "ftp_rate",
+        r.ftp_rate().unwrap().to_owned().into_pyarray(py),
+    )?;
     dict.set_item("ftp_int", r.ftp_int().unwrap().to_owned().into_pyarray(py))?;
-    dict.set_item("market_rate", r.market_rate().unwrap().to_owned().into_pyarray(py))?;
+    dict.set_item(
+        "market_rate",
+        r.market_rate().unwrap().to_owned().into_pyarray(py),
+    )?;
     Ok(dict)
 }
 

@@ -43,7 +43,11 @@ fn flux_stock_var(r: &mut FtpResult, rownum: usize, colnum: usize) {
             front_amt += va[[rownum - i, i]];
         }
         front_amt = outstanding[[rownum, 0]] - front_amt;
-        if front_amt < 0.0 { 0.0 } else { front_amt }
+        if front_amt < 0.0 {
+            0.0
+        } else {
+            front_amt
+        }
     } else {
         let va = r.varstock_amort.as_ref().unwrap();
         va[[rownum, 0]] * profiles[[rownum, colnum]]
