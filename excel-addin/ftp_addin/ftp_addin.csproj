@@ -14,4 +14,12 @@
     <PackageReference Include="ExcelDnaPack" Version="1.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Copy native DLL to output directory for packing -->
+    <None Include="..\Interop\ftp_calculator_bindings_c.dll" Condition="Exists('..\Interop\ftp_calculator_bindings_c.dll')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
+
 </Project>

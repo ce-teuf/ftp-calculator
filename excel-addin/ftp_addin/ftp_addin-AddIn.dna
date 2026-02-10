@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DnaLibrary Name="FTP Calculator Add-In" RuntimeVersion="v4.0">
+  <ExternalLibrary Path="ftp_addin.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" />
+
+  <!-- Include the native Rust DLL as a resource that will be extracted at runtime -->
+  <Image Name="ftp_calculator_bindings_c.dll" Path="ftp_calculator_bindings_c.dll" Pack="true" />
+</DnaLibrary>

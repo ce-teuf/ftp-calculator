@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 namespace FtpAddIn
 {
     /// <summary>
-    /// P/Invoke declarations for ftp_core_bindings_c.dll (Rust cdylib).
+    /// P/Invoke declarations for ftp_calculator_bindings_c.dll (Rust cdylib).
     /// </summary>
     internal static class FtpNative
     {
-        private const string DllName = "ftp_core_bindings_c";
+        private const string DllName = "ftp_calculator_bindings_c";
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ftp_create(
