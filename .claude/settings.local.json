@@ -34,7 +34,10 @@
       "Bash(export RUSTC_WRAPPER=\"\")",
       "Bash(cargo fmt:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git tag:*)",
+      "Bash(git push:*)"
     ]
   }
 }

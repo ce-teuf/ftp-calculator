@@ -1,6 +1,6 @@
 [package]
 name = "ftp_core_bindings_pyo3"
-version = "0.1.797"
+version = "0.1.798"
 edition = "2021"
 description = "Python bindings for FTP Core library"
 authors = [ "Votre Nom <votre.email@example.com>",]
