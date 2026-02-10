@@ -1,3 +1,23 @@
+## v0.1.809 - 2026-02-10
+
+### Nouvelles fonctionnalités
+- À compléter
+
+### Corrections
+- À compléter
+
+### Modifications
+- cc60396 Upload only packed XLL file to releases
+- 57a4bbc Enable Excel-DNA packed build
+- 484f979 Release v0.1.808
+- 5e232ec Disable Linux aarch64 builds (cross-compilation issues)
+- 5112a19 Release v0.1.807
+- b6baa86 Add QEMU setup for aarch64 cross-compilation
+- 5f33bf5 Release v0.1.806
+- 510da9f Fix cross-platform Python builds
+- 06b223f Release v0.1.805
+- d52a660 Fix maturin publish command and dist paths
+
 ## v0.1.808 - 2026-02-10
 
 ### Nouvelles fonctionnalités
