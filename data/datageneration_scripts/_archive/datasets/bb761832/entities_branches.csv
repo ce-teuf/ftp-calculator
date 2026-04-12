@@ -1,0 +1,3 @@
+branch_id,branch_code,branch_name,country,currency,city,address,phone,status,created_date
+BR-FR-001,FR,Paris Branch,France,EUR,Paris,229 Park Street,+1-954-204-9935,active,2024-04-18
+BR-ES-001,ES,Madrid Branch,Spain,EUR,Madrid,605 Grand Street,+1-232-130-2535,active,2022-10-27

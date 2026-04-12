@@ -1,0 +1,14 @@
+{
+  "eur_usd": {
+    "as_of_date": "2026-04-09",
+    "points": -15.5
+  },
+  "eur_gbp": {
+    "as_of_date": "2026-04-09",
+    "points": 5.2
+  },
+  "usd_gbp": {
+    "as_of_date": "2026-04-09",
+    "points": 20.7
+  }
+}

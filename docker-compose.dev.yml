@@ -1,0 +1,30 @@
+# FTP Simulator — Base de données de développement uniquement.
+# Le backend et le frontend tournent localement (cargo run / npm run dev).
+#
+# Usage :
+#   make dev-db          # démarre PostgreSQL
+#   make dev-stop        # arrête PostgreSQL
+#   make dev-reset       # recrée le volume (données perdues)
+
+services:
+  db:
+    image: ceteuf/postgres-extended:pg18-alpine-v3
+    container_name: ftp-simulator-dev-db
+    environment:
+      POSTGRES_DB:       ftp_simulator_dev
+      POSTGRES_USER:     ftp_dev
+      POSTGRES_PASSWORD: ftp_dev
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ftp_dev -d ftp_simulator_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata_dev:
+    name: ftp-simulator-dev-pgdata

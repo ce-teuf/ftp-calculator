@@ -1,0 +1,5 @@
+bu_id,bu_name,branch_id,branch_code,currency,status,created_date
+BU-US-ECE36C,Retail Banking,BR-US-001,US,USD,active,2024-07-17
+BU-US-A6C1BE,Commercial Banking,BR-US-001,US,USD,active,2023-04-06
+BU-US-DF82F9,Corporate Banking,BR-US-001,US,USD,active,2022-06-23
+BU-US-33C9E2,Wealth Management,BR-US-001,US,USD,active,2024-03-21

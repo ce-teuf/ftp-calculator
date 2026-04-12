@@ -1,0 +1,727 @@
+{
+  "profile_name": "Decaying Pool",
+  "initial_amount": 10000000,
+  "half_life_months": 24,
+  "profile": [
+    {
+      "month": 1,
+      "outstanding": 9715319.41,
+      "remaining_ratio": 0.971532,
+      "amortized": 284680.59
+    },
+    {
+      "month": 2,
+      "outstanding": 9438743.13,
+      "remaining_ratio": 0.943874,
+      "amortized": 561256.87
+    },
+    {
+      "month": 3,
+      "outstanding": 9170040.43,
+      "remaining_ratio": 0.917004,
+      "amortized": 829959.57
+    },
+    {
+      "month": 4,
+      "outstanding": 8908987.18,
+      "remaining_ratio": 0.890899,
+      "amortized": 1091012.82
+    },
+    {
+      "month": 5,
+      "outstanding": 8655365.61,
+      "remaining_ratio": 0.865537,
+      "amortized": 1344634.39
+    },
+    {
+      "month": 6,
+      "outstanding": 8408964.15,
+      "remaining_ratio": 0.840896,
+      "amortized": 1591035.85
+    },
+    {
+      "month": 7,
+      "outstanding": 8169577.27,
+      "remaining_ratio": 0.816958,
+      "amortized": 1830422.73
+    },
+    {
+      "month": 8,
+      "outstanding": 7937005.26,
+      "remaining_ratio": 0.793701,
+      "amortized": 2062994.74
+    },
+    {
+      "month": 9,
+      "outstanding": 7711054.13,
+      "remaining_ratio": 0.771105,
+      "amortized": 2288945.87
+    },
+    {
+      "month": 10,
+      "outstanding": 7491535.38,
+      "remaining_ratio": 0.749154,
+      "amortized": 2508464.62
+    },
+    {
+      "month": 11,
+      "outstanding": 7278265.91,
+      "remaining_ratio": 0.727827,
+      "amortized": 2721734.09
+    },
+    {
+      "month": 12,
+      "outstanding": 7071067.81,
+      "remaining_ratio": 0.707107,
+      "amortized": 2928932.19
+    },
+    {
+      "month": 13,
+      "outstanding": 6869768.24,
+      "remaining_ratio": 0.686977,
+      "amortized": 3130231.76
+    },
+    {
+      "month": 14,
+      "outstanding": 6674199.27,
+      "remaining_ratio": 0.66742,
+      "amortized": 3325800.73
+    },
+    {
+      "month": 15,
+      "outstanding": 6484197.77,
+      "remaining_ratio": 0.64842,
+      "amortized": 3515802.23
+    },
+    {
+      "month": 16,
+      "outstanding": 6299605.25,
+      "remaining_ratio": 0.629961,
+      "amortized": 3700394.75
+    },
+    {
+      "month": 17,
+      "outstanding": 6120267.72,
+      "remaining_ratio": 0.612027,
+      "amortized": 3879732.28
+    },
+    {
+      "month": 18,
+      "outstanding": 5946035.58,
+      "remaining_ratio": 0.594604,
+      "amortized": 4053964.42
+    },
+    {
+      "month": 19,
+      "outstanding": 5776763.48,
+      "remaining_ratio": 0.577676,
+      "amortized": 4223236.52
+    },
+    {
+      "month": 20,
+      "outstanding": 5612310.24,
+      "remaining_ratio": 0.561231,
+      "amortized": 4387689.76
+    },
+    {
+      "month": 21,
+      "outstanding": 5452538.66,
+      "remaining_ratio": 0.545254,
+      "amortized": 4547461.34
+    },
+    {
+      "month": 22,
+      "outstanding": 5297315.47,
+      "remaining_ratio": 0.529732,
+      "amortized": 4702684.53
+    },
+    {
+      "month": 23,
+      "outstanding": 5146511.18,
+      "remaining_ratio": 0.514651,
+      "amortized": 4853488.82
+    },
+    {
+      "month": 24,
+      "outstanding": 5000000.0,
+      "remaining_ratio": 0.5,
+      "amortized": 5000000.0
+    },
+    {
+      "month": 25,
+      "outstanding": 4857659.71,
+      "remaining_ratio": 0.485766,
+      "amortized": 5142340.29
+    },
+    {
+      "month": 26,
+      "outstanding": 4719371.56,
+      "remaining_ratio": 0.471937,
+      "amortized": 5280628.44
+    },
+    {
+      "month": 27,
+      "outstanding": 4585020.22,
+      "remaining_ratio": 0.458502,
+      "amortized": 5414979.78
+    },
+    {
+      "month": 28,
+      "outstanding": 4454493.59,
+      "remaining_ratio": 0.445449,
+      "amortized": 5545506.41
+    },
+    {
+      "month": 29,
+      "outstanding": 4327682.81,
+      "remaining_ratio": 0.432768,
+      "amortized": 5672317.19
+    },
+    {
+      "month": 30,
+      "outstanding": 4204482.08,
+      "remaining_ratio": 0.420448,
+      "amortized": 5795517.92
+    },
+    {
+      "month": 31,
+      "outstanding": 4084788.63,
+      "remaining_ratio": 0.408479,
+      "amortized": 5915211.37
+    },
+    {
+      "month": 32,
+      "outstanding": 3968502.63,
+      "remaining_ratio": 0.39685,
+      "amortized": 6031497.37
+    },
+    {
+      "month": 33,
+      "outstanding": 3855527.06,
+      "remaining_ratio": 0.385553,
+      "amortized": 6144472.94
+    },
+    {
+      "month": 34,
+      "outstanding": 3745767.69,
+      "remaining_ratio": 0.374577,
+      "amortized": 6254232.31
+    },
+    {
+      "month": 35,
+      "outstanding": 3639132.96,
+      "remaining_ratio": 0.363913,
+      "amortized": 6360867.04
+    },
+    {
+      "month": 36,
+      "outstanding": 3535533.91,
+      "remaining_ratio": 0.353553,
+      "amortized": 6464466.09
+    },
+    {
+      "month": 37,
+      "outstanding": 3434884.12,
+      "remaining_ratio": 0.343488,
+      "amortized": 6565115.88
+    },
+    {
+      "month": 38,
+      "outstanding": 3337099.64,
+      "remaining_ratio": 0.33371,
+      "amortized": 6662900.36
+    },
+    {
+      "month": 39,
+      "outstanding": 3242098.89,
+      "remaining_ratio": 0.32421,
+      "amortized": 6757901.11
+    },
+    {
+      "month": 40,
+      "outstanding": 3149802.62,
+      "remaining_ratio": 0.31498,
+      "amortized": 6850197.38
+    },
+    {
+      "month": 41,
+      "outstanding": 3060133.86,
+      "remaining_ratio": 0.306013,
+      "amortized": 6939866.14
+    },
+    {
+      "month": 42,
+      "outstanding": 2973017.79,
+      "remaining_ratio": 0.297302,
+      "amortized": 7026982.21
+    },
+    {
+      "month": 43,
+      "outstanding": 2888381.74,
+      "remaining_ratio": 0.288838,
+      "amortized": 7111618.26
+    },
+    {
+      "month": 44,
+      "outstanding": 2806155.12,
+      "remaining_ratio": 0.280616,
+      "amortized": 7193844.88
+    },
+    {
+      "month": 45,
+      "outstanding": 2726269.33,
+      "remaining_ratio": 0.272627,
+      "amortized": 7273730.67
+    },
+    {
+      "month": 46,
+      "outstanding": 2648657.74,
+      "remaining_ratio": 0.264866,
+      "amortized": 7351342.26
+    },
+    {
+      "month": 47,
+      "outstanding": 2573255.59,
+      "remaining_ratio": 0.257326,
+      "amortized": 7426744.41
+    },
+    {
+      "month": 48,
+      "outstanding": 2500000.0,
+      "remaining_ratio": 0.25,
+      "amortized": 7500000.0
+    },
+    {
+      "month": 49,
+      "outstanding": 2428829.85,
+      "remaining_ratio": 0.242883,
+      "amortized": 7571170.15
+    },
+    {
+      "month": 50,
+      "outstanding": 2359685.78,
+      "remaining_ratio": 0.235969,
+      "amortized": 7640314.22
+    },
+    {
+      "month": 51,
+      "outstanding": 2292510.11,
+      "remaining_ratio": 0.229251,
+      "amortized": 7707489.89
+    },
+    {
+      "month": 52,
+      "outstanding": 2227246.8,
+      "remaining_ratio": 0.222725,
+      "amortized": 7772753.2
+    },
+    {
+      "month": 53,
+      "outstanding": 2163841.4,
+      "remaining_ratio": 0.216384,
+      "amortized": 7836158.6
+    },
+    {
+      "month": 54,
+      "outstanding": 2102241.04,
+      "remaining_ratio": 0.210224,
+      "amortized": 7897758.96
+    },
+    {
+      "month": 55,
+      "outstanding": 2042394.32,
+      "remaining_ratio": 0.204239,
+      "amortized": 7957605.68
+    },
+    {
+      "month": 56,
+      "outstanding": 1984251.31,
+      "remaining_ratio": 0.198425,
+      "amortized": 8015748.69
+    },
+    {
+      "month": 57,
+      "outstanding": 1927763.53,
+      "remaining_ratio": 0.192776,
+      "amortized": 8072236.47
+    },
+    {
+      "month": 58,
+      "outstanding": 1872883.85,
+      "remaining_ratio": 0.187288,
+      "amortized": 8127116.15
+    },
+    {
+      "month": 59,
+      "outstanding": 1819566.48,
+      "remaining_ratio": 0.181957,
+      "amortized": 8180433.52
+    },
+    {
+      "month": 60,
+      "outstanding": 1767766.95,
+      "remaining_ratio": 0.176777,
+      "amortized": 8232233.05
+    },
+    {
+      "month": 61,
+      "outstanding": 1717442.06,
+      "remaining_ratio": 0.171744,
+      "amortized": 8282557.94
+    },
+    {
+      "month": 62,
+      "outstanding": 1668549.82,
+      "remaining_ratio": 0.166855,
+      "amortized": 8331450.18
+    },
+    {
+      "month": 63,
+      "outstanding": 1621049.44,
+      "remaining_ratio": 0.162105,
+      "amortized": 8378950.56
+    },
+    {
+      "month": 64,
+      "outstanding": 1574901.31,
+      "remaining_ratio": 0.15749,
+      "amortized": 8425098.69
+    },
+    {
+      "month": 65,
+      "outstanding": 1530066.93,
+      "remaining_ratio": 0.153007,
+      "amortized": 8469933.07
+    },
+    {
+      "month": 66,
+      "outstanding": 1486508.89,
+      "remaining_ratio": 0.148651,
+      "amortized": 8513491.11
+    },
+    {
+      "month": 67,
+      "outstanding": 1444190.87,
+      "remaining_ratio": 0.144419,
+      "amortized": 8555809.13
+    },
+    {
+      "month": 68,
+      "outstanding": 1403077.56,
+      "remaining_ratio": 0.140308,
+      "amortized": 8596922.44
+    },
+    {
+      "month": 69,
+      "outstanding": 1363134.67,
+      "remaining_ratio": 0.136313,
+      "amortized": 8636865.33
+    },
+    {
+      "month": 70,
+      "outstanding": 1324328.87,
+      "remaining_ratio": 0.132433,
+      "amortized": 8675671.13
+    },
+    {
+      "month": 71,
+      "outstanding": 1286627.8,
+      "remaining_ratio": 0.128663,
+      "amortized": 8713372.2
+    },
+    {
+      "month": 72,
+      "outstanding": 1250000.0,
+      "remaining_ratio": 0.125,
+      "amortized": 8750000.0
+    },
+    {
+      "month": 73,
+      "outstanding": 1214414.93,
+      "remaining_ratio": 0.121441,
+      "amortized": 8785585.07
+    },
+    {
+      "month": 74,
+      "outstanding": 1179842.89,
+      "remaining_ratio": 0.117984,
+      "amortized": 8820157.11
+    },
+    {
+      "month": 75,
+      "outstanding": 1146255.05,
+      "remaining_ratio": 0.114626,
+      "amortized": 8853744.95
+    },
+    {
+      "month": 76,
+      "outstanding": 1113623.4,
+      "remaining_ratio": 0.111362,
+      "amortized": 8886376.6
+    },
+    {
+      "month": 77,
+      "outstanding": 1081920.7,
+      "remaining_ratio": 0.108192,
+      "amortized": 8918079.3
+    },
+    {
+      "month": 78,
+      "outstanding": 1051120.52,
+      "remaining_ratio": 0.105112,
+      "amortized": 8948879.48
+    },
+    {
+      "month": 79,
+      "outstanding": 1021197.16,
+      "remaining_ratio": 0.10212,
+      "amortized": 8978802.84
+    },
+    {
+      "month": 80,
+      "outstanding": 992125.66,
+      "remaining_ratio": 0.099213,
+      "amortized": 9007874.34
+    },
+    {
+      "month": 81,
+      "outstanding": 963881.77,
+      "remaining_ratio": 0.096388,
+      "amortized": 9036118.23
+    },
+    {
+      "month": 82,
+      "outstanding": 936441.92,
+      "remaining_ratio": 0.093644,
+      "amortized": 9063558.08
+    },
+    {
+      "month": 83,
+      "outstanding": 909783.24,
+      "remaining_ratio": 0.090978,
+      "amortized": 9090216.76
+    },
+    {
+      "month": 84,
+      "outstanding": 883883.48,
+      "remaining_ratio": 0.088388,
+      "amortized": 9116116.52
+    },
+    {
+      "month": 85,
+      "outstanding": 858721.03,
+      "remaining_ratio": 0.085872,
+      "amortized": 9141278.97
+    },
+    {
+      "month": 86,
+      "outstanding": 834274.91,
+      "remaining_ratio": 0.083427,
+      "amortized": 9165725.09
+    },
+    {
+      "month": 87,
+      "outstanding": 810524.72,
+      "remaining_ratio": 0.081052,
+      "amortized": 9189475.28
+    },
+    {
+      "month": 88,
+      "outstanding": 787450.66,
+      "remaining_ratio": 0.078745,
+      "amortized": 9212549.34
+    },
+    {
+      "month": 89,
+      "outstanding": 765033.46,
+      "remaining_ratio": 0.076503,
+      "amortized": 9234966.54
+    },
+    {
+      "month": 90,
+      "outstanding": 743254.45,
+      "remaining_ratio": 0.074325,
+      "amortized": 9256745.55
+    },
+    {
+      "month": 91,
+      "outstanding": 722095.44,
+      "remaining_ratio": 0.07221,
+      "amortized": 9277904.56
+    },
+    {
+      "month": 92,
+      "outstanding": 701538.78,
+      "remaining_ratio": 0.070154,
+      "amortized": 9298461.22
+    },
+    {
+      "month": 93,
+      "outstanding": 681567.33,
+      "remaining_ratio": 0.068157,
+      "amortized": 9318432.67
+    },
+    {
+      "month": 94,
+      "outstanding": 662164.43,
+      "remaining_ratio": 0.066216,
+      "amortized": 9337835.57
+    },
+    {
+      "month": 95,
+      "outstanding": 643313.9,
+      "remaining_ratio": 0.064331,
+      "amortized": 9356686.1
+    },
+    {
+      "month": 96,
+      "outstanding": 625000.0,
+      "remaining_ratio": 0.0625,
+      "amortized": 9375000.0
+    },
+    {
+      "month": 97,
+      "outstanding": 607207.46,
+      "remaining_ratio": 0.060721,
+      "amortized": 9392792.54
+    },
+    {
+      "month": 98,
+      "outstanding": 589921.45,
+      "remaining_ratio": 0.058992,
+      "amortized": 9410078.55
+    },
+    {
+      "month": 99,
+      "outstanding": 573127.53,
+      "remaining_ratio": 0.057313,
+      "amortized": 9426872.47
+    },
+    {
+      "month": 100,
+      "outstanding": 556811.7,
+      "remaining_ratio": 0.055681,
+      "amortized": 9443188.3
+    },
+    {
+      "month": 101,
+      "outstanding": 540960.35,
+      "remaining_ratio": 0.054096,
+      "amortized": 9459039.65
+    },
+    {
+      "month": 102,
+      "outstanding": 525560.26,
+      "remaining_ratio": 0.052556,
+      "amortized": 9474439.74
+    },
+    {
+      "month": 103,
+      "outstanding": 510598.58,
+      "remaining_ratio": 0.05106,
+      "amortized": 9489401.42
+    },
+    {
+      "month": 104,
+      "outstanding": 496062.83,
+      "remaining_ratio": 0.049606,
+      "amortized": 9503937.17
+    },
+    {
+      "month": 105,
+      "outstanding": 481940.88,
+      "remaining_ratio": 0.048194,
+      "amortized": 9518059.12
+    },
+    {
+      "month": 106,
+      "outstanding": 468220.96,
+      "remaining_ratio": 0.046822,
+      "amortized": 9531779.04
+    },
+    {
+      "month": 107,
+      "outstanding": 454891.62,
+      "remaining_ratio": 0.045489,
+      "amortized": 9545108.38
+    },
+    {
+      "month": 108,
+      "outstanding": 441941.74,
+      "remaining_ratio": 0.044194,
+      "amortized": 9558058.26
+    },
+    {
+      "month": 109,
+      "outstanding": 429360.51,
+      "remaining_ratio": 0.042936,
+      "amortized": 9570639.49
+    },
+    {
+      "month": 110,
+      "outstanding": 417137.45,
+      "remaining_ratio": 0.041714,
+      "amortized": 9582862.55
+    },
+    {
+      "month": 111,
+      "outstanding": 405262.36,
+      "remaining_ratio": 0.040526,
+      "amortized": 9594737.64
+    },
+    {
+      "month": 112,
+      "outstanding": 393725.33,
+      "remaining_ratio": 0.039373,
+      "amortized": 9606274.67
+    },
+    {
+      "month": 113,
+      "outstanding": 382516.73,
+      "remaining_ratio": 0.038252,
+      "amortized": 9617483.27
+    },
+    {
+      "month": 114,
+      "outstanding": 371627.22,
+      "remaining_ratio": 0.037163,
+      "amortized": 9628372.78
+    },
+    {
+      "month": 115,
+      "outstanding": 361047.72,
+      "remaining_ratio": 0.036105,
+      "amortized": 9638952.28
+    },
+    {
+      "month": 116,
+      "outstanding": 350769.39,
+      "remaining_ratio": 0.035077,
+      "amortized": 9649230.61
+    },
+    {
+      "month": 117,
+      "outstanding": 340783.67,
+      "remaining_ratio": 0.034078,
+      "amortized": 9659216.33
+    },
+    {
+      "month": 118,
+      "outstanding": 331082.22,
+      "remaining_ratio": 0.033108,
+      "amortized": 9668917.78
+    },
+    {
+      "month": 119,
+      "outstanding": 321656.95,
+      "remaining_ratio": 0.032166,
+      "amortized": 9678343.05
+    },
+    {
+      "month": 120,
+      "outstanding": 312500.0,
+      "remaining_ratio": 0.03125,
+      "amortized": 9687500.0
+    }
+  ]
+}

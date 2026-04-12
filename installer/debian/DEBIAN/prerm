@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+systemctl stop    ftp-simulator-app.service 2>/dev/null || true
+systemctl disable ftp-simulator-app.service 2>/dev/null || true
+
+systemctl stop    ftp-simulator-db.service  2>/dev/null || true
+systemctl disable ftp-simulator-db.service  2>/dev/null || true
+
+# Arrêter et supprimer le conteneur Docker (données conservées dans le volume)
+if command -v docker &>/dev/null && [ -f /etc/ftp-simulator/docker-compose.prod.yml ]; then
+    docker compose -f /etc/ftp-simulator/docker-compose.prod.yml down || true
+fi
+
+# Note: le volume Docker ftp-simulator-pgdata est conservé.
+# Pour supprimer les données : docker volume rm ftp-simulator-pgdata

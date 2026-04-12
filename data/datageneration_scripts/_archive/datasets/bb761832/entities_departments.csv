@@ -1,0 +1,37 @@
+dept_id,dept_name,bu_id,bu_name,branch_id,branch_code,status
+DEPT-FR-291F29,Commercial,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-859ABE,Opérations,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-DC1B7C,Risques,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-BE3102,Conformité,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-ECD999,Commercial,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-DB6BA5,Opérations,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-896B1A,Risques,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-89D87A,Conformité,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-4F1BF7,Commercial,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-DA77D7,Opérations,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-55E708,Risques,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-20CB26,Conformité,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-4FF083,Commercial,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-87CC77,Opérations,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-7BEE52,Risques,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-4D69CF,Conformité,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-4EA9BD,Commercial,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-FR-C0824D,Opérations,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-FR-0AFBE3,Risques,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-FR-0714B7,Conformité,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-ES-41E822,Ventas,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-0EC456,Operaciones,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-D27350,Riesgos,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-B20269,Cumplimiento,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-9ECF98,Ventas,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-5D48E8,Operaciones,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-78CFB9,Riesgos,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-E2FFB9,Cumplimiento,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-1F5468,Ventas,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-631B32,Operaciones,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-17D3E2,Riesgos,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-EA6184,Cumplimiento,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-BE9963,Ventas,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-ES-E0EE27,Operaciones,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-ES-F9AD04,Riesgos,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-ES-C5F64E,Cumplimiento,BU-ES-AAF305,SME,BR-ES-001,ES,active

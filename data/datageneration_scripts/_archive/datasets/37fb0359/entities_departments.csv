@@ -1,0 +1,17 @@
+dept_id,dept_name,bu_id,bu_name,branch_id,branch_code,status
+DEPT-US-F24935,Sales,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-3CBD1C,Operations,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-2FBED6,Risk,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-38684F,Compliance,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-1708A6,Sales,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-3875D8,Operations,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-66C87A,Risk,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-ECEDAF,Compliance,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-CFB89B,Sales,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-C9318B,Operations,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-A32E17,Risk,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-74F530,Compliance,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-8B66E4,Sales,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-US-174164,Operations,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-US-05F824,Risk,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-US-06FF4C,Compliance,BU-US-33C9E2,Wealth Management,BR-US-001,US,active

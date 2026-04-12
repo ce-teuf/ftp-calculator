@@ -1,0 +1,69 @@
+dept_id,dept_name,bu_id,bu_name,branch_id,branch_code,status
+DEPT-US-F24935,Sales,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-3CBD1C,Operations,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-2FBED6,Risk,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-38684F,Compliance,BU-US-ECE36C,Retail Banking,BR-US-001,US,active
+DEPT-US-1708A6,Sales,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-3875D8,Operations,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-66C87A,Risk,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-ECEDAF,Compliance,BU-US-A6C1BE,Commercial Banking,BR-US-001,US,active
+DEPT-US-CFB89B,Sales,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-C9318B,Operations,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-A32E17,Risk,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-74F530,Compliance,BU-US-DF82F9,Corporate Banking,BR-US-001,US,active
+DEPT-US-8B66E4,Sales,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-US-174164,Operations,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-US-05F824,Risk,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-US-06FF4C,Compliance,BU-US-33C9E2,Wealth Management,BR-US-001,US,active
+DEPT-FR-291F29,Commercial,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-859ABE,Opérations,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-DC1B7C,Risques,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-BE3102,Conformité,BU-FR-541F44,Retail Banking,BR-FR-001,FR,active
+DEPT-FR-ECD999,Commercial,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-DB6BA5,Opérations,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-896B1A,Risques,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-89D87A,Conformité,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,active
+DEPT-FR-4F1BF7,Commercial,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-DA77D7,Opérations,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-55E708,Risques,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-20CB26,Conformité,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,active
+DEPT-FR-4FF083,Commercial,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-87CC77,Opérations,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-7BEE52,Risques,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-4D69CF,Conformité,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,active
+DEPT-FR-4EA9BD,Commercial,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-FR-C0824D,Opérations,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-FR-0AFBE3,Risques,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-FR-0714B7,Conformité,BU-FR-F0697B,Private Banking,BR-FR-001,FR,active
+DEPT-ES-41E822,Ventas,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-0EC456,Operaciones,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-D27350,Riesgos,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-B20269,Cumplimiento,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,active
+DEPT-ES-9ECF98,Ventas,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-5D48E8,Operaciones,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-78CFB9,Riesgos,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-E2FFB9,Cumplimiento,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,active
+DEPT-ES-1F5468,Ventas,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-631B32,Operaciones,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-17D3E2,Riesgos,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-EA6184,Cumplimiento,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,active
+DEPT-ES-BE9963,Ventas,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-ES-E0EE27,Operaciones,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-ES-F9AD04,Riesgos,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-ES-C5F64E,Cumplimiento,BU-ES-AAF305,SME,BR-ES-001,ES,active
+DEPT-DE-D6A393,Vertrieb,BU-DE-94617A,Retail Banking,BR-DE-001,DE,active
+DEPT-DE-CF487C,Operations,BU-DE-94617A,Retail Banking,BR-DE-001,DE,active
+DEPT-DE-F28F8E,Risiko,BU-DE-94617A,Retail Banking,BR-DE-001,DE,active
+DEPT-DE-8EAA40,Compliance,BU-DE-94617A,Retail Banking,BR-DE-001,DE,active
+DEPT-DE-9EB9F7,Vertrieb,BU-DE-539AAD,Commercial Banking,BR-DE-001,DE,active
+DEPT-DE-0958AC,Operations,BU-DE-539AAD,Commercial Banking,BR-DE-001,DE,active
+DEPT-DE-76C285,Risiko,BU-DE-539AAD,Commercial Banking,BR-DE-001,DE,active
+DEPT-DE-48783E,Compliance,BU-DE-539AAD,Commercial Banking,BR-DE-001,DE,active
+DEPT-DE-0F0A91,Vertrieb,BU-DE-A33589,Corporate Banking,BR-DE-001,DE,active
+DEPT-DE-2D36C5,Operations,BU-DE-A33589,Corporate Banking,BR-DE-001,DE,active
+DEPT-DE-CD074D,Risiko,BU-DE-A33589,Corporate Banking,BR-DE-001,DE,active
+DEPT-DE-B35481,Compliance,BU-DE-A33589,Corporate Banking,BR-DE-001,DE,active
+DEPT-DE-CB4FF6,Vertrieb,BU-DE-BFE513,Private Banking,BR-DE-001,DE,active
+DEPT-DE-ABB49C,Operations,BU-DE-BFE513,Private Banking,BR-DE-001,DE,active
+DEPT-DE-A6F926,Risiko,BU-DE-BFE513,Private Banking,BR-DE-001,DE,active
+DEPT-DE-2FC10C,Compliance,BU-DE-BFE513,Private Banking,BR-DE-001,DE,active

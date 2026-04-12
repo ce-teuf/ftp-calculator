@@ -1,0 +1,32 @@
+{
+  "id": "d7e574dc-73f1-4265-bf78-6f1d9ddf3f5f",
+  "name": "Short-term Revolving & Bullets \u2264 36 mois",
+  "description": "Portefeuille court terme haute sensibilit\u00e9 aux taux courts. Revolvers et bullets de maturit\u00e9 inf\u00e9rieure \u00e0 3 ans.",
+  "status": "active",
+  "source": "generated",
+  "as_of_date": "2026-04-09",
+  "contracts_count": 117,
+  "rate_curves_count": 4,
+  "runoff_models_count": 7,
+  "files": {
+    "contracts": "contracts.csv",
+    "portfolio_positions": "portfolio_positions.csv",
+    "rate_curves": "rate_curves.csv",
+    "runoff_models": "runoff_models.json",
+    "rate_series": "rate_series.csv",
+    "entities_branches": "entities_branches.csv",
+    "entities_business_units": "entities_business_units.csv",
+    "entities_departments": "entities_departments.csv",
+    "entities_sellers": "entities_sellers.csv",
+    "entities_treasuries": "entities_treasuries.csv"
+  },
+  "generated_at": "2026-04-09T16:53:11.052689",
+  "entities": {
+    "branches": 4,
+    "business_units": 17,
+    "departments": 68,
+    "sellers": 255,
+    "treasuries": 4
+  },
+  "rate_series_count": 54750
+}

@@ -1,0 +1,136 @@
+#!/bin/bash
+set -e
+
+# ── Step 1 — Vérifier que Docker est installé ────────────────────────────────
+
+check_docker() {
+    if ! command -v docker &>/dev/null; then
+        echo ""
+        echo "ERROR: Docker n'est pas installé."
+        echo ""
+        echo "FTP Simulator utilise Docker pour gérer PostgreSQL."
+        echo "Installez Docker Engine avec :"
+        echo ""
+        echo "  curl -fsSL https://get.docker.com | sh"
+        echo "  sudo usermod -aG docker \$USER"
+        echo "  sudo systemctl enable --now docker"
+        echo ""
+        echo "Puis relancez l'installation :"
+        echo "  sudo dpkg --configure ftp-simulator"
+        echo ""
+        exit 1
+    fi
+
+    # Vérifier Docker Compose v2 (intégré à Docker CLI depuis v23)
+    if ! docker compose version &>/dev/null; then
+        echo ""
+        echo "ERROR: Docker Compose v2 n'est pas disponible."
+        echo "Mettez à jour Docker Engine (>= 23.0) ou installez le plugin :"
+        echo "  sudo apt-get install docker-compose-plugin"
+        echo ""
+        exit 1
+    fi
+
+    # Vérifier que le daemon Docker tourne
+    if ! docker info &>/dev/null; then
+        echo "Démarrage du daemon Docker..."
+        systemctl start docker || true
+        sleep 3
+        if ! docker info &>/dev/null; then
+            echo "ERROR: Le daemon Docker ne répond pas. Vérifiez : systemctl status docker"
+            exit 1
+        fi
+    fi
+}
+
+check_docker
+
+# ── Step 2 — Créer l'utilisateur système ─────────────────────────────────────
+
+if ! id ftp-simulator &>/dev/null; then
+    adduser --system --group --no-create-home ftp-simulator
+fi
+
+# Ajouter l'utilisateur ftp-simulator au groupe docker
+if getent group docker &>/dev/null; then
+    usermod -aG docker ftp-simulator || true
+fi
+
+# ── Step 3 — Créer les répertoires ───────────────────────────────────────────
+
+install -d -o root         -g root          -m 0755 /etc/ftp-simulator
+install -d -o ftp-simulator -g ftp-simulator -m 0750 /var/log/ftp-simulator
+
+# ── Step 4 — Installer docker-compose.prod.yml ───────────────────────────────
+
+install -m 0644 /usr/lib/ftp-simulator/docker-compose.prod.yml \
+                /etc/ftp-simulator/docker-compose.prod.yml
+
+# ── Step 5 — Générer le mot de passe DB si absent ────────────────────────────
+
+if [ ! -f /etc/ftp-simulator/db_password ]; then
+    # Générer un mot de passe aléatoire de 32 caractères
+    DB_PASS=$(tr -dc 'A-Za-z0-9!@#%^&*' < /dev/urandom | head -c 32)
+    echo -n "$DB_PASS" > /etc/ftp-simulator/db_password
+    chmod 0600 /etc/ftp-simulator/db_password
+    chown root:ftp-simulator /etc/ftp-simulator/db_password
+fi
+
+# Lire le mot de passe pour construire la DATABASE_URL
+DB_PASS=$(cat /etc/ftp-simulator/db_password)
+
+# ── Step 6 — Écrire la config backend si absente ─────────────────────────────
+
+if [ ! -f /etc/ftp-simulator/env ]; then
+    cat > /etc/ftp-simulator/env <<EOF
+DATABASE_URL=postgresql://ftp_simulator:${DB_PASS}@127.0.0.1:5432/ftp_simulator
+LISTEN_ADDR=127.0.0.1:3000
+RUST_LOG=warn
+EOF
+    chmod 0640 /etc/ftp-simulator/env
+    chown root:ftp-simulator /etc/ftp-simulator/env
+fi
+
+# ── Step 7 — Activer et démarrer les services ─────────────────────────────────
+
+systemctl daemon-reload
+
+systemctl enable ftp-simulator-db.service  || true
+systemctl enable ftp-simulator-app.service || true
+
+echo "Démarrage de PostgreSQL (Docker)..."
+systemctl start ftp-simulator-db.service || {
+    echo "WARNING: ftp-simulator-db n'a pas démarré. Vérifiez :"
+    echo "  journalctl -u ftp-simulator-db"
+    echo "  docker compose -f /etc/ftp-simulator/docker-compose.prod.yml logs"
+}
+
+# Attendre que PostgreSQL soit prêt (healthcheck Docker)
+echo "Attente de PostgreSQL..."
+for i in $(seq 1 30); do
+    if docker compose -f /etc/ftp-simulator/docker-compose.prod.yml \
+           exec -T db pg_isready -U ftp_simulator -q 2>/dev/null; then
+        break
+    fi
+    sleep 2
+done
+
+systemctl start ftp-simulator-app.service || true
+
+# ── Step 8 — Résumé ──────────────────────────────────────────────────────────
+
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║         FTP Simulator installé avec succès               ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+echo ""
+echo "  Dashboard :  http://127.0.0.1:3000"
+echo "  Config :     /etc/ftp-simulator/env"
+echo "  Logs app :   journalctl -u ftp-simulator-app"
+echo "  Logs DB :    docker compose -f /etc/ftp-simulator/docker-compose.prod.yml logs"
+echo ""
+echo "  Commandes utiles :"
+echo "    systemctl status ftp-simulator-app"
+echo "    systemctl status ftp-simulator-db"
+echo "    docker ps   (voir le conteneur PostgreSQL)"
+echo ""

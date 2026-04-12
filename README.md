@@ -1,308 +1,220 @@
-# FTP Calculator
+# FTP Simulator
 
-A cross-language **Funds Transfer Pricing (FTP)** computation library. FTP is a methodology used by banks and financial institutions to allocate internal interest rates and measure profitability across business units based on their funding activities.
+Application web complète de **calcul et pilotage du Funds Transfer Pricing (FTP)** pour les équipes ALM/Trésorerie bancaires.
 
-The core engine is written in **Rust** and exposed via **Python** (PyO3) and **C** bindings (for Excel integration).
-
-## Features
-
-- Two calculation methods: **Stock** and **Flux**
-- Matrix-based computation using `ndarray`
-- Python package with high-level wrappers
-- Excel Add-In (.xll) with native performance
-- Computes FTP rates, market rates, stock amortization, installments, and FTP interest
+Moteur de calcul en **Rust**, dashboard en **Svelte 5**, base de données **PostgreSQL 18**.
 
 ---
 
-## 🚀 Quick Start
-
-### Python (End Users)
-
-**Install from PyPI:**
-
-```bash
-pip install ftp-calculator
-```
-
-**Usage:**
-
-```python
-import numpy as np
-from ftp_calculator import FtpCalculator, compute_stock
-
-outstanding = np.array([[1000.0], [1200.0], [1350.0]])
-profiles = np.array([
-    [1.00, 0.50, 0.20, 0.05],
-    [1.00, 0.50, 0.20, 0.05],
-    [1.00, 0.50, 0.20, 0.05],
-])
-rates = np.array([
-    [0.01300, 0.01400, 0.01600],
-    [0.01360, 0.01460, 0.01660],
-    [0.01430, 0.01530, 0.01730],
-])
-
-# Class-based API
-calc = FtpCalculator(outstanding, profiles, rates)
-calc.compute("stock")  # or "flux"
-print(calc.ftp_rate)   # numpy 2D array
-print(calc.ftp_int)
-
-# One-shot API (returns a dict of numpy arrays)
-result = compute_stock(outstanding, profiles, rates)
-print(result["ftp_rate"])
-```
-
-### Excel (End Users)
-
-**Download the add-in:**
-
-1. Go to the [Releases page](https://github.com/ce-teuf/FTP_CALCULATOR/releases)
-2. Download the latest `ftp_calculator-vX.X.X-AddIn64.xll` file
-3. Open it in Excel — a custom **FTP** tab will appear in the ribbon
-
-**Worksheet Functions:**
-
-All functions are array formulas. Select the output range, type the formula, and press **Ctrl+Shift+Enter**.
-
-**Full compute (all 7 outputs stacked vertically):**
-
-```excel
-=FTP_COMPUTE_STOCK(outstanding, profiles, rates)
-=FTP_COMPUTE_FLUX(outstanding, profiles, rates)
-```
-
-Returns 7 labeled blocks (stock_amort, stock_instal, varstock_amort, varstock_instal, ftp_rate, ftp_int, market_rate) stacked vertically. Select a range of `7 * (rows + 1)` rows by `cols` columns.
-
-**Individual output matrices:**
-
-```excel
-=FTP_STOCK_AMORT(outstanding, profiles, rates, method)
-=FTP_STOCK_INSTAL(outstanding, profiles, rates, method)
-=FTP_VARSTOCK_AMORT(outstanding, profiles, rates, method)
-=FTP_VARSTOCK_INSTAL(outstanding, profiles, rates, method)
-=FTP_FTP_RATE(outstanding, profiles, rates, method)
-=FTP_FTP_INT(outstanding, profiles, rates, method)
-=FTP_MARKET_RATE(outstanding, profiles, rates, method)
-```
-
-Where `method` is `0` for Stock, `1` for Flux.
-
-**Example:**
-
-Given the following data in Excel:
-
-| | A (outstanding) | B:E (profiles) | | | | F:H (rates) | | |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 1000 | 1.00 | 0.50 | 0.20 | 0.05 | 0.013 | 0.014 | 0.016 |
-| 2 | 1200 | 1.00 | 0.50 | 0.20 | 0.05 | 0.0136 | 0.0146 | 0.0166 |
-| 3 | 1350 | 1.00 | 0.50 | 0.20 | 0.05 | 0.0143 | 0.0153 | 0.0173 |
-
-To get the FTP rate matrix, select a 3x4 range and enter:
-
-```excel
-=FTP_FTP_RATE(A1:A3, B1:E3, F1:H3, 0)
-```
-
-Errors are returned as `#ERR: <message>` strings in the first cell.
-
----
-
-## 🛠️ Development Setup
-
-### Prerequisites
-
-- **Rust** (edition 2021)
-- **Python 3.9+**
-- **.NET SDK 6.0** (for Excel Add-In, Windows only)
-
-### Clone and Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/ce-teuf/FTP_CALCULATOR.git
-cd FTP_CALCULATOR
-
-# Create and activate Python virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install development tools
-make setup-dev
-```
-
-### Build
-
-```bash
-# Build all bindings (C, Python, Excel)
-make build-all
-
-# Build individually
-make build-c-bindings      # C bindings (for Excel)
-make build-py-bindings     # Python bindings
-make build-excel-addin     # Excel add-in (Windows only)
-```
-
-### Test
-
-```bash
-# Run all tests
-make test
-
-# Unit tests only
-make unit
-
-# Integration tests only
-make integration
-
-# Tests with output
-make detailed
-
-# Code coverage
-make tarpaulin
-```
-
-### Python Development Workflow
-
-```bash
-# Install package in editable mode with dependencies
-cd python-lib
-pip install -e ".[dev]"
-
-# Or use maturin for development (faster iteration)
-cd ../crates/ftp-calculator-bindings-pyo3
-maturin develop
-```
-
-### Excel Development Workflow (Windows)
-
-```bash
-# Build C bindings first
-make build-c-bindings
-
-# Build Excel add-in
-make build-excel-addin
-
-# The .xll file will be in:
-# excel-addin/ftp_addin/bin/Release/net6.0-windows/ftp_addin-AddIn64-packed.xll
-```
-
----
-
-## 📦 Project Structure
+## Architecture
 
 ```
 ftp-calculator/
-├── crates/
-│   ├── ftp-calculator-core/           # Core Rust calculation library
-│   ├── ftp-calculator-bindings-c/     # C bindings (for Excel)
-│   └── ftp-calculator-bindings-pyo3/  # Python bindings (PyO3)
-├── python-lib/                        # Python wrapper package (published to PyPI)
-├── excel-addin/                       # .NET Excel Add-In
-├── docs/                              # MkDocs documentation site
-├── scripts/                           # Release management
-├── .github/workflows/                 # CI/CD pipelines
-├── .venv/                             # Python virtual environment
-├── Makefile                           # Build orchestration
-└── ftp-core-test.ods                  # Test data spreadsheet
+├── app/
+│   ├── backend/          # API REST Rust/Axum (binaire autonome, frontend embarqué)
+│   └── dashboard/        # UI Svelte 5 + Vite (dev: HMR ; prod: embarqué dans le binaire)
+├── crates-core/
+│   ├── ftp-calculator-core/           # Moteur de calcul Rust (9 méthodes FTP)
+│   ├── ftp-calculator-bindings-c/     # Bindings C → Excel Add-In
+│   └── ftp-calculator-bindings-pyo3/  # Bindings Python (PyO3)
+├── installer/
+│   ├── ftp-installer-helper/  # Téléchargeur FTP (télécharge PostgreSQL à l'install)
+│   ├── build-deb.sh           # Paquet Debian slim
+│   ├── windows/setup.iss      # Installeur Inno Setup (Windows)
+│   └── macos/bundle.sh        # App Bundle + DMG (macOS)
+├── data/dev/seed.sql     # Jeu de données de démonstration (dev local, sans FTP)
+├── .env.dev              # Variables d'environnement de développement
+├── .env.prod.example     # Template de configuration de production
+├── Makefile              # Orchestration dev + prod
+└── .github/workflows/    # Pipeline CI/CD (Windows / macOS / Linux Debian 13)
 ```
 
 ---
 
-## 📖 Core Concepts
+## Méthodes FTP implémentées
 
-The central computation takes three input matrices:
-
-| Input | Shape | Description |
-|---|---|---|
-| `outstanding` | (n, 1) | Loan/position amounts |
-| `profiles` | (n, m) | Repricing profiles |
-| `rates` | (n, m-1) | Market rates |
-
-And produces:
-
-| Output | Description |
+| Méthode | Description |
 |---|---|
-| `stock_amort` | Amortized stock |
-| `stock_instal` | Stock installments |
-| `varstock_amort` | Variable stock (amortized) |
-| `varstock_instal` | Variable stock (installments) |
-| `ftp_rate` | Calculated FTP rate |
-| `ftp_int` | FTP interest (monthly) |
-| `market_rate` | Market rate |
-
-### Stock vs Flux Method
-
-- **Stock method** — sequential calculation using anti-diagonal matrix extraction for variable stock
-- **Flux method** — alternative approach using `max_zero` clamping for profile-based variable stock calculation
+| Stock | Taux de marché anti-diagonaux, stock amorti |
+| Flux | Profil de liquidité, taux de marché par tranche |
+| Matched Maturity | Courbe spot interpolée à la duration exacte |
+| Pool | Taux pool pondéré par duration moyenne |
+| Optionnel | Inclut la valeur des options de remboursement anticipé |
+| Refinancement | Taux de refinancement court terme à la maturité |
+| Taux Variable | Double profil taux + liquidité |
+| Marchés | Taux de marché direct (OIS/IBOR) |
+| Comportemental | Runoff comportemental (NMD, épargne) |
 
 ---
 
-## 🔄 CI/CD
+## Démarrage rapide — Développement
 
-### Local CI Simulation
+> **Prérequis :** Rust stable, Node.js 20+, **Docker** (pour PostgreSQL)
 
 ```bash
-make ci
+# 1. Démarrer PostgreSQL dans Docker
+make dev-db
+
+# 2. Charger les données de démonstration (10 positions, 3 courbes)
+make dev-seed
+
+# 3. Lancer le backend (terminal 1)
+make dev-backend      # → http://localhost:3000
+
+# 4. Lancer le frontend Vite avec HMR (terminal 2)
+make dev-frontend     # → http://localhost:5173
+
+# Ou tout en un avec tmux
+make dev-tmux
 ```
 
-### Releases
+En mode dev :
+- **PostgreSQL tourne dans Docker** (`docker-compose.dev.yml`) — pas d'installation locale requise
+- Backend et frontend tournent localement (rechargement automatique)
+- Pas de serveur FTP — les données sont dans `data/dev/seed.sql`
+- Le frontend tourne sur Vite (:5173) avec proxy `/api → :3000`
 
-Releases are managed via GitHub Actions. When a tag is pushed:
+---
 
-1. **Python package** is published to PyPI
-2. **Rust crates** are published to crates.io
-3. **Excel add-in** (.xll) is attached to the GitHub Release
-4. **Documentation** is deployed to GitHub Pages
+## Démarrage rapide — Production
 
-**Create a release:**
+> **Prérequis sur la machine cible :** Docker Engine (>= 23.0) avec Docker Compose v2
 
 ```bash
-# Prepare and validate
-make release-prepare
+# 1. Compiler le binaire release (frontend Svelte embarqué)
+make prod-build
 
-# Bump version (patch, minor, or major)
-make release-bump-patch
-make release-bump-minor
-make release-bump-major
+# 2. Générer le paquet Debian
+make prod-deb         # → dist/ftp-simulator_X.Y.Z_amd64.deb
+
+# 3. Installer sur la machine cible
+sudo dpkg -i dist/ftp-simulator_X.Y.Z_amd64.deb
+# → vérifie Docker, démarre le conteneur PostgreSQL, démarre le backend
 ```
 
-The script will:
-- Update versions in all `Cargo.toml` and `pyproject.toml` files
-- Run validation checks (format, lint, build)
-- Create a git tag
-- Push the tag to trigger GitHub Actions
+En mode prod :
+- **PostgreSQL tourne dans Docker** (image `postgres:17`, volume persistant `ftp-simulator-pgdata`)
+- Le mot de passe DB est généré aléatoirement à l'installation (`/etc/ftp-simulator/db_password`)
+- Le frontend est compilé et embarqué dans le binaire Rust (`include_dir!`) — un seul binaire autonome
+- L'installeur **vérifie que Docker est installé** et bloque si ce n'est pas le cas
 
 ---
 
-## 📚 Documentation
+## Référence Makefile
+
+### Développement
+
+| Commande | Description |
+|---|---|
+| `make dev-up` | Initialise la DB + affiche les instructions |
+| `make dev-db` | Crée la base PostgreSQL de dev |
+| `make dev-seed` | Charge `data/dev/seed.sql` |
+| `make dev-backend` | Lance le backend Rust (port 3000) |
+| `make dev-frontend` | Lance Vite HMR (port 5173) |
+| `make dev-tmux` | Lance les deux dans des panneaux tmux |
+| `make dev-reset` | Remet la base à zéro + reseed |
+| `make dev-stop` | Arrête backend + session tmux |
+
+### Production
+
+| Commande | Description |
+|---|---|
+| `make prod-build` | Compile release (frontend embarqué) |
+| `make prod-deb` | Génère le paquet `.deb` (Debian 13) |
+| `make prod-check` | Vérifie `.env.prod` + code Rust |
+| `make prod-run` | Lance le binaire release localement |
+
+### Tests & qualité
+
+| Commande | Description |
+|---|---|
+| `make test` | Tous les tests du workspace |
+| `make unit` | Tests unitaires core |
+| `make integration` | Tests d'intégration |
+| `make check` | Clippy + fmt |
+| `make coverage` | Rapport tarpaulin (HTML) |
+| `make ci` | Pipeline CI local (check + test) |
+
+### Bindings (Python / C / Excel)
+
+| Commande | Description |
+|---|---|
+| `make build-core` | Compile `ftp-calculator-core` |
+| `make build-c-bindings` | `.so/.dll` pour l'add-in Excel |
+| `make build-py-bindings` | Wheel Python (maturin) |
+
+---
+
+## Dashboard — Onglets
+
+| Onglet | Contenu |
+|---|---|
+| **Dashboard** | NIM waterfall agrégée, heatmap par branche/produit/vendeur, export JSON |
+| **Courbes** | Bibliothèque de courbes de taux + CoF Curve Builder 14 composantes |
+| **Portefeuille** | CRUD positions, RAROC par position, export Excel |
+| **Exécutions** | Historique, replay, diff A/B, export Excel multi-onglets |
+| **Pricer** | Calcul à la volée sur une position unique |
+| **Scénarios** | 6 chocs BCBS (parallel ±100/200 bps, bear flattening, bull steepening…) |
+| **NMD** | Calibration λ OLS, WAL, profil combiné (core + volatile), sauvegarde runoff model |
+| **Gouvernance** | Approbation ALCO des courbes, piste d'audit des exécutions |
+
+---
+
+## Configuration
+
+### `.env.dev` (développement)
+
+```env
+DATABASE_URL=postgresql://ftp_dev:ftp_dev@127.0.0.1:5432/ftp_simulator_dev
+LISTEN_ADDR=127.0.0.1:3000
+RUST_LOG=info,ftp_backend=debug
+```
+
+### `.env.prod` (production — à créer depuis `.env.prod.example`)
+
+```env
+DATABASE_URL=postgresql://ftp:CHANGE_ME@127.0.0.1:5432/ftp_simulator
+LISTEN_ADDR=127.0.0.1:3000
+RUST_LOG=warn
+FTP_SOURCE_URL=ftp://ftp.monorganisation.com/ftp-simulator
+```
+
+---
+
+## CI/CD
+
+Le pipeline `.github/workflows/release.yml` produit sur chaque tag :
+
+- `ftp-simulator-X.Y.Z-windows-setup.exe` — installeur Inno Setup slim (télécharge PG18 via FTP)
+- `ftp-simulator-X.Y.Z-macos.dmg` — App Bundle macOS (menu-bar only, aarch64)
+- `ftp-simulator_X.Y.Z_amd64.deb` — paquet Debian 13 slim
+
+Les artefacts sont uploadés sur le serveur FTP de l'organisation avec un `latest.json` (SHA256 + URLs).
+
+---
+
+## Bindings Python / Excel (héritage)
+
+Le moteur de calcul est aussi exposé en Python et via un Add-In Excel :
+
+```python
+from ftp_calculator import FtpCalculator
+calc = FtpCalculator(outstanding, profiles, rates)
+calc.compute("stock")
+print(calc.ftp_rate)
+```
 
 ```bash
-# Serve docs locally
-make serve-docs
-
-# Build docs
-make build-docs
+make build-py-bindings   # génère la wheel Python
+make build-c-bindings    # génère le .so/.dll pour l'add-in Excel
 ```
 
-Published at: https://ce-teuf.github.io/FTP_CALCULATOR
-
 ---
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
+## Licence
 
 MIT OR Apache-2.0
 
-## 👤 Author
+## Auteur
 
 Charles Teuf

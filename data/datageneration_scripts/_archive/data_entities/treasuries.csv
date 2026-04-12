@@ -1,0 +1,5 @@
+treasury_id,branch_id,branch_code,treasury_name,currency,status
+TR-US-001,BR-US-001,US,New York Treasury,USD,active
+TR-FR-001,BR-FR-001,FR,Paris Treasury,EUR,active
+TR-ES-001,BR-ES-001,ES,Madrid Treasury,EUR,active
+TR-DE-001,BR-DE-001,DE,Frankfurt Treasury,EUR,active

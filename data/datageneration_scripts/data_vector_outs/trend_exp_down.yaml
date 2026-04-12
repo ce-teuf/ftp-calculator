@@ -1,0 +1,11 @@
+start: "01-2020"
+end: "12-2024"
+output: "exponential_down.csv"
+trend:
+  type: "exponential"
+  start_value: 10000
+  end_value: 500
+noise:
+  type: "relative"
+  rel: 0.05   # 5% du montant courant
+random_seed: 123

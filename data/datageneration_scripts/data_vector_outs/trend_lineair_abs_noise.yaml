@@ -1,0 +1,11 @@
+start: "01-2020"
+end: "12-2024"
+output: "linear_up.csv"
+trend:
+  type: "linear"
+  start_value: 1000
+  end_value: 5000
+noise:
+  type: "absolute"
+  std: 200
+random_seed: 42

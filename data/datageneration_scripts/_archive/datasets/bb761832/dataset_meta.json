@@ -1,0 +1,32 @@
+{
+  "id": "bb761832-0d51-4bd4-b14a-21c8b51523ed",
+  "name": "Retail Mortgages EUR \u2014 FR & ES",
+  "description": "Pr\u00eats immobiliers et amortissables retail en EUR, branches France et Espagne. Id\u00e9al pour calibration courbe FTP Retail.",
+  "status": "active",
+  "source": "generated",
+  "as_of_date": "2026-04-09",
+  "contracts_count": 98,
+  "rate_curves_count": 4,
+  "runoff_models_count": 7,
+  "files": {
+    "contracts": "contracts.csv",
+    "portfolio_positions": "portfolio_positions.csv",
+    "rate_curves": "rate_curves.csv",
+    "runoff_models": "runoff_models.json",
+    "rate_series": "rate_series.csv",
+    "entities_branches": "entities_branches.csv",
+    "entities_business_units": "entities_business_units.csv",
+    "entities_departments": "entities_departments.csv",
+    "entities_sellers": "entities_sellers.csv",
+    "entities_treasuries": "entities_treasuries.csv"
+  },
+  "generated_at": "2026-04-09T16:53:01.806894",
+  "entities": {
+    "branches": 2,
+    "business_units": 9,
+    "departments": 36,
+    "sellers": 135,
+    "treasuries": 2
+  },
+  "rate_series_count": 54750
+}

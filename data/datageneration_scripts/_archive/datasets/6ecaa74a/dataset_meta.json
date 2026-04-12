@@ -1,0 +1,32 @@
+{
+  "id": "6ecaa74a-c362-481d-b3a8-b274562e8fe6",
+  "name": "Portefeuille Complet Multi-devise Q1 2026",
+  "description": "Dataset de r\u00e9f\u00e9rence complet: tous types, toutes branches, EUR/USD/GBP. Base pour sc\u00e9narios BCBS et stress tests.",
+  "status": "active",
+  "source": "generated",
+  "as_of_date": "2026-04-09",
+  "contracts_count": 1000,
+  "rate_curves_count": 4,
+  "runoff_models_count": 7,
+  "files": {
+    "contracts": "contracts.csv",
+    "portfolio_positions": "portfolio_positions.csv",
+    "rate_curves": "rate_curves.csv",
+    "runoff_models": "runoff_models.json",
+    "rate_series": "rate_series.csv",
+    "entities_branches": "entities_branches.csv",
+    "entities_business_units": "entities_business_units.csv",
+    "entities_departments": "entities_departments.csv",
+    "entities_sellers": "entities_sellers.csv",
+    "entities_treasuries": "entities_treasuries.csv"
+  },
+  "generated_at": "2026-04-09T16:53:10.967258",
+  "entities": {
+    "branches": 4,
+    "business_units": 17,
+    "departments": 68,
+    "sellers": 255,
+    "treasuries": 4
+  },
+  "rate_series_count": 54750
+}

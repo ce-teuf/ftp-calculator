@@ -1,0 +1,727 @@
+{
+  "profile_name": "Credit Line",
+  "commitment": 500000,
+  "avg_drawdown": 0.7307,
+  "profile": [
+    {
+      "month": 1,
+      "outstanding": 275617.28,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5512
+    },
+    {
+      "month": 2,
+      "outstanding": 248880.66,
+      "commitment": 500000,
+      "drawdown_ratio": 0.4978
+    },
+    {
+      "month": 3,
+      "outstanding": 260799.18,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5216
+    },
+    {
+      "month": 4,
+      "outstanding": 229355.74,
+      "commitment": 500000,
+      "drawdown_ratio": 0.4587
+    },
+    {
+      "month": 5,
+      "outstanding": 254127.34,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5083
+    },
+    {
+      "month": 6,
+      "outstanding": 240047.71,
+      "commitment": 500000,
+      "drawdown_ratio": 0.4801
+    },
+    {
+      "month": 7,
+      "outstanding": 280100.84,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5602
+    },
+    {
+      "month": 8,
+      "outstanding": 261712.61,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5234
+    },
+    {
+      "month": 9,
+      "outstanding": 292985.34,
+      "commitment": 500000,
+      "drawdown_ratio": 0.586
+    },
+    {
+      "month": 10,
+      "outstanding": 267951.04,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5359
+    },
+    {
+      "month": 11,
+      "outstanding": 297318.54,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5946
+    },
+    {
+      "month": 12,
+      "outstanding": 309847.18,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6197
+    },
+    {
+      "month": 13,
+      "outstanding": 330336.45,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6607
+    },
+    {
+      "month": 14,
+      "outstanding": 272286.26,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5446
+    },
+    {
+      "month": 15,
+      "outstanding": 302359.3,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6047
+    },
+    {
+      "month": 16,
+      "outstanding": 286370.31,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5727
+    },
+    {
+      "month": 17,
+      "outstanding": 293852.56,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5877
+    },
+    {
+      "month": 18,
+      "outstanding": 280685.78,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5614
+    },
+    {
+      "month": 19,
+      "outstanding": 276630.43,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5533
+    },
+    {
+      "month": 20,
+      "outstanding": 279675.26,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5594
+    },
+    {
+      "month": 21,
+      "outstanding": 283777.3,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5676
+    },
+    {
+      "month": 22,
+      "outstanding": 320431.34,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6409
+    },
+    {
+      "month": 23,
+      "outstanding": 326275.18,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6526
+    },
+    {
+      "month": 24,
+      "outstanding": 365304.01,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7306
+    },
+    {
+      "month": 25,
+      "outstanding": 324985.26,
+      "commitment": 500000,
+      "drawdown_ratio": 0.65
+    },
+    {
+      "month": 26,
+      "outstanding": 332305.88,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6646
+    },
+    {
+      "month": 27,
+      "outstanding": 293964.98,
+      "commitment": 500000,
+      "drawdown_ratio": 0.5879
+    },
+    {
+      "month": 28,
+      "outstanding": 301568.06,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6031
+    },
+    {
+      "month": 29,
+      "outstanding": 304766.58,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6095
+    },
+    {
+      "month": 30,
+      "outstanding": 312359.4,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6247
+    },
+    {
+      "month": 31,
+      "outstanding": 327570.89,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6551
+    },
+    {
+      "month": 32,
+      "outstanding": 316837.78,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6337
+    },
+    {
+      "month": 33,
+      "outstanding": 315741.33,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6315
+    },
+    {
+      "month": 34,
+      "outstanding": 354367.76,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7087
+    },
+    {
+      "month": 35,
+      "outstanding": 366905.44,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7338
+    },
+    {
+      "month": 36,
+      "outstanding": 372374.88,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7447
+    },
+    {
+      "month": 37,
+      "outstanding": 353646.32,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7073
+    },
+    {
+      "month": 38,
+      "outstanding": 374500.77,
+      "commitment": 500000,
+      "drawdown_ratio": 0.749
+    },
+    {
+      "month": 39,
+      "outstanding": 348818.44,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6976
+    },
+    {
+      "month": 40,
+      "outstanding": 347997.37,
+      "commitment": 500000,
+      "drawdown_ratio": 0.696
+    },
+    {
+      "month": 41,
+      "outstanding": 349960.46,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6999
+    },
+    {
+      "month": 42,
+      "outstanding": 339139.08,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6783
+    },
+    {
+      "month": 43,
+      "outstanding": 340147.11,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6803
+    },
+    {
+      "month": 44,
+      "outstanding": 379791.93,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7596
+    },
+    {
+      "month": 45,
+      "outstanding": 366155.55,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7323
+    },
+    {
+      "month": 46,
+      "outstanding": 373060.54,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7461
+    },
+    {
+      "month": 47,
+      "outstanding": 390830.14,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7817
+    },
+    {
+      "month": 48,
+      "outstanding": 417241.53,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8345
+    },
+    {
+      "month": 49,
+      "outstanding": 395931.32,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7919
+    },
+    {
+      "month": 50,
+      "outstanding": 395290.66,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7906
+    },
+    {
+      "month": 51,
+      "outstanding": 395435.97,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7909
+    },
+    {
+      "month": 52,
+      "outstanding": 359807.12,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7196
+    },
+    {
+      "month": 53,
+      "outstanding": 334950.82,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6699
+    },
+    {
+      "month": 54,
+      "outstanding": 364491.35,
+      "commitment": 500000,
+      "drawdown_ratio": 0.729
+    },
+    {
+      "month": 55,
+      "outstanding": 369295.39,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7386
+    },
+    {
+      "month": 56,
+      "outstanding": 368379.85,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7368
+    },
+    {
+      "month": 57,
+      "outstanding": 405566.3,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8111
+    },
+    {
+      "month": 58,
+      "outstanding": 416613.51,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8332
+    },
+    {
+      "month": 59,
+      "outstanding": 404225.75,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8085
+    },
+    {
+      "month": 60,
+      "outstanding": 432773.28,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8655
+    },
+    {
+      "month": 61,
+      "outstanding": 418709.06,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8374
+    },
+    {
+      "month": 62,
+      "outstanding": 390254.62,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7805
+    },
+    {
+      "month": 63,
+      "outstanding": 406794.25,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8136
+    },
+    {
+      "month": 64,
+      "outstanding": 386821.78,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7736
+    },
+    {
+      "month": 65,
+      "outstanding": 367170.12,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7343
+    },
+    {
+      "month": 66,
+      "outstanding": 382844.18,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7657
+    },
+    {
+      "month": 67,
+      "outstanding": 385670.76,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7713
+    },
+    {
+      "month": 68,
+      "outstanding": 378836.94,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7577
+    },
+    {
+      "month": 69,
+      "outstanding": 406005.28,
+      "commitment": 500000,
+      "drawdown_ratio": 0.812
+    },
+    {
+      "month": 70,
+      "outstanding": 427725.97,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8555
+    },
+    {
+      "month": 71,
+      "outstanding": 410960.64,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8219
+    },
+    {
+      "month": 72,
+      "outstanding": 430713.35,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8614
+    },
+    {
+      "month": 73,
+      "outstanding": 421691.97,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8434
+    },
+    {
+      "month": 74,
+      "outstanding": 446490.15,
+      "commitment": 500000,
+      "drawdown_ratio": 0.893
+    },
+    {
+      "month": 75,
+      "outstanding": 372065.46,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7441
+    },
+    {
+      "month": 76,
+      "outstanding": 397929.26,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7959
+    },
+    {
+      "month": 77,
+      "outstanding": 373755.69,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7475
+    },
+    {
+      "month": 78,
+      "outstanding": 373497.04,
+      "commitment": 500000,
+      "drawdown_ratio": 0.747
+    },
+    {
+      "month": 79,
+      "outstanding": 406873.2,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8137
+    },
+    {
+      "month": 80,
+      "outstanding": 387371.4,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7747
+    },
+    {
+      "month": 81,
+      "outstanding": 433614.16,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8672
+    },
+    {
+      "month": 82,
+      "outstanding": 405867.78,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8117
+    },
+    {
+      "month": 83,
+      "outstanding": 426908.32,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8538
+    },
+    {
+      "month": 84,
+      "outstanding": 417637.29,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8353
+    },
+    {
+      "month": 85,
+      "outstanding": 411290.31,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8226
+    },
+    {
+      "month": 86,
+      "outstanding": 413437.25,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8269
+    },
+    {
+      "month": 87,
+      "outstanding": 395761.43,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7915
+    },
+    {
+      "month": 88,
+      "outstanding": 390537.37,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7811
+    },
+    {
+      "month": 89,
+      "outstanding": 346773.95,
+      "commitment": 500000,
+      "drawdown_ratio": 0.6935
+    },
+    {
+      "month": 90,
+      "outstanding": 405037.02,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8101
+    },
+    {
+      "month": 91,
+      "outstanding": 375844.41,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7517
+    },
+    {
+      "month": 92,
+      "outstanding": 413643.58,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8273
+    },
+    {
+      "month": 93,
+      "outstanding": 384893.32,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7698
+    },
+    {
+      "month": 94,
+      "outstanding": 416888.04,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8338
+    },
+    {
+      "month": 95,
+      "outstanding": 450000.0,
+      "commitment": 500000,
+      "drawdown_ratio": 0.9
+    },
+    {
+      "month": 96,
+      "outstanding": 411954.06,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8239
+    },
+    {
+      "month": 97,
+      "outstanding": 399221.14,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7984
+    },
+    {
+      "month": 98,
+      "outstanding": 404302.36,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8086
+    },
+    {
+      "month": 99,
+      "outstanding": 407087.33,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8142
+    },
+    {
+      "month": 100,
+      "outstanding": 397900.1,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7958
+    },
+    {
+      "month": 101,
+      "outstanding": 397704.87,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7954
+    },
+    {
+      "month": 102,
+      "outstanding": 371144.81,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7423
+    },
+    {
+      "month": 103,
+      "outstanding": 354315.6,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7086
+    },
+    {
+      "month": 104,
+      "outstanding": 380974.55,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7619
+    },
+    {
+      "month": 105,
+      "outstanding": 418603.34,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8372
+    },
+    {
+      "month": 106,
+      "outstanding": 419484.94,
+      "commitment": 500000,
+      "drawdown_ratio": 0.839
+    },
+    {
+      "month": 107,
+      "outstanding": 392296.55,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7846
+    },
+    {
+      "month": 108,
+      "outstanding": 424474.23,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8489
+    },
+    {
+      "month": 109,
+      "outstanding": 442623.16,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8852
+    },
+    {
+      "month": 110,
+      "outstanding": 444398.22,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8888
+    },
+    {
+      "month": 111,
+      "outstanding": 408425.3,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8169
+    },
+    {
+      "month": 112,
+      "outstanding": 392139.53,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7843
+    },
+    {
+      "month": 113,
+      "outstanding": 359746.28,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7195
+    },
+    {
+      "month": 114,
+      "outstanding": 362351.36,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7247
+    },
+    {
+      "month": 115,
+      "outstanding": 379053.1,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7581
+    },
+    {
+      "month": 116,
+      "outstanding": 395047.97,
+      "commitment": 500000,
+      "drawdown_ratio": 0.7901
+    },
+    {
+      "month": 117,
+      "outstanding": 408702.76,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8174
+    },
+    {
+      "month": 118,
+      "outstanding": 405326.87,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8107
+    },
+    {
+      "month": 119,
+      "outstanding": 404371.5,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8087
+    },
+    {
+      "month": 120,
+      "outstanding": 413333.27,
+      "commitment": 500000,
+      "drawdown_ratio": 0.8267
+    }
+  ]
+}

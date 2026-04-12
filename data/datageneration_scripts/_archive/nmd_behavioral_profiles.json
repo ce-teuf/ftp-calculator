@@ -1,0 +1,5105 @@
+[
+  {
+    "profile_name": "Retail Demand Deposits Core",
+    "lambda_decay": 0.05,
+    "core_ratio": 0.75,
+    "projection_months": 120,
+    "wal_months": 0.79,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.987807,
+        "core_component": 0.75,
+        "volatile_component": 0.237807
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.976209,
+        "core_component": 0.75,
+        "volatile_component": 0.226209
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.965177,
+        "core_component": 0.75,
+        "volatile_component": 0.215177
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.954683,
+        "core_component": 0.75,
+        "volatile_component": 0.204683
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.9447,
+        "core_component": 0.75,
+        "volatile_component": 0.1947
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.935205,
+        "core_component": 0.75,
+        "volatile_component": 0.185205
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.926172,
+        "core_component": 0.75,
+        "volatile_component": 0.176172
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.91758,
+        "core_component": 0.75,
+        "volatile_component": 0.16758
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.909407,
+        "core_component": 0.75,
+        "volatile_component": 0.159407
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.901633,
+        "core_component": 0.75,
+        "volatile_component": 0.151633
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.894237,
+        "core_component": 0.75,
+        "volatile_component": 0.144237
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.887203,
+        "core_component": 0.75,
+        "volatile_component": 0.137203
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.880511,
+        "core_component": 0.75,
+        "volatile_component": 0.130511
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.874146,
+        "core_component": 0.75,
+        "volatile_component": 0.124146
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.868092,
+        "core_component": 0.75,
+        "volatile_component": 0.118092
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.862332,
+        "core_component": 0.75,
+        "volatile_component": 0.112332
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.856854,
+        "core_component": 0.75,
+        "volatile_component": 0.106854
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.851642,
+        "core_component": 0.75,
+        "volatile_component": 0.101642
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.846685,
+        "core_component": 0.75,
+        "volatile_component": 0.096685
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.84197,
+        "core_component": 0.75,
+        "volatile_component": 0.09197
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.837484,
+        "core_component": 0.75,
+        "volatile_component": 0.087484
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.833218,
+        "core_component": 0.75,
+        "volatile_component": 0.083218
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.829159,
+        "core_component": 0.75,
+        "volatile_component": 0.079159
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.825299,
+        "core_component": 0.75,
+        "volatile_component": 0.075299
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.821626,
+        "core_component": 0.75,
+        "volatile_component": 0.071626
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.818133,
+        "core_component": 0.75,
+        "volatile_component": 0.068133
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.81481,
+        "core_component": 0.75,
+        "volatile_component": 0.06481
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.811649,
+        "core_component": 0.75,
+        "volatile_component": 0.061649
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.808643,
+        "core_component": 0.75,
+        "volatile_component": 0.058643
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.805783,
+        "core_component": 0.75,
+        "volatile_component": 0.055783
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.803062,
+        "core_component": 0.75,
+        "volatile_component": 0.053062
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.800474,
+        "core_component": 0.75,
+        "volatile_component": 0.050474
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.798012,
+        "core_component": 0.75,
+        "volatile_component": 0.048012
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.795671,
+        "core_component": 0.75,
+        "volatile_component": 0.045671
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.793443,
+        "core_component": 0.75,
+        "volatile_component": 0.043443
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.791325,
+        "core_component": 0.75,
+        "volatile_component": 0.041325
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.789309,
+        "core_component": 0.75,
+        "volatile_component": 0.039309
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.787392,
+        "core_component": 0.75,
+        "volatile_component": 0.037392
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.785569,
+        "core_component": 0.75,
+        "volatile_component": 0.035569
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.783834,
+        "core_component": 0.75,
+        "volatile_component": 0.033834
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.782184,
+        "core_component": 0.75,
+        "volatile_component": 0.032184
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.780614,
+        "core_component": 0.75,
+        "volatile_component": 0.030614
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.779121,
+        "core_component": 0.75,
+        "volatile_component": 0.029121
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.777701,
+        "core_component": 0.75,
+        "volatile_component": 0.027701
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.77635,
+        "core_component": 0.75,
+        "volatile_component": 0.02635
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.775065,
+        "core_component": 0.75,
+        "volatile_component": 0.025065
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.773842,
+        "core_component": 0.75,
+        "volatile_component": 0.023842
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.772679,
+        "core_component": 0.75,
+        "volatile_component": 0.022679
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.771573,
+        "core_component": 0.75,
+        "volatile_component": 0.021573
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.770521,
+        "core_component": 0.75,
+        "volatile_component": 0.020521
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.76952,
+        "core_component": 0.75,
+        "volatile_component": 0.01952
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.768568,
+        "core_component": 0.75,
+        "volatile_component": 0.018568
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.767663,
+        "core_component": 0.75,
+        "volatile_component": 0.017663
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.766801,
+        "core_component": 0.75,
+        "volatile_component": 0.016801
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.765982,
+        "core_component": 0.75,
+        "volatile_component": 0.015982
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.765203,
+        "core_component": 0.75,
+        "volatile_component": 0.015203
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.764461,
+        "core_component": 0.75,
+        "volatile_component": 0.014461
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.763756,
+        "core_component": 0.75,
+        "volatile_component": 0.013756
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.763085,
+        "core_component": 0.75,
+        "volatile_component": 0.013085
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.762447,
+        "core_component": 0.75,
+        "volatile_component": 0.012447
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.76184,
+        "core_component": 0.75,
+        "volatile_component": 0.01184
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.761262,
+        "core_component": 0.75,
+        "volatile_component": 0.011262
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.760713,
+        "core_component": 0.75,
+        "volatile_component": 0.010713
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.760191,
+        "core_component": 0.75,
+        "volatile_component": 0.010191
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.759694,
+        "core_component": 0.75,
+        "volatile_component": 0.009694
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.759221,
+        "core_component": 0.75,
+        "volatile_component": 0.009221
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.758771,
+        "core_component": 0.75,
+        "volatile_component": 0.008771
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.758343,
+        "core_component": 0.75,
+        "volatile_component": 0.008343
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.757936,
+        "core_component": 0.75,
+        "volatile_component": 0.007936
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.757549,
+        "core_component": 0.75,
+        "volatile_component": 0.007549
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.757181,
+        "core_component": 0.75,
+        "volatile_component": 0.007181
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.756831,
+        "core_component": 0.75,
+        "volatile_component": 0.006831
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.756498,
+        "core_component": 0.75,
+        "volatile_component": 0.006498
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.756181,
+        "core_component": 0.75,
+        "volatile_component": 0.006181
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.755879,
+        "core_component": 0.75,
+        "volatile_component": 0.005879
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.755593,
+        "core_component": 0.75,
+        "volatile_component": 0.005593
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.75532,
+        "core_component": 0.75,
+        "volatile_component": 0.00532
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.75506,
+        "core_component": 0.75,
+        "volatile_component": 0.00506
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.754814,
+        "core_component": 0.75,
+        "volatile_component": 0.004814
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.754579,
+        "core_component": 0.75,
+        "volatile_component": 0.004579
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.754356,
+        "core_component": 0.75,
+        "volatile_component": 0.004356
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.754143,
+        "core_component": 0.75,
+        "volatile_component": 0.004143
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.753941,
+        "core_component": 0.75,
+        "volatile_component": 0.003941
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.753749,
+        "core_component": 0.75,
+        "volatile_component": 0.003749
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.753566,
+        "core_component": 0.75,
+        "volatile_component": 0.003566
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.753392,
+        "core_component": 0.75,
+        "volatile_component": 0.003392
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.753227,
+        "core_component": 0.75,
+        "volatile_component": 0.003227
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.753069,
+        "core_component": 0.75,
+        "volatile_component": 0.003069
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.75292,
+        "core_component": 0.75,
+        "volatile_component": 0.00292
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.752777,
+        "core_component": 0.75,
+        "volatile_component": 0.002777
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.752642,
+        "core_component": 0.75,
+        "volatile_component": 0.002642
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.752513,
+        "core_component": 0.75,
+        "volatile_component": 0.002513
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.75239,
+        "core_component": 0.75,
+        "volatile_component": 0.00239
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.752274,
+        "core_component": 0.75,
+        "volatile_component": 0.002274
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.752163,
+        "core_component": 0.75,
+        "volatile_component": 0.002163
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.752057,
+        "core_component": 0.75,
+        "volatile_component": 0.002057
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.751957,
+        "core_component": 0.75,
+        "volatile_component": 0.001957
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.751862,
+        "core_component": 0.75,
+        "volatile_component": 0.001862
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.751771,
+        "core_component": 0.75,
+        "volatile_component": 0.001771
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.751684,
+        "core_component": 0.75,
+        "volatile_component": 0.001684
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.751602,
+        "core_component": 0.75,
+        "volatile_component": 0.001602
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.751524,
+        "core_component": 0.75,
+        "volatile_component": 0.001524
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.75145,
+        "core_component": 0.75,
+        "volatile_component": 0.00145
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.751379,
+        "core_component": 0.75,
+        "volatile_component": 0.001379
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.751312,
+        "core_component": 0.75,
+        "volatile_component": 0.001312
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.751248,
+        "core_component": 0.75,
+        "volatile_component": 0.001248
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.751187,
+        "core_component": 0.75,
+        "volatile_component": 0.001187
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.751129,
+        "core_component": 0.75,
+        "volatile_component": 0.001129
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.751074,
+        "core_component": 0.75,
+        "volatile_component": 0.001074
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.751022,
+        "core_component": 0.75,
+        "volatile_component": 0.001022
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.750972,
+        "core_component": 0.75,
+        "volatile_component": 0.000972
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.750924,
+        "core_component": 0.75,
+        "volatile_component": 0.000924
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.750879,
+        "core_component": 0.75,
+        "volatile_component": 0.000879
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.750836,
+        "core_component": 0.75,
+        "volatile_component": 0.000836
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.750796,
+        "core_component": 0.75,
+        "volatile_component": 0.000796
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.750757,
+        "core_component": 0.75,
+        "volatile_component": 0.000757
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.75072,
+        "core_component": 0.75,
+        "volatile_component": 0.00072
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.750685,
+        "core_component": 0.75,
+        "volatile_component": 0.000685
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.750651,
+        "core_component": 0.75,
+        "volatile_component": 0.000651
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.75062,
+        "core_component": 0.75,
+        "volatile_component": 0.00062
+      }
+    ]
+  },
+  {
+    "profile_name": "Retail Demand Deposits Volatile",
+    "lambda_decay": 0.15,
+    "core_ratio": 0.4,
+    "projection_months": 120,
+    "wal_months": 0.43,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.916425,
+        "core_component": 0.4,
+        "volatile_component": 0.516425
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.844491,
+        "core_component": 0.4,
+        "volatile_component": 0.444491
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.782577,
+        "core_component": 0.4,
+        "volatile_component": 0.382577
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.729287,
+        "core_component": 0.4,
+        "volatile_component": 0.329287
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.68342,
+        "core_component": 0.4,
+        "volatile_component": 0.28342
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.643942,
+        "core_component": 0.4,
+        "volatile_component": 0.243942
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.609963,
+        "core_component": 0.4,
+        "volatile_component": 0.209963
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.580717,
+        "core_component": 0.4,
+        "volatile_component": 0.180717
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.555544,
+        "core_component": 0.4,
+        "volatile_component": 0.155544
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.533878,
+        "core_component": 0.4,
+        "volatile_component": 0.133878
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.51523,
+        "core_component": 0.4,
+        "volatile_component": 0.11523
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.499179,
+        "core_component": 0.4,
+        "volatile_component": 0.099179
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.485364,
+        "core_component": 0.4,
+        "volatile_component": 0.085364
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.473474,
+        "core_component": 0.4,
+        "volatile_component": 0.073474
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.46324,
+        "core_component": 0.4,
+        "volatile_component": 0.06324
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.454431,
+        "core_component": 0.4,
+        "volatile_component": 0.054431
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.446849,
+        "core_component": 0.4,
+        "volatile_component": 0.046849
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.440323,
+        "core_component": 0.4,
+        "volatile_component": 0.040323
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.434707,
+        "core_component": 0.4,
+        "volatile_component": 0.034707
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.429872,
+        "core_component": 0.4,
+        "volatile_component": 0.029872
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.425711,
+        "core_component": 0.4,
+        "volatile_component": 0.025711
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.42213,
+        "core_component": 0.4,
+        "volatile_component": 0.02213
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.419047,
+        "core_component": 0.4,
+        "volatile_component": 0.019047
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.416394,
+        "core_component": 0.4,
+        "volatile_component": 0.016394
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.414111,
+        "core_component": 0.4,
+        "volatile_component": 0.014111
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.412145,
+        "core_component": 0.4,
+        "volatile_component": 0.012145
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.410453,
+        "core_component": 0.4,
+        "volatile_component": 0.010453
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.408997,
+        "core_component": 0.4,
+        "volatile_component": 0.008997
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.407744,
+        "core_component": 0.4,
+        "volatile_component": 0.007744
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.406665,
+        "core_component": 0.4,
+        "volatile_component": 0.006665
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.405737,
+        "core_component": 0.4,
+        "volatile_component": 0.005737
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.404938,
+        "core_component": 0.4,
+        "volatile_component": 0.004938
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.40425,
+        "core_component": 0.4,
+        "volatile_component": 0.00425
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.403658,
+        "core_component": 0.4,
+        "volatile_component": 0.003658
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.403149,
+        "core_component": 0.4,
+        "volatile_component": 0.003149
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.40271,
+        "core_component": 0.4,
+        "volatile_component": 0.00271
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.402332,
+        "core_component": 0.4,
+        "volatile_component": 0.002332
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.402008,
+        "core_component": 0.4,
+        "volatile_component": 0.002008
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.401728,
+        "core_component": 0.4,
+        "volatile_component": 0.001728
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.401487,
+        "core_component": 0.4,
+        "volatile_component": 0.001487
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.40128,
+        "core_component": 0.4,
+        "volatile_component": 0.00128
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.401102,
+        "core_component": 0.4,
+        "volatile_component": 0.001102
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.400948,
+        "core_component": 0.4,
+        "volatile_component": 0.000948
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.400816,
+        "core_component": 0.4,
+        "volatile_component": 0.000816
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.400703,
+        "core_component": 0.4,
+        "volatile_component": 0.000703
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.400605,
+        "core_component": 0.4,
+        "volatile_component": 0.000605
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.40052,
+        "core_component": 0.4,
+        "volatile_component": 0.00052
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.400448,
+        "core_component": 0.4,
+        "volatile_component": 0.000448
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.400386,
+        "core_component": 0.4,
+        "volatile_component": 0.000386
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.400332,
+        "core_component": 0.4,
+        "volatile_component": 0.000332
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.400286,
+        "core_component": 0.4,
+        "volatile_component": 0.000286
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.400246,
+        "core_component": 0.4,
+        "volatile_component": 0.000246
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.400212,
+        "core_component": 0.4,
+        "volatile_component": 0.000212
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.400182,
+        "core_component": 0.4,
+        "volatile_component": 0.000182
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.400157,
+        "core_component": 0.4,
+        "volatile_component": 0.000157
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.400135,
+        "core_component": 0.4,
+        "volatile_component": 0.000135
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.400116,
+        "core_component": 0.4,
+        "volatile_component": 0.000116
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.4001,
+        "core_component": 0.4,
+        "volatile_component": 0.0001
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.400086,
+        "core_component": 0.4,
+        "volatile_component": 8.6e-05
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.400074,
+        "core_component": 0.4,
+        "volatile_component": 7.4e-05
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.400064,
+        "core_component": 0.4,
+        "volatile_component": 6.4e-05
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.400055,
+        "core_component": 0.4,
+        "volatile_component": 5.5e-05
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.400047,
+        "core_component": 0.4,
+        "volatile_component": 4.7e-05
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.400041,
+        "core_component": 0.4,
+        "volatile_component": 4.1e-05
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.400035,
+        "core_component": 0.4,
+        "volatile_component": 3.5e-05
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.40003,
+        "core_component": 0.4,
+        "volatile_component": 3e-05
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.400026,
+        "core_component": 0.4,
+        "volatile_component": 2.6e-05
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.400022,
+        "core_component": 0.4,
+        "volatile_component": 2.2e-05
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.400019,
+        "core_component": 0.4,
+        "volatile_component": 1.9e-05
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.400017,
+        "core_component": 0.4,
+        "volatile_component": 1.7e-05
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.400014,
+        "core_component": 0.4,
+        "volatile_component": 1.4e-05
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.400012,
+        "core_component": 0.4,
+        "volatile_component": 1.2e-05
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.400011,
+        "core_component": 0.4,
+        "volatile_component": 1.1e-05
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.400009,
+        "core_component": 0.4,
+        "volatile_component": 9e-06
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.400008,
+        "core_component": 0.4,
+        "volatile_component": 8e-06
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.400007,
+        "core_component": 0.4,
+        "volatile_component": 7e-06
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.400006,
+        "core_component": 0.4,
+        "volatile_component": 6e-06
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.400005,
+        "core_component": 0.4,
+        "volatile_component": 5e-06
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.400004,
+        "core_component": 0.4,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.400004,
+        "core_component": 0.4,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.400003,
+        "core_component": 0.4,
+        "volatile_component": 3e-06
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.400003,
+        "core_component": 0.4,
+        "volatile_component": 3e-06
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.400002,
+        "core_component": 0.4,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.400002,
+        "core_component": 0.4,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.400002,
+        "core_component": 0.4,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.400001,
+        "core_component": 0.4,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.4,
+        "core_component": 0.4,
+        "volatile_component": 0.0
+      }
+    ]
+  },
+  {
+    "profile_name": "Retail Savings Account",
+    "lambda_decay": 0.08,
+    "core_ratio": 0.6,
+    "projection_months": 120,
+    "wal_months": 0.64,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.969247,
+        "core_component": 0.6,
+        "volatile_component": 0.369247
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.940858,
+        "core_component": 0.6,
+        "volatile_component": 0.340858
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.914651,
+        "core_component": 0.6,
+        "volatile_component": 0.314651
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.89046,
+        "core_component": 0.6,
+        "volatile_component": 0.29046
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.868128,
+        "core_component": 0.6,
+        "volatile_component": 0.268128
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.847513,
+        "core_component": 0.6,
+        "volatile_component": 0.247513
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.828484,
+        "core_component": 0.6,
+        "volatile_component": 0.228484
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.810917,
+        "core_component": 0.6,
+        "volatile_component": 0.210917
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.794701,
+        "core_component": 0.6,
+        "volatile_component": 0.194701
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.779732,
+        "core_component": 0.6,
+        "volatile_component": 0.179732
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.765913,
+        "core_component": 0.6,
+        "volatile_component": 0.165913
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.753157,
+        "core_component": 0.6,
+        "volatile_component": 0.153157
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.741382,
+        "core_component": 0.6,
+        "volatile_component": 0.141382
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.730512,
+        "core_component": 0.6,
+        "volatile_component": 0.130512
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.720478,
+        "core_component": 0.6,
+        "volatile_component": 0.120478
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.711215,
+        "core_component": 0.6,
+        "volatile_component": 0.111215
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.702664,
+        "core_component": 0.6,
+        "volatile_component": 0.102664
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.694771,
+        "core_component": 0.6,
+        "volatile_component": 0.094771
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.687485,
+        "core_component": 0.6,
+        "volatile_component": 0.087485
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.680759,
+        "core_component": 0.6,
+        "volatile_component": 0.080759
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.67455,
+        "core_component": 0.6,
+        "volatile_component": 0.07455
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.668818,
+        "core_component": 0.6,
+        "volatile_component": 0.068818
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.663527,
+        "core_component": 0.6,
+        "volatile_component": 0.063527
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.658643,
+        "core_component": 0.6,
+        "volatile_component": 0.058643
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.654134,
+        "core_component": 0.6,
+        "volatile_component": 0.054134
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.649972,
+        "core_component": 0.6,
+        "volatile_component": 0.049972
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.64613,
+        "core_component": 0.6,
+        "volatile_component": 0.04613
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.642583,
+        "core_component": 0.6,
+        "volatile_component": 0.042583
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.639309,
+        "core_component": 0.6,
+        "volatile_component": 0.039309
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.636287,
+        "core_component": 0.6,
+        "volatile_component": 0.036287
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.633497,
+        "core_component": 0.6,
+        "volatile_component": 0.033497
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.630922,
+        "core_component": 0.6,
+        "volatile_component": 0.030922
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.628545,
+        "core_component": 0.6,
+        "volatile_component": 0.028545
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.62635,
+        "core_component": 0.6,
+        "volatile_component": 0.02635
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.624324,
+        "core_component": 0.6,
+        "volatile_component": 0.024324
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.622454,
+        "core_component": 0.6,
+        "volatile_component": 0.022454
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.620728,
+        "core_component": 0.6,
+        "volatile_component": 0.020728
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.619134,
+        "core_component": 0.6,
+        "volatile_component": 0.019134
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.617663,
+        "core_component": 0.6,
+        "volatile_component": 0.017663
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.616305,
+        "core_component": 0.6,
+        "volatile_component": 0.016305
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.615051,
+        "core_component": 0.6,
+        "volatile_component": 0.015051
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.613894,
+        "core_component": 0.6,
+        "volatile_component": 0.013894
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.612826,
+        "core_component": 0.6,
+        "volatile_component": 0.012826
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.61184,
+        "core_component": 0.6,
+        "volatile_component": 0.01184
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.610929,
+        "core_component": 0.6,
+        "volatile_component": 0.010929
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.610089,
+        "core_component": 0.6,
+        "volatile_component": 0.010089
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.609313,
+        "core_component": 0.6,
+        "volatile_component": 0.009313
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.608597,
+        "core_component": 0.6,
+        "volatile_component": 0.008597
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.607936,
+        "core_component": 0.6,
+        "volatile_component": 0.007936
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.607326,
+        "core_component": 0.6,
+        "volatile_component": 0.007326
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.606763,
+        "core_component": 0.6,
+        "volatile_component": 0.006763
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.606243,
+        "core_component": 0.6,
+        "volatile_component": 0.006243
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.605763,
+        "core_component": 0.6,
+        "volatile_component": 0.005763
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.60532,
+        "core_component": 0.6,
+        "volatile_component": 0.00532
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.604911,
+        "core_component": 0.6,
+        "volatile_component": 0.004911
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.604533,
+        "core_component": 0.6,
+        "volatile_component": 0.004533
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.604185,
+        "core_component": 0.6,
+        "volatile_component": 0.004185
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.603863,
+        "core_component": 0.6,
+        "volatile_component": 0.003863
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.603566,
+        "core_component": 0.6,
+        "volatile_component": 0.003566
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.603292,
+        "core_component": 0.6,
+        "volatile_component": 0.003292
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.603039,
+        "core_component": 0.6,
+        "volatile_component": 0.003039
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.602805,
+        "core_component": 0.6,
+        "volatile_component": 0.002805
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.602589,
+        "core_component": 0.6,
+        "volatile_component": 0.002589
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.60239,
+        "core_component": 0.6,
+        "volatile_component": 0.00239
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.602207,
+        "core_component": 0.6,
+        "volatile_component": 0.002207
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.602037,
+        "core_component": 0.6,
+        "volatile_component": 0.002037
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.60188,
+        "core_component": 0.6,
+        "volatile_component": 0.00188
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.601736,
+        "core_component": 0.6,
+        "volatile_component": 0.001736
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.601602,
+        "core_component": 0.6,
+        "volatile_component": 0.001602
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.601479,
+        "core_component": 0.6,
+        "volatile_component": 0.001479
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.601365,
+        "core_component": 0.6,
+        "volatile_component": 0.001365
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.60126,
+        "core_component": 0.6,
+        "volatile_component": 0.00126
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.601164,
+        "core_component": 0.6,
+        "volatile_component": 0.001164
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.601074,
+        "core_component": 0.6,
+        "volatile_component": 0.001074
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.600992,
+        "core_component": 0.6,
+        "volatile_component": 0.000992
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.600915,
+        "core_component": 0.6,
+        "volatile_component": 0.000915
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.600845,
+        "core_component": 0.6,
+        "volatile_component": 0.000845
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.60078,
+        "core_component": 0.6,
+        "volatile_component": 0.00078
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.60072,
+        "core_component": 0.6,
+        "volatile_component": 0.00072
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.600665,
+        "core_component": 0.6,
+        "volatile_component": 0.000665
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.600614,
+        "core_component": 0.6,
+        "volatile_component": 0.000614
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.600566,
+        "core_component": 0.6,
+        "volatile_component": 0.000566
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.600523,
+        "core_component": 0.6,
+        "volatile_component": 0.000523
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.600483,
+        "core_component": 0.6,
+        "volatile_component": 0.000483
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.600446,
+        "core_component": 0.6,
+        "volatile_component": 0.000446
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.600411,
+        "core_component": 0.6,
+        "volatile_component": 0.000411
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.60038,
+        "core_component": 0.6,
+        "volatile_component": 0.00038
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.60035,
+        "core_component": 0.6,
+        "volatile_component": 0.00035
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.600324,
+        "core_component": 0.6,
+        "volatile_component": 0.000324
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.600299,
+        "core_component": 0.6,
+        "volatile_component": 0.000299
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.600276,
+        "core_component": 0.6,
+        "volatile_component": 0.000276
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.600254,
+        "core_component": 0.6,
+        "volatile_component": 0.000254
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.600235,
+        "core_component": 0.6,
+        "volatile_component": 0.000235
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.600217,
+        "core_component": 0.6,
+        "volatile_component": 0.000217
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.6002,
+        "core_component": 0.6,
+        "volatile_component": 0.0002
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.600185,
+        "core_component": 0.6,
+        "volatile_component": 0.000185
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.600171,
+        "core_component": 0.6,
+        "volatile_component": 0.000171
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.600157,
+        "core_component": 0.6,
+        "volatile_component": 0.000157
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.600145,
+        "core_component": 0.6,
+        "volatile_component": 0.000145
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.600134,
+        "core_component": 0.6,
+        "volatile_component": 0.000134
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.600124,
+        "core_component": 0.6,
+        "volatile_component": 0.000124
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.600114,
+        "core_component": 0.6,
+        "volatile_component": 0.000114
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.600106,
+        "core_component": 0.6,
+        "volatile_component": 0.000106
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.600097,
+        "core_component": 0.6,
+        "volatile_component": 9.7e-05
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.60009,
+        "core_component": 0.6,
+        "volatile_component": 9e-05
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.600083,
+        "core_component": 0.6,
+        "volatile_component": 8.3e-05
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.600077,
+        "core_component": 0.6,
+        "volatile_component": 7.7e-05
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.600071,
+        "core_component": 0.6,
+        "volatile_component": 7.1e-05
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.600065,
+        "core_component": 0.6,
+        "volatile_component": 6.5e-05
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.60006,
+        "core_component": 0.6,
+        "volatile_component": 6e-05
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.600056,
+        "core_component": 0.6,
+        "volatile_component": 5.6e-05
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.600051,
+        "core_component": 0.6,
+        "volatile_component": 5.1e-05
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.600047,
+        "core_component": 0.6,
+        "volatile_component": 4.7e-05
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.600044,
+        "core_component": 0.6,
+        "volatile_component": 4.4e-05
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.60004,
+        "core_component": 0.6,
+        "volatile_component": 4e-05
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.600037,
+        "core_component": 0.6,
+        "volatile_component": 3.7e-05
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.600034,
+        "core_component": 0.6,
+        "volatile_component": 3.4e-05
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.600032,
+        "core_component": 0.6,
+        "volatile_component": 3.2e-05
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.600029,
+        "core_component": 0.6,
+        "volatile_component": 2.9e-05
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.600027,
+        "core_component": 0.6,
+        "volatile_component": 2.7e-05
+      }
+    ]
+  },
+  {
+    "profile_name": "Corporate Operating Account",
+    "lambda_decay": 0.12,
+    "core_ratio": 0.55,
+    "projection_months": 120,
+    "wal_months": 0.58,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.949114,
+        "core_component": 0.55,
+        "volatile_component": 0.399114
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.903983,
+        "core_component": 0.55,
+        "volatile_component": 0.353983
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.863954,
+        "core_component": 0.55,
+        "volatile_component": 0.313954
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.828453,
+        "core_component": 0.55,
+        "volatile_component": 0.278453
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.796965,
+        "core_component": 0.55,
+        "volatile_component": 0.246965
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.769039,
+        "core_component": 0.55,
+        "volatile_component": 0.219039
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.74427,
+        "core_component": 0.55,
+        "volatile_component": 0.19427
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.722302,
+        "core_component": 0.55,
+        "volatile_component": 0.172302
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.702818,
+        "core_component": 0.55,
+        "volatile_component": 0.152818
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.685537,
+        "core_component": 0.55,
+        "volatile_component": 0.135537
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.670211,
+        "core_component": 0.55,
+        "volatile_component": 0.120211
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.656617,
+        "core_component": 0.55,
+        "volatile_component": 0.106617
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.644561,
+        "core_component": 0.55,
+        "volatile_component": 0.094561
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.633868,
+        "core_component": 0.55,
+        "volatile_component": 0.083868
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.624384,
+        "core_component": 0.55,
+        "volatile_component": 0.074384
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.615973,
+        "core_component": 0.55,
+        "volatile_component": 0.065973
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.608513,
+        "core_component": 0.55,
+        "volatile_component": 0.058513
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.601896,
+        "core_component": 0.55,
+        "volatile_component": 0.051896
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.596028,
+        "core_component": 0.55,
+        "volatile_component": 0.046028
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.590823,
+        "core_component": 0.55,
+        "volatile_component": 0.040823
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.586207,
+        "core_component": 0.55,
+        "volatile_component": 0.036207
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.582113,
+        "core_component": 0.55,
+        "volatile_component": 0.032113
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.578481,
+        "core_component": 0.55,
+        "volatile_component": 0.028481
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.575261,
+        "core_component": 0.55,
+        "volatile_component": 0.025261
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.572404,
+        "core_component": 0.55,
+        "volatile_component": 0.022404
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.569871,
+        "core_component": 0.55,
+        "volatile_component": 0.019871
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.567624,
+        "core_component": 0.55,
+        "volatile_component": 0.017624
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.565631,
+        "core_component": 0.55,
+        "volatile_component": 0.015631
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.563863,
+        "core_component": 0.55,
+        "volatile_component": 0.013863
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.562296,
+        "core_component": 0.55,
+        "volatile_component": 0.012296
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.560905,
+        "core_component": 0.55,
+        "volatile_component": 0.010905
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.559672,
+        "core_component": 0.55,
+        "volatile_component": 0.009672
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.558578,
+        "core_component": 0.55,
+        "volatile_component": 0.008578
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.557608,
+        "core_component": 0.55,
+        "volatile_component": 0.007608
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.556748,
+        "core_component": 0.55,
+        "volatile_component": 0.006748
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.555985,
+        "core_component": 0.55,
+        "volatile_component": 0.005985
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.555308,
+        "core_component": 0.55,
+        "volatile_component": 0.005308
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.554708,
+        "core_component": 0.55,
+        "volatile_component": 0.004708
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.554176,
+        "core_component": 0.55,
+        "volatile_component": 0.004176
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.553703,
+        "core_component": 0.55,
+        "volatile_component": 0.003703
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.553285,
+        "core_component": 0.55,
+        "volatile_component": 0.003285
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.552913,
+        "core_component": 0.55,
+        "volatile_component": 0.002913
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.552584,
+        "core_component": 0.55,
+        "volatile_component": 0.002584
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.552292,
+        "core_component": 0.55,
+        "volatile_component": 0.002292
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.552032,
+        "core_component": 0.55,
+        "volatile_component": 0.002032
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.551803,
+        "core_component": 0.55,
+        "volatile_component": 0.001803
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.551599,
+        "core_component": 0.55,
+        "volatile_component": 0.001599
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.551418,
+        "core_component": 0.55,
+        "volatile_component": 0.001418
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.551258,
+        "core_component": 0.55,
+        "volatile_component": 0.001258
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.551115,
+        "core_component": 0.55,
+        "volatile_component": 0.001115
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.550989,
+        "core_component": 0.55,
+        "volatile_component": 0.000989
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.550877,
+        "core_component": 0.55,
+        "volatile_component": 0.000877
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.550778,
+        "core_component": 0.55,
+        "volatile_component": 0.000778
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.55069,
+        "core_component": 0.55,
+        "volatile_component": 0.00069
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.550612,
+        "core_component": 0.55,
+        "volatile_component": 0.000612
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.550543,
+        "core_component": 0.55,
+        "volatile_component": 0.000543
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.550482,
+        "core_component": 0.55,
+        "volatile_component": 0.000482
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.550427,
+        "core_component": 0.55,
+        "volatile_component": 0.000427
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.550379,
+        "core_component": 0.55,
+        "volatile_component": 0.000379
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.550336,
+        "core_component": 0.55,
+        "volatile_component": 0.000336
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.550298,
+        "core_component": 0.55,
+        "volatile_component": 0.000298
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.550264,
+        "core_component": 0.55,
+        "volatile_component": 0.000264
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.550234,
+        "core_component": 0.55,
+        "volatile_component": 0.000234
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.550208,
+        "core_component": 0.55,
+        "volatile_component": 0.000208
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.550184,
+        "core_component": 0.55,
+        "volatile_component": 0.000184
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.550164,
+        "core_component": 0.55,
+        "volatile_component": 0.000164
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.550145,
+        "core_component": 0.55,
+        "volatile_component": 0.000145
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.550129,
+        "core_component": 0.55,
+        "volatile_component": 0.000129
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.550114,
+        "core_component": 0.55,
+        "volatile_component": 0.000114
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.550101,
+        "core_component": 0.55,
+        "volatile_component": 0.000101
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.55009,
+        "core_component": 0.55,
+        "volatile_component": 9e-05
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.55008,
+        "core_component": 0.55,
+        "volatile_component": 8e-05
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.550071,
+        "core_component": 0.55,
+        "volatile_component": 7.1e-05
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.550063,
+        "core_component": 0.55,
+        "volatile_component": 6.3e-05
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.550056,
+        "core_component": 0.55,
+        "volatile_component": 5.6e-05
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.550049,
+        "core_component": 0.55,
+        "volatile_component": 4.9e-05
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.550044,
+        "core_component": 0.55,
+        "volatile_component": 4.4e-05
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.550039,
+        "core_component": 0.55,
+        "volatile_component": 3.9e-05
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.550034,
+        "core_component": 0.55,
+        "volatile_component": 3.4e-05
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.55003,
+        "core_component": 0.55,
+        "volatile_component": 3e-05
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.550027,
+        "core_component": 0.55,
+        "volatile_component": 2.7e-05
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.550024,
+        "core_component": 0.55,
+        "volatile_component": 2.4e-05
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.550021,
+        "core_component": 0.55,
+        "volatile_component": 2.1e-05
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.550019,
+        "core_component": 0.55,
+        "volatile_component": 1.9e-05
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.550017,
+        "core_component": 0.55,
+        "volatile_component": 1.7e-05
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.550015,
+        "core_component": 0.55,
+        "volatile_component": 1.5e-05
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.550013,
+        "core_component": 0.55,
+        "volatile_component": 1.3e-05
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.550012,
+        "core_component": 0.55,
+        "volatile_component": 1.2e-05
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.55001,
+        "core_component": 0.55,
+        "volatile_component": 1e-05
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.550009,
+        "core_component": 0.55,
+        "volatile_component": 9e-06
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.550008,
+        "core_component": 0.55,
+        "volatile_component": 8e-06
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.550007,
+        "core_component": 0.55,
+        "volatile_component": 7e-06
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.550006,
+        "core_component": 0.55,
+        "volatile_component": 6e-06
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.550006,
+        "core_component": 0.55,
+        "volatile_component": 6e-06
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.550005,
+        "core_component": 0.55,
+        "volatile_component": 5e-06
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.550004,
+        "core_component": 0.55,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.550004,
+        "core_component": 0.55,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.550004,
+        "core_component": 0.55,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.550003,
+        "core_component": 0.55,
+        "volatile_component": 3e-06
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.550003,
+        "core_component": 0.55,
+        "volatile_component": 3e-06
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.550002,
+        "core_component": 0.55,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.550002,
+        "core_component": 0.55,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.550002,
+        "core_component": 0.55,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.550002,
+        "core_component": 0.55,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.550002,
+        "core_component": 0.55,
+        "volatile_component": 2e-06
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.550001,
+        "core_component": 0.55,
+        "volatile_component": 1e-06
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.55,
+        "core_component": 0.55,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.55,
+        "core_component": 0.55,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.55,
+        "core_component": 0.55,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.55,
+        "core_component": 0.55,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.55,
+        "core_component": 0.55,
+        "volatile_component": 0.0
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.55,
+        "core_component": 0.55,
+        "volatile_component": 0.0
+      }
+    ]
+  },
+  {
+    "profile_name": "Corporate Cash Pool",
+    "lambda_decay": 0.06,
+    "core_ratio": 0.7,
+    "projection_months": 120,
+    "wal_months": 0.74,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.982529,
+        "core_component": 0.7,
+        "volatile_component": 0.282529
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.966076,
+        "core_component": 0.7,
+        "volatile_component": 0.266076
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.950581,
+        "core_component": 0.7,
+        "volatile_component": 0.250581
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.935988,
+        "core_component": 0.7,
+        "volatile_component": 0.235988
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.922245,
+        "core_component": 0.7,
+        "volatile_component": 0.222245
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.909303,
+        "core_component": 0.7,
+        "volatile_component": 0.209303
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.897114,
+        "core_component": 0.7,
+        "volatile_component": 0.197114
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.885635,
+        "core_component": 0.7,
+        "volatile_component": 0.185635
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.874824,
+        "core_component": 0.7,
+        "volatile_component": 0.174824
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.864643,
+        "core_component": 0.7,
+        "volatile_component": 0.164643
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.855055,
+        "core_component": 0.7,
+        "volatile_component": 0.155055
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.846026,
+        "core_component": 0.7,
+        "volatile_component": 0.146026
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.837522,
+        "core_component": 0.7,
+        "volatile_component": 0.137522
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.829513,
+        "core_component": 0.7,
+        "volatile_component": 0.129513
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.821971,
+        "core_component": 0.7,
+        "volatile_component": 0.121971
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.814868,
+        "core_component": 0.7,
+        "volatile_component": 0.114868
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.808178,
+        "core_component": 0.7,
+        "volatile_component": 0.108178
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.801879,
+        "core_component": 0.7,
+        "volatile_component": 0.101879
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.795946,
+        "core_component": 0.7,
+        "volatile_component": 0.095946
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.790358,
+        "core_component": 0.7,
+        "volatile_component": 0.090358
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.785096,
+        "core_component": 0.7,
+        "volatile_component": 0.085096
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.780141,
+        "core_component": 0.7,
+        "volatile_component": 0.080141
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.775474,
+        "core_component": 0.7,
+        "volatile_component": 0.075474
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.771078,
+        "core_component": 0.7,
+        "volatile_component": 0.071078
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.766939,
+        "core_component": 0.7,
+        "volatile_component": 0.066939
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.763041,
+        "core_component": 0.7,
+        "volatile_component": 0.063041
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.75937,
+        "core_component": 0.7,
+        "volatile_component": 0.05937
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.755912,
+        "core_component": 0.7,
+        "volatile_component": 0.055912
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.752656,
+        "core_component": 0.7,
+        "volatile_component": 0.052656
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.74959,
+        "core_component": 0.7,
+        "volatile_component": 0.04959
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.746702,
+        "core_component": 0.7,
+        "volatile_component": 0.046702
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.743982,
+        "core_component": 0.7,
+        "volatile_component": 0.043982
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.741421,
+        "core_component": 0.7,
+        "volatile_component": 0.041421
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.739009,
+        "core_component": 0.7,
+        "volatile_component": 0.039009
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.736737,
+        "core_component": 0.7,
+        "volatile_component": 0.036737
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.734598,
+        "core_component": 0.7,
+        "volatile_component": 0.034598
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.732583,
+        "core_component": 0.7,
+        "volatile_component": 0.032583
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.730685,
+        "core_component": 0.7,
+        "volatile_component": 0.030685
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.728898,
+        "core_component": 0.7,
+        "volatile_component": 0.028898
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.727215,
+        "core_component": 0.7,
+        "volatile_component": 0.027215
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.72563,
+        "core_component": 0.7,
+        "volatile_component": 0.02563
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.724138,
+        "core_component": 0.7,
+        "volatile_component": 0.024138
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.722732,
+        "core_component": 0.7,
+        "volatile_component": 0.022732
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.721408,
+        "core_component": 0.7,
+        "volatile_component": 0.021408
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.720162,
+        "core_component": 0.7,
+        "volatile_component": 0.020162
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.718988,
+        "core_component": 0.7,
+        "volatile_component": 0.018988
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.717882,
+        "core_component": 0.7,
+        "volatile_component": 0.017882
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.71684,
+        "core_component": 0.7,
+        "volatile_component": 0.01684
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.71586,
+        "core_component": 0.7,
+        "volatile_component": 0.01586
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.714936,
+        "core_component": 0.7,
+        "volatile_component": 0.014936
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.714066,
+        "core_component": 0.7,
+        "volatile_component": 0.014066
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.713247,
+        "core_component": 0.7,
+        "volatile_component": 0.013247
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.712476,
+        "core_component": 0.7,
+        "volatile_component": 0.012476
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.711749,
+        "core_component": 0.7,
+        "volatile_component": 0.011749
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.711065,
+        "core_component": 0.7,
+        "volatile_component": 0.011065
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.710421,
+        "core_component": 0.7,
+        "volatile_component": 0.010421
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.709814,
+        "core_component": 0.7,
+        "volatile_component": 0.009814
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.709242,
+        "core_component": 0.7,
+        "volatile_component": 0.009242
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.708704,
+        "core_component": 0.7,
+        "volatile_component": 0.008704
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.708197,
+        "core_component": 0.7,
+        "volatile_component": 0.008197
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.70772,
+        "core_component": 0.7,
+        "volatile_component": 0.00772
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.70727,
+        "core_component": 0.7,
+        "volatile_component": 0.00727
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.706847,
+        "core_component": 0.7,
+        "volatile_component": 0.006847
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.706448,
+        "core_component": 0.7,
+        "volatile_component": 0.006448
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.706073,
+        "core_component": 0.7,
+        "volatile_component": 0.006073
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.705719,
+        "core_component": 0.7,
+        "volatile_component": 0.005719
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.705386,
+        "core_component": 0.7,
+        "volatile_component": 0.005386
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.705072,
+        "core_component": 0.7,
+        "volatile_component": 0.005072
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.704777,
+        "core_component": 0.7,
+        "volatile_component": 0.004777
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.704499,
+        "core_component": 0.7,
+        "volatile_component": 0.004499
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.704237,
+        "core_component": 0.7,
+        "volatile_component": 0.004237
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.70399,
+        "core_component": 0.7,
+        "volatile_component": 0.00399
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.703758,
+        "core_component": 0.7,
+        "volatile_component": 0.003758
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.703539,
+        "core_component": 0.7,
+        "volatile_component": 0.003539
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.703333,
+        "core_component": 0.7,
+        "volatile_component": 0.003333
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.703139,
+        "core_component": 0.7,
+        "volatile_component": 0.003139
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.702956,
+        "core_component": 0.7,
+        "volatile_component": 0.002956
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.702784,
+        "core_component": 0.7,
+        "volatile_component": 0.002784
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.702622,
+        "core_component": 0.7,
+        "volatile_component": 0.002622
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.702469,
+        "core_component": 0.7,
+        "volatile_component": 0.002469
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.702325,
+        "core_component": 0.7,
+        "volatile_component": 0.002325
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.70219,
+        "core_component": 0.7,
+        "volatile_component": 0.00219
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.702062,
+        "core_component": 0.7,
+        "volatile_component": 0.002062
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.701942,
+        "core_component": 0.7,
+        "volatile_component": 0.001942
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.701829,
+        "core_component": 0.7,
+        "volatile_component": 0.001829
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.701723,
+        "core_component": 0.7,
+        "volatile_component": 0.001723
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.701622,
+        "core_component": 0.7,
+        "volatile_component": 0.001622
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.701528,
+        "core_component": 0.7,
+        "volatile_component": 0.001528
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.701439,
+        "core_component": 0.7,
+        "volatile_component": 0.001439
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.701355,
+        "core_component": 0.7,
+        "volatile_component": 0.001355
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.701276,
+        "core_component": 0.7,
+        "volatile_component": 0.001276
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.701202,
+        "core_component": 0.7,
+        "volatile_component": 0.001202
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.701132,
+        "core_component": 0.7,
+        "volatile_component": 0.001132
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.701066,
+        "core_component": 0.7,
+        "volatile_component": 0.001066
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.701004,
+        "core_component": 0.7,
+        "volatile_component": 0.001004
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.700945,
+        "core_component": 0.7,
+        "volatile_component": 0.000945
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.70089,
+        "core_component": 0.7,
+        "volatile_component": 0.00089
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.700838,
+        "core_component": 0.7,
+        "volatile_component": 0.000838
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.70079,
+        "core_component": 0.7,
+        "volatile_component": 0.00079
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.700744,
+        "core_component": 0.7,
+        "volatile_component": 0.000744
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.7007,
+        "core_component": 0.7,
+        "volatile_component": 0.0007
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.70066,
+        "core_component": 0.7,
+        "volatile_component": 0.00066
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.700621,
+        "core_component": 0.7,
+        "volatile_component": 0.000621
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.700585,
+        "core_component": 0.7,
+        "volatile_component": 0.000585
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.700551,
+        "core_component": 0.7,
+        "volatile_component": 0.000551
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.700519,
+        "core_component": 0.7,
+        "volatile_component": 0.000519
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.700489,
+        "core_component": 0.7,
+        "volatile_component": 0.000489
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.70046,
+        "core_component": 0.7,
+        "volatile_component": 0.00046
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.700433,
+        "core_component": 0.7,
+        "volatile_component": 0.000433
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.700408,
+        "core_component": 0.7,
+        "volatile_component": 0.000408
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.700384,
+        "core_component": 0.7,
+        "volatile_component": 0.000384
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.700362,
+        "core_component": 0.7,
+        "volatile_component": 0.000362
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.700341,
+        "core_component": 0.7,
+        "volatile_component": 0.000341
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.700321,
+        "core_component": 0.7,
+        "volatile_component": 0.000321
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.700302,
+        "core_component": 0.7,
+        "volatile_component": 0.000302
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.700285,
+        "core_component": 0.7,
+        "volatile_component": 0.000285
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.700268,
+        "core_component": 0.7,
+        "volatile_component": 0.000268
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.700253,
+        "core_component": 0.7,
+        "volatile_component": 0.000253
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.700238,
+        "core_component": 0.7,
+        "volatile_component": 0.000238
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.700224,
+        "core_component": 0.7,
+        "volatile_component": 0.000224
+      }
+    ]
+  },
+  {
+    "profile_name": "SME Deposits",
+    "lambda_decay": 0.1,
+    "core_ratio": 0.5,
+    "projection_months": 120,
+    "wal_months": 0.54,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.952419,
+        "core_component": 0.5,
+        "volatile_component": 0.452419
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.909365,
+        "core_component": 0.5,
+        "volatile_component": 0.409365
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.870409,
+        "core_component": 0.5,
+        "volatile_component": 0.370409
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.83516,
+        "core_component": 0.5,
+        "volatile_component": 0.33516
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.803265,
+        "core_component": 0.5,
+        "volatile_component": 0.303265
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.774406,
+        "core_component": 0.5,
+        "volatile_component": 0.274406
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.748293,
+        "core_component": 0.5,
+        "volatile_component": 0.248293
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.724664,
+        "core_component": 0.5,
+        "volatile_component": 0.224664
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.703285,
+        "core_component": 0.5,
+        "volatile_component": 0.203285
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.68394,
+        "core_component": 0.5,
+        "volatile_component": 0.18394
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.666436,
+        "core_component": 0.5,
+        "volatile_component": 0.166436
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.650597,
+        "core_component": 0.5,
+        "volatile_component": 0.150597
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.636266,
+        "core_component": 0.5,
+        "volatile_component": 0.136266
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.623298,
+        "core_component": 0.5,
+        "volatile_component": 0.123298
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.611565,
+        "core_component": 0.5,
+        "volatile_component": 0.111565
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.600948,
+        "core_component": 0.5,
+        "volatile_component": 0.100948
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.591342,
+        "core_component": 0.5,
+        "volatile_component": 0.091342
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.582649,
+        "core_component": 0.5,
+        "volatile_component": 0.082649
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.574784,
+        "core_component": 0.5,
+        "volatile_component": 0.074784
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.567668,
+        "core_component": 0.5,
+        "volatile_component": 0.067668
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.561228,
+        "core_component": 0.5,
+        "volatile_component": 0.061228
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.555402,
+        "core_component": 0.5,
+        "volatile_component": 0.055402
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.550129,
+        "core_component": 0.5,
+        "volatile_component": 0.050129
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.545359,
+        "core_component": 0.5,
+        "volatile_component": 0.045359
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.541042,
+        "core_component": 0.5,
+        "volatile_component": 0.041042
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.537137,
+        "core_component": 0.5,
+        "volatile_component": 0.037137
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.533603,
+        "core_component": 0.5,
+        "volatile_component": 0.033603
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.530405,
+        "core_component": 0.5,
+        "volatile_component": 0.030405
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.527512,
+        "core_component": 0.5,
+        "volatile_component": 0.027512
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.524894,
+        "core_component": 0.5,
+        "volatile_component": 0.024894
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.522525,
+        "core_component": 0.5,
+        "volatile_component": 0.022525
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.520381,
+        "core_component": 0.5,
+        "volatile_component": 0.020381
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.518442,
+        "core_component": 0.5,
+        "volatile_component": 0.018442
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.516687,
+        "core_component": 0.5,
+        "volatile_component": 0.016687
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.515099,
+        "core_component": 0.5,
+        "volatile_component": 0.015099
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.513662,
+        "core_component": 0.5,
+        "volatile_component": 0.013662
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.512362,
+        "core_component": 0.5,
+        "volatile_component": 0.012362
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.511185,
+        "core_component": 0.5,
+        "volatile_component": 0.011185
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.510121,
+        "core_component": 0.5,
+        "volatile_component": 0.010121
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.509158,
+        "core_component": 0.5,
+        "volatile_component": 0.009158
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.508286,
+        "core_component": 0.5,
+        "volatile_component": 0.008286
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.507498,
+        "core_component": 0.5,
+        "volatile_component": 0.007498
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.506784,
+        "core_component": 0.5,
+        "volatile_component": 0.006784
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.506139,
+        "core_component": 0.5,
+        "volatile_component": 0.006139
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.505554,
+        "core_component": 0.5,
+        "volatile_component": 0.005554
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.505026,
+        "core_component": 0.5,
+        "volatile_component": 0.005026
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.504548,
+        "core_component": 0.5,
+        "volatile_component": 0.004548
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.504115,
+        "core_component": 0.5,
+        "volatile_component": 0.004115
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.503723,
+        "core_component": 0.5,
+        "volatile_component": 0.003723
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.503369,
+        "core_component": 0.5,
+        "volatile_component": 0.003369
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.503048,
+        "core_component": 0.5,
+        "volatile_component": 0.003048
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.502758,
+        "core_component": 0.5,
+        "volatile_component": 0.002758
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.502496,
+        "core_component": 0.5,
+        "volatile_component": 0.002496
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.502258,
+        "core_component": 0.5,
+        "volatile_component": 0.002258
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.502043,
+        "core_component": 0.5,
+        "volatile_component": 0.002043
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.501849,
+        "core_component": 0.5,
+        "volatile_component": 0.001849
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.501673,
+        "core_component": 0.5,
+        "volatile_component": 0.001673
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.501514,
+        "core_component": 0.5,
+        "volatile_component": 0.001514
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.50137,
+        "core_component": 0.5,
+        "volatile_component": 0.00137
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.501239,
+        "core_component": 0.5,
+        "volatile_component": 0.001239
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.501121,
+        "core_component": 0.5,
+        "volatile_component": 0.001121
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.501015,
+        "core_component": 0.5,
+        "volatile_component": 0.001015
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.500918,
+        "core_component": 0.5,
+        "volatile_component": 0.000918
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.500831,
+        "core_component": 0.5,
+        "volatile_component": 0.000831
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.500752,
+        "core_component": 0.5,
+        "volatile_component": 0.000752
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.50068,
+        "core_component": 0.5,
+        "volatile_component": 0.00068
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.500615,
+        "core_component": 0.5,
+        "volatile_component": 0.000615
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.500557,
+        "core_component": 0.5,
+        "volatile_component": 0.000557
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.500504,
+        "core_component": 0.5,
+        "volatile_component": 0.000504
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.500456,
+        "core_component": 0.5,
+        "volatile_component": 0.000456
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.500413,
+        "core_component": 0.5,
+        "volatile_component": 0.000413
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.500373,
+        "core_component": 0.5,
+        "volatile_component": 0.000373
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.500338,
+        "core_component": 0.5,
+        "volatile_component": 0.000338
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.500306,
+        "core_component": 0.5,
+        "volatile_component": 0.000306
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.500277,
+        "core_component": 0.5,
+        "volatile_component": 0.000277
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.50025,
+        "core_component": 0.5,
+        "volatile_component": 0.00025
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.500226,
+        "core_component": 0.5,
+        "volatile_component": 0.000226
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.500205,
+        "core_component": 0.5,
+        "volatile_component": 0.000205
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.500185,
+        "core_component": 0.5,
+        "volatile_component": 0.000185
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.500168,
+        "core_component": 0.5,
+        "volatile_component": 0.000168
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.500152,
+        "core_component": 0.5,
+        "volatile_component": 0.000152
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.500137,
+        "core_component": 0.5,
+        "volatile_component": 0.000137
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.500124,
+        "core_component": 0.5,
+        "volatile_component": 0.000124
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.500112,
+        "core_component": 0.5,
+        "volatile_component": 0.000112
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.500102,
+        "core_component": 0.5,
+        "volatile_component": 0.000102
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.500092,
+        "core_component": 0.5,
+        "volatile_component": 9.2e-05
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.500083,
+        "core_component": 0.5,
+        "volatile_component": 8.3e-05
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.500075,
+        "core_component": 0.5,
+        "volatile_component": 7.5e-05
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.500068,
+        "core_component": 0.5,
+        "volatile_component": 6.8e-05
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.500062,
+        "core_component": 0.5,
+        "volatile_component": 6.2e-05
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.500056,
+        "core_component": 0.5,
+        "volatile_component": 5.6e-05
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.500051,
+        "core_component": 0.5,
+        "volatile_component": 5.1e-05
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.500046,
+        "core_component": 0.5,
+        "volatile_component": 4.6e-05
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.500041,
+        "core_component": 0.5,
+        "volatile_component": 4.1e-05
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.500037,
+        "core_component": 0.5,
+        "volatile_component": 3.7e-05
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.500034,
+        "core_component": 0.5,
+        "volatile_component": 3.4e-05
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.500031,
+        "core_component": 0.5,
+        "volatile_component": 3.1e-05
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.500028,
+        "core_component": 0.5,
+        "volatile_component": 2.8e-05
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.500025,
+        "core_component": 0.5,
+        "volatile_component": 2.5e-05
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.500023,
+        "core_component": 0.5,
+        "volatile_component": 2.3e-05
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.500021,
+        "core_component": 0.5,
+        "volatile_component": 2.1e-05
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.500019,
+        "core_component": 0.5,
+        "volatile_component": 1.9e-05
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.500017,
+        "core_component": 0.5,
+        "volatile_component": 1.7e-05
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.500015,
+        "core_component": 0.5,
+        "volatile_component": 1.5e-05
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.500014,
+        "core_component": 0.5,
+        "volatile_component": 1.4e-05
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.500012,
+        "core_component": 0.5,
+        "volatile_component": 1.2e-05
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.500011,
+        "core_component": 0.5,
+        "volatile_component": 1.1e-05
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.50001,
+        "core_component": 0.5,
+        "volatile_component": 1e-05
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.500009,
+        "core_component": 0.5,
+        "volatile_component": 9e-06
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.500008,
+        "core_component": 0.5,
+        "volatile_component": 8e-06
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.500008,
+        "core_component": 0.5,
+        "volatile_component": 8e-06
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.500007,
+        "core_component": 0.5,
+        "volatile_component": 7e-06
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.500006,
+        "core_component": 0.5,
+        "volatile_component": 6e-06
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.500006,
+        "core_component": 0.5,
+        "volatile_component": 6e-06
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.500005,
+        "core_component": 0.5,
+        "volatile_component": 5e-06
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.500005,
+        "core_component": 0.5,
+        "volatile_component": 5e-06
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.500004,
+        "core_component": 0.5,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.500004,
+        "core_component": 0.5,
+        "volatile_component": 4e-06
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.500003,
+        "core_component": 0.5,
+        "volatile_component": 3e-06
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.500003,
+        "core_component": 0.5,
+        "volatile_component": 3e-06
+      }
+    ]
+  },
+  {
+    "profile_name": "Payroll Account",
+    "lambda_decay": 0.04,
+    "core_ratio": 0.8,
+    "projection_months": 120,
+    "wal_months": 0.84,
+    "profile": [
+      {
+        "month": 1,
+        "remaining_ratio": 0.992158,
+        "core_component": 0.8,
+        "volatile_component": 0.192158
+      },
+      {
+        "month": 2,
+        "remaining_ratio": 0.984623,
+        "core_component": 0.8,
+        "volatile_component": 0.184623
+      },
+      {
+        "month": 3,
+        "remaining_ratio": 0.977384,
+        "core_component": 0.8,
+        "volatile_component": 0.177384
+      },
+      {
+        "month": 4,
+        "remaining_ratio": 0.970429,
+        "core_component": 0.8,
+        "volatile_component": 0.170429
+      },
+      {
+        "month": 5,
+        "remaining_ratio": 0.963746,
+        "core_component": 0.8,
+        "volatile_component": 0.163746
+      },
+      {
+        "month": 6,
+        "remaining_ratio": 0.957326,
+        "core_component": 0.8,
+        "volatile_component": 0.157326
+      },
+      {
+        "month": 7,
+        "remaining_ratio": 0.951157,
+        "core_component": 0.8,
+        "volatile_component": 0.151157
+      },
+      {
+        "month": 8,
+        "remaining_ratio": 0.94523,
+        "core_component": 0.8,
+        "volatile_component": 0.14523
+      },
+      {
+        "month": 9,
+        "remaining_ratio": 0.939535,
+        "core_component": 0.8,
+        "volatile_component": 0.139535
+      },
+      {
+        "month": 10,
+        "remaining_ratio": 0.934064,
+        "core_component": 0.8,
+        "volatile_component": 0.134064
+      },
+      {
+        "month": 11,
+        "remaining_ratio": 0.928807,
+        "core_component": 0.8,
+        "volatile_component": 0.128807
+      },
+      {
+        "month": 12,
+        "remaining_ratio": 0.923757,
+        "core_component": 0.8,
+        "volatile_component": 0.123757
+      },
+      {
+        "month": 13,
+        "remaining_ratio": 0.918904,
+        "core_component": 0.8,
+        "volatile_component": 0.118904
+      },
+      {
+        "month": 14,
+        "remaining_ratio": 0.914242,
+        "core_component": 0.8,
+        "volatile_component": 0.114242
+      },
+      {
+        "month": 15,
+        "remaining_ratio": 0.909762,
+        "core_component": 0.8,
+        "volatile_component": 0.109762
+      },
+      {
+        "month": 16,
+        "remaining_ratio": 0.905458,
+        "core_component": 0.8,
+        "volatile_component": 0.105458
+      },
+      {
+        "month": 17,
+        "remaining_ratio": 0.901323,
+        "core_component": 0.8,
+        "volatile_component": 0.101323
+      },
+      {
+        "month": 18,
+        "remaining_ratio": 0.89735,
+        "core_component": 0.8,
+        "volatile_component": 0.09735
+      },
+      {
+        "month": 19,
+        "remaining_ratio": 0.893533,
+        "core_component": 0.8,
+        "volatile_component": 0.093533
+      },
+      {
+        "month": 20,
+        "remaining_ratio": 0.889866,
+        "core_component": 0.8,
+        "volatile_component": 0.089866
+      },
+      {
+        "month": 21,
+        "remaining_ratio": 0.886342,
+        "core_component": 0.8,
+        "volatile_component": 0.086342
+      },
+      {
+        "month": 22,
+        "remaining_ratio": 0.882957,
+        "core_component": 0.8,
+        "volatile_component": 0.082957
+      },
+      {
+        "month": 23,
+        "remaining_ratio": 0.879704,
+        "core_component": 0.8,
+        "volatile_component": 0.079704
+      },
+      {
+        "month": 24,
+        "remaining_ratio": 0.876579,
+        "core_component": 0.8,
+        "volatile_component": 0.076579
+      },
+      {
+        "month": 25,
+        "remaining_ratio": 0.873576,
+        "core_component": 0.8,
+        "volatile_component": 0.073576
+      },
+      {
+        "month": 26,
+        "remaining_ratio": 0.870691,
+        "core_component": 0.8,
+        "volatile_component": 0.070691
+      },
+      {
+        "month": 27,
+        "remaining_ratio": 0.867919,
+        "core_component": 0.8,
+        "volatile_component": 0.067919
+      },
+      {
+        "month": 28,
+        "remaining_ratio": 0.865256,
+        "core_component": 0.8,
+        "volatile_component": 0.065256
+      },
+      {
+        "month": 29,
+        "remaining_ratio": 0.862697,
+        "core_component": 0.8,
+        "volatile_component": 0.062697
+      },
+      {
+        "month": 30,
+        "remaining_ratio": 0.860239,
+        "core_component": 0.8,
+        "volatile_component": 0.060239
+      },
+      {
+        "month": 31,
+        "remaining_ratio": 0.857877,
+        "core_component": 0.8,
+        "volatile_component": 0.057877
+      },
+      {
+        "month": 32,
+        "remaining_ratio": 0.855607,
+        "core_component": 0.8,
+        "volatile_component": 0.055607
+      },
+      {
+        "month": 33,
+        "remaining_ratio": 0.853427,
+        "core_component": 0.8,
+        "volatile_component": 0.053427
+      },
+      {
+        "month": 34,
+        "remaining_ratio": 0.851332,
+        "core_component": 0.8,
+        "volatile_component": 0.051332
+      },
+      {
+        "month": 35,
+        "remaining_ratio": 0.849319,
+        "core_component": 0.8,
+        "volatile_component": 0.049319
+      },
+      {
+        "month": 36,
+        "remaining_ratio": 0.847386,
+        "core_component": 0.8,
+        "volatile_component": 0.047386
+      },
+      {
+        "month": 37,
+        "remaining_ratio": 0.845528,
+        "core_component": 0.8,
+        "volatile_component": 0.045528
+      },
+      {
+        "month": 38,
+        "remaining_ratio": 0.843742,
+        "core_component": 0.8,
+        "volatile_component": 0.043742
+      },
+      {
+        "month": 39,
+        "remaining_ratio": 0.842027,
+        "core_component": 0.8,
+        "volatile_component": 0.042027
+      },
+      {
+        "month": 40,
+        "remaining_ratio": 0.840379,
+        "core_component": 0.8,
+        "volatile_component": 0.040379
+      },
+      {
+        "month": 41,
+        "remaining_ratio": 0.838796,
+        "core_component": 0.8,
+        "volatile_component": 0.038796
+      },
+      {
+        "month": 42,
+        "remaining_ratio": 0.837275,
+        "core_component": 0.8,
+        "volatile_component": 0.037275
+      },
+      {
+        "month": 43,
+        "remaining_ratio": 0.835813,
+        "core_component": 0.8,
+        "volatile_component": 0.035813
+      },
+      {
+        "month": 44,
+        "remaining_ratio": 0.834409,
+        "core_component": 0.8,
+        "volatile_component": 0.034409
+      },
+      {
+        "month": 45,
+        "remaining_ratio": 0.83306,
+        "core_component": 0.8,
+        "volatile_component": 0.03306
+      },
+      {
+        "month": 46,
+        "remaining_ratio": 0.831763,
+        "core_component": 0.8,
+        "volatile_component": 0.031763
+      },
+      {
+        "month": 47,
+        "remaining_ratio": 0.830518,
+        "core_component": 0.8,
+        "volatile_component": 0.030518
+      },
+      {
+        "month": 48,
+        "remaining_ratio": 0.829321,
+        "core_component": 0.8,
+        "volatile_component": 0.029321
+      },
+      {
+        "month": 49,
+        "remaining_ratio": 0.828172,
+        "core_component": 0.8,
+        "volatile_component": 0.028172
+      },
+      {
+        "month": 50,
+        "remaining_ratio": 0.827067,
+        "core_component": 0.8,
+        "volatile_component": 0.027067
+      },
+      {
+        "month": 51,
+        "remaining_ratio": 0.826006,
+        "core_component": 0.8,
+        "volatile_component": 0.026006
+      },
+      {
+        "month": 52,
+        "remaining_ratio": 0.824986,
+        "core_component": 0.8,
+        "volatile_component": 0.024986
+      },
+      {
+        "month": 53,
+        "remaining_ratio": 0.824006,
+        "core_component": 0.8,
+        "volatile_component": 0.024006
+      },
+      {
+        "month": 54,
+        "remaining_ratio": 0.823065,
+        "core_component": 0.8,
+        "volatile_component": 0.023065
+      },
+      {
+        "month": 55,
+        "remaining_ratio": 0.822161,
+        "core_component": 0.8,
+        "volatile_component": 0.022161
+      },
+      {
+        "month": 56,
+        "remaining_ratio": 0.821292,
+        "core_component": 0.8,
+        "volatile_component": 0.021292
+      },
+      {
+        "month": 57,
+        "remaining_ratio": 0.820457,
+        "core_component": 0.8,
+        "volatile_component": 0.020457
+      },
+      {
+        "month": 58,
+        "remaining_ratio": 0.819655,
+        "core_component": 0.8,
+        "volatile_component": 0.019655
+      },
+      {
+        "month": 59,
+        "remaining_ratio": 0.818884,
+        "core_component": 0.8,
+        "volatile_component": 0.018884
+      },
+      {
+        "month": 60,
+        "remaining_ratio": 0.818144,
+        "core_component": 0.8,
+        "volatile_component": 0.018144
+      },
+      {
+        "month": 61,
+        "remaining_ratio": 0.817432,
+        "core_component": 0.8,
+        "volatile_component": 0.017432
+      },
+      {
+        "month": 62,
+        "remaining_ratio": 0.816749,
+        "core_component": 0.8,
+        "volatile_component": 0.016749
+      },
+      {
+        "month": 63,
+        "remaining_ratio": 0.816092,
+        "core_component": 0.8,
+        "volatile_component": 0.016092
+      },
+      {
+        "month": 64,
+        "remaining_ratio": 0.815461,
+        "core_component": 0.8,
+        "volatile_component": 0.015461
+      },
+      {
+        "month": 65,
+        "remaining_ratio": 0.814855,
+        "core_component": 0.8,
+        "volatile_component": 0.014855
+      },
+      {
+        "month": 66,
+        "remaining_ratio": 0.814272,
+        "core_component": 0.8,
+        "volatile_component": 0.014272
+      },
+      {
+        "month": 67,
+        "remaining_ratio": 0.813713,
+        "core_component": 0.8,
+        "volatile_component": 0.013713
+      },
+      {
+        "month": 68,
+        "remaining_ratio": 0.813175,
+        "core_component": 0.8,
+        "volatile_component": 0.013175
+      },
+      {
+        "month": 69,
+        "remaining_ratio": 0.812658,
+        "core_component": 0.8,
+        "volatile_component": 0.012658
+      },
+      {
+        "month": 70,
+        "remaining_ratio": 0.812162,
+        "core_component": 0.8,
+        "volatile_component": 0.012162
+      },
+      {
+        "month": 71,
+        "remaining_ratio": 0.811685,
+        "core_component": 0.8,
+        "volatile_component": 0.011685
+      },
+      {
+        "month": 72,
+        "remaining_ratio": 0.811227,
+        "core_component": 0.8,
+        "volatile_component": 0.011227
+      },
+      {
+        "month": 73,
+        "remaining_ratio": 0.810787,
+        "core_component": 0.8,
+        "volatile_component": 0.010787
+      },
+      {
+        "month": 74,
+        "remaining_ratio": 0.810364,
+        "core_component": 0.8,
+        "volatile_component": 0.010364
+      },
+      {
+        "month": 75,
+        "remaining_ratio": 0.809957,
+        "core_component": 0.8,
+        "volatile_component": 0.009957
+      },
+      {
+        "month": 76,
+        "remaining_ratio": 0.809567,
+        "core_component": 0.8,
+        "volatile_component": 0.009567
+      },
+      {
+        "month": 77,
+        "remaining_ratio": 0.809192,
+        "core_component": 0.8,
+        "volatile_component": 0.009192
+      },
+      {
+        "month": 78,
+        "remaining_ratio": 0.808831,
+        "core_component": 0.8,
+        "volatile_component": 0.008831
+      },
+      {
+        "month": 79,
+        "remaining_ratio": 0.808485,
+        "core_component": 0.8,
+        "volatile_component": 0.008485
+      },
+      {
+        "month": 80,
+        "remaining_ratio": 0.808152,
+        "core_component": 0.8,
+        "volatile_component": 0.008152
+      },
+      {
+        "month": 81,
+        "remaining_ratio": 0.807833,
+        "core_component": 0.8,
+        "volatile_component": 0.007833
+      },
+      {
+        "month": 82,
+        "remaining_ratio": 0.807526,
+        "core_component": 0.8,
+        "volatile_component": 0.007526
+      },
+      {
+        "month": 83,
+        "remaining_ratio": 0.807231,
+        "core_component": 0.8,
+        "volatile_component": 0.007231
+      },
+      {
+        "month": 84,
+        "remaining_ratio": 0.806947,
+        "core_component": 0.8,
+        "volatile_component": 0.006947
+      },
+      {
+        "month": 85,
+        "remaining_ratio": 0.806675,
+        "core_component": 0.8,
+        "volatile_component": 0.006675
+      },
+      {
+        "month": 86,
+        "remaining_ratio": 0.806413,
+        "core_component": 0.8,
+        "volatile_component": 0.006413
+      },
+      {
+        "month": 87,
+        "remaining_ratio": 0.806161,
+        "core_component": 0.8,
+        "volatile_component": 0.006161
+      },
+      {
+        "month": 88,
+        "remaining_ratio": 0.80592,
+        "core_component": 0.8,
+        "volatile_component": 0.00592
+      },
+      {
+        "month": 89,
+        "remaining_ratio": 0.805688,
+        "core_component": 0.8,
+        "volatile_component": 0.005688
+      },
+      {
+        "month": 90,
+        "remaining_ratio": 0.805465,
+        "core_component": 0.8,
+        "volatile_component": 0.005465
+      },
+      {
+        "month": 91,
+        "remaining_ratio": 0.80525,
+        "core_component": 0.8,
+        "volatile_component": 0.00525
+      },
+      {
+        "month": 92,
+        "remaining_ratio": 0.805045,
+        "core_component": 0.8,
+        "volatile_component": 0.005045
+      },
+      {
+        "month": 93,
+        "remaining_ratio": 0.804847,
+        "core_component": 0.8,
+        "volatile_component": 0.004847
+      },
+      {
+        "month": 94,
+        "remaining_ratio": 0.804657,
+        "core_component": 0.8,
+        "volatile_component": 0.004657
+      },
+      {
+        "month": 95,
+        "remaining_ratio": 0.804474,
+        "core_component": 0.8,
+        "volatile_component": 0.004474
+      },
+      {
+        "month": 96,
+        "remaining_ratio": 0.804299,
+        "core_component": 0.8,
+        "volatile_component": 0.004299
+      },
+      {
+        "month": 97,
+        "remaining_ratio": 0.80413,
+        "core_component": 0.8,
+        "volatile_component": 0.00413
+      },
+      {
+        "month": 98,
+        "remaining_ratio": 0.803968,
+        "core_component": 0.8,
+        "volatile_component": 0.003968
+      },
+      {
+        "month": 99,
+        "remaining_ratio": 0.803813,
+        "core_component": 0.8,
+        "volatile_component": 0.003813
+      },
+      {
+        "month": 100,
+        "remaining_ratio": 0.803663,
+        "core_component": 0.8,
+        "volatile_component": 0.003663
+      },
+      {
+        "month": 101,
+        "remaining_ratio": 0.803519,
+        "core_component": 0.8,
+        "volatile_component": 0.003519
+      },
+      {
+        "month": 102,
+        "remaining_ratio": 0.803381,
+        "core_component": 0.8,
+        "volatile_component": 0.003381
+      },
+      {
+        "month": 103,
+        "remaining_ratio": 0.803249,
+        "core_component": 0.8,
+        "volatile_component": 0.003249
+      },
+      {
+        "month": 104,
+        "remaining_ratio": 0.803122,
+        "core_component": 0.8,
+        "volatile_component": 0.003122
+      },
+      {
+        "month": 105,
+        "remaining_ratio": 0.802999,
+        "core_component": 0.8,
+        "volatile_component": 0.002999
+      },
+      {
+        "month": 106,
+        "remaining_ratio": 0.802882,
+        "core_component": 0.8,
+        "volatile_component": 0.002882
+      },
+      {
+        "month": 107,
+        "remaining_ratio": 0.802769,
+        "core_component": 0.8,
+        "volatile_component": 0.002769
+      },
+      {
+        "month": 108,
+        "remaining_ratio": 0.80266,
+        "core_component": 0.8,
+        "volatile_component": 0.00266
+      },
+      {
+        "month": 109,
+        "remaining_ratio": 0.802556,
+        "core_component": 0.8,
+        "volatile_component": 0.002556
+      },
+      {
+        "month": 110,
+        "remaining_ratio": 0.802455,
+        "core_component": 0.8,
+        "volatile_component": 0.002455
+      },
+      {
+        "month": 111,
+        "remaining_ratio": 0.802359,
+        "core_component": 0.8,
+        "volatile_component": 0.002359
+      },
+      {
+        "month": 112,
+        "remaining_ratio": 0.802267,
+        "core_component": 0.8,
+        "volatile_component": 0.002267
+      },
+      {
+        "month": 113,
+        "remaining_ratio": 0.802178,
+        "core_component": 0.8,
+        "volatile_component": 0.002178
+      },
+      {
+        "month": 114,
+        "remaining_ratio": 0.802092,
+        "core_component": 0.8,
+        "volatile_component": 0.002092
+      },
+      {
+        "month": 115,
+        "remaining_ratio": 0.80201,
+        "core_component": 0.8,
+        "volatile_component": 0.00201
+      },
+      {
+        "month": 116,
+        "remaining_ratio": 0.801932,
+        "core_component": 0.8,
+        "volatile_component": 0.001932
+      },
+      {
+        "month": 117,
+        "remaining_ratio": 0.801856,
+        "core_component": 0.8,
+        "volatile_component": 0.001856
+      },
+      {
+        "month": 118,
+        "remaining_ratio": 0.801783,
+        "core_component": 0.8,
+        "volatile_component": 0.001783
+      },
+      {
+        "month": 119,
+        "remaining_ratio": 0.801713,
+        "core_component": 0.8,
+        "volatile_component": 0.001713
+      },
+      {
+        "month": 120,
+        "remaining_ratio": 0.801646,
+        "core_component": 0.8,
+        "volatile_component": 0.001646
+      }
+    ]
+  }
+]

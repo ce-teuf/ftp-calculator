@@ -1,0 +1,12 @@
+start: "01-2020"
+end: "12-2024"
+output: "convex_up.csv"
+trend:
+  type: "convex"
+  start_value: 1000
+  end_value: 8000
+  curvature: 2.0
+noise:
+  type: "absolute"
+  std: 150
+random_seed: 7

@@ -1,0 +1,34 @@
+[package]
+name = "ftp-backend"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+axum.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sqlx.workspace = true
+tower.workspace = true
+tower-http.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+ndarray = "0.16"
+include_dir = "0.7"
+mime_guess = "2"
+csv = "1"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+ftp-calculator-core.path = "../../crates-core/ftp-calculator-core"
+
+[lib]
+name = "ftp_backend"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ftp-backend"
+path = "src/main.rs"

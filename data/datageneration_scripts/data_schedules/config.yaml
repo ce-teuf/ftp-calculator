@@ -1,0 +1,18 @@
+start: "01-2020"          # date de début globale (obligatoire)
+end: "12-2024"            # date de fin globale (obligatoire)
+output: "resultats_matrix.csv"   # facultatif, défaut amortization_matrix.csv
+
+periods:
+  - # première période (start_period facultatif)
+    maturity: 60
+    curvature: 1.5
+    curvature_std: 0.2
+    # pas de start_period -> s'applique à toutes les dates avant le start_period de la période suivante (ou à tout si seule période)
+  - start_period: "01-2021"
+    maturity: 30
+    curvature: 2.5
+    curvature_std: 0.6
+  - start_period: "01-2023"
+    maturity: 12
+    curvature: 1.0
+    curvature_std: 0.0

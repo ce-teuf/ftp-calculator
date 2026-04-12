@@ -1,0 +1,13 @@
+start: "01-2020"
+end: "12-2024"
+output: "logistic_growth.csv"
+trend:
+  type: "logistic"
+  start_value: 500
+  end_value: 5000
+  logistic_midpoint: 0.6   # accélération à 60% de la période
+  logistic_steepness: 12
+noise:
+  type: "relative"
+  rel: 0.03
+random_seed: 99

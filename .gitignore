@@ -4,9 +4,9 @@
 .idea/
 .venv/
 .claude/
-
+docs/promp.md
 Python-3.12.0/
-
+docs/interne/
 docs/site/rust-generated/debug
 crates/ftp-calculator-core/debug/
 crates/ftp-calculator-core/target/

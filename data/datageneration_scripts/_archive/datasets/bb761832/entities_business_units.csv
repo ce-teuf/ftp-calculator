@@ -1,0 +1,10 @@
+bu_id,bu_name,branch_id,branch_code,currency,status,created_date
+BU-FR-541F44,Retail Banking,BR-FR-001,FR,EUR,active,2021-03-29
+BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,EUR,active,2020-11-26
+BU-FR-30176A,Corporate Banking,BR-FR-001,FR,EUR,active,2025-09-28
+BU-FR-A8A204,PME-PMI,BR-FR-001,FR,EUR,active,2021-07-10
+BU-FR-F0697B,Private Banking,BR-FR-001,FR,EUR,active,2021-04-05
+BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,EUR,active,2024-11-19
+BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,EUR,active,2021-11-12
+BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,EUR,active,2023-05-30
+BU-ES-AAF305,SME,BR-ES-001,ES,EUR,active,2023-11-15

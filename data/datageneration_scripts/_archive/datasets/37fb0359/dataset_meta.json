@@ -1,0 +1,32 @@
+{
+  "id": "37fb0359-34fd-4664-b1b9-7086042f78a1",
+  "name": "Corporate USD \u2014 Branch US",
+  "description": "Portefeuille corporate et structur\u00e9 en USD, Branch New York. Bullets, revolvers et commercial loans.",
+  "status": "active",
+  "source": "generated",
+  "as_of_date": "2026-04-09",
+  "contracts_count": 24,
+  "rate_curves_count": 4,
+  "runoff_models_count": 7,
+  "files": {
+    "contracts": "contracts.csv",
+    "portfolio_positions": "portfolio_positions.csv",
+    "rate_curves": "rate_curves.csv",
+    "runoff_models": "runoff_models.json",
+    "rate_series": "rate_series.csv",
+    "entities_branches": "entities_branches.csv",
+    "entities_business_units": "entities_business_units.csv",
+    "entities_departments": "entities_departments.csv",
+    "entities_sellers": "entities_sellers.csv",
+    "entities_treasuries": "entities_treasuries.csv"
+  },
+  "generated_at": "2026-04-09T16:53:10.680731",
+  "entities": {
+    "branches": 1,
+    "business_units": 4,
+    "departments": 16,
+    "sellers": 60,
+    "treasuries": 1
+  },
+  "rate_series_count": 54750
+}

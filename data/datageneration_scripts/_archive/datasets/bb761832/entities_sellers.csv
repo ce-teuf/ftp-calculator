@@ -1,0 +1,136 @@
+seller_id,seller_code,first_name,last_name,email,bu_id,bu_name,branch_id,branch_code,hire_date,status,target_volume,seniority
+SLR-FR-26AD7EBC,FR001,Nicolas,Johnson,nicolas.johnson@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2024-10-28,active,1803991,Lead
+SLR-FR-F47FEBF4,FR002,Nicolas,Wilson,nicolas.wilson@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2023-08-31,active,3376288,Senior
+SLR-FR-D3BCD4D0,FR003,Nicolas,Martin,nicolas.martin@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2020-07-18,active,2606557,Junior
+SLR-FR-90159969,FR004,Pierre,Miller,pierre.miller@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2016-09-21,active,2820961,Junior
+SLR-FR-1A337251,FR005,Jean,Garcia,jean.garcia@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2017-05-18,active,1597394,Lead
+SLR-FR-0E3FFBFA,FR006,Michel,Davis,michel.davis@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2019-11-03,active,4087697,Junior
+SLR-FR-2B722A13,FR007,Pierre,Johnson,pierre.johnson@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2018-04-11,active,1750357,Junior
+SLR-FR-71442D44,FR008,Marie,Wilson,marie.wilson@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2019-10-30,active,1742300,Manager
+SLR-FR-66792785,FR009,Michel,Smith,michel.smith@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2022-07-27,active,3558918,Junior
+SLR-FR-8DB60E00,FR010,Marie,Brown,marie.brown@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2018-05-18,active,2593207,Junior
+SLR-FR-F7D200E3,FR011,Marie,Martin,marie.martin@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2021-06-20,active,1796487,Senior
+SLR-FR-CAE623DB,FR012,Michel,Williams,michel.williams@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2021-05-27,active,707923,Senior
+SLR-FR-646728E0,FR013,Marie,Miller,marie.miller@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2017-01-11,active,2581777,Lead
+SLR-FR-8136EE2D,FR014,Michel,Johnson,michel.johnson@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2021-09-26,active,824845,Manager
+SLR-FR-3C11478B,FR015,François,Brown,françois.brown@frbank.com,BU-FR-541F44,Retail Banking,BR-FR-001,FR,2016-11-13,active,4361303,Lead
+SLR-FR-9DA2115D,FR001,Nicolas,Brown,nicolas.brown@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2023-07-11,active,698511,Senior
+SLR-FR-FE3B2CEF,FR002,Sophie,Garcia,sophie.garcia@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2022-11-25,active,1082343,Lead
+SLR-FR-D415DC73,FR003,Marie,Martin,marie.martin@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2021-07-17,active,4998103,Lead
+SLR-FR-08526CC1,FR004,Jean,Johnson,jean.johnson@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2023-02-05,active,1997935,Lead
+SLR-FR-85E9CF41,FR005,Jean,Johnson,jean.johnson@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2019-05-03,active,4145385,Lead
+SLR-FR-492D510E,FR006,Marie,Miller,marie.miller@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2019-03-24,active,4790127,Junior
+SLR-FR-0164FA0E,FR007,Sophie,Wilson,sophie.wilson@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2023-11-23,active,2636767,Junior
+SLR-FR-C5C0C265,FR008,Sophie,Smith,sophie.smith@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2020-03-12,active,2152850,Lead
+SLR-FR-995C620E,FR009,Sophie,Johnson,sophie.johnson@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2018-07-30,active,3269918,Lead
+SLR-FR-5B83F9F4,FR010,Pierre,Jones,pierre.jones@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2020-05-03,active,3094467,Manager
+SLR-FR-4FB1E8FB,FR011,Marie,Miller,marie.miller@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2018-03-17,active,2980135,Senior
+SLR-FR-1B16A7A2,FR012,François,Miller,françois.miller@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2018-07-27,active,3680501,Senior
+SLR-FR-600E6D06,FR013,Emma,Wilson,emma.wilson@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2022-08-26,active,3906405,Junior
+SLR-FR-B3CD7EA1,FR014,Nicolas,Jones,nicolas.jones@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2023-09-02,active,4106163,Lead
+SLR-FR-5958FCFC,FR015,Catherine,Davis,catherine.davis@frbank.com,BU-FR-54AE40,Commercial Banking,BR-FR-001,FR,2021-01-24,active,2292657,Manager
+SLR-FR-DCC5A4FC,FR001,Michel,Johnson,michel.johnson@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2022-11-04,active,4823924,Lead
+SLR-FR-F457079D,FR002,Pierre,Brown,pierre.brown@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2018-06-25,active,3103987,Senior
+SLR-FR-54506CD0,FR003,François,Williams,françois.williams@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2025-10-01,active,887668,Senior
+SLR-FR-044FAAB9,FR004,Catherine,Wilson,catherine.wilson@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2016-06-30,active,1110927,Manager
+SLR-FR-1BA65EA9,FR005,Sophie,Wilson,sophie.wilson@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2023-11-05,active,3721044,Manager
+SLR-FR-4E0B9585,FR006,Sophie,Brown,sophie.brown@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2024-05-15,active,546513,Junior
+SLR-FR-D6A2EFF4,FR007,Sophie,Brown,sophie.brown@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2024-01-20,active,4844944,Manager
+SLR-FR-8F83C0C3,FR008,Jean,Martin,jean.martin@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2023-03-26,active,1518029,Manager
+SLR-FR-F4145FF1,FR009,Michel,Davis,michel.davis@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2018-07-16,active,4955457,Lead
+SLR-FR-7B5F52A4,FR010,Catherine,Wilson,catherine.wilson@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2016-11-19,active,4734386,Manager
+SLR-FR-8945B5B5,FR011,Julie,Davis,julie.davis@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2024-03-29,active,4481857,Manager
+SLR-FR-9E08B2C0,FR012,Nicolas,Brown,nicolas.brown@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2016-08-09,active,2826256,Manager
+SLR-FR-11C21962,FR013,François,Jones,françois.jones@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2021-02-03,active,1149977,Lead
+SLR-FR-B7E2468A,FR014,François,Jones,françois.jones@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2022-04-05,active,3181918,Junior
+SLR-FR-A9F25AFE,FR015,Michel,Williams,michel.williams@frbank.com,BU-FR-30176A,Corporate Banking,BR-FR-001,FR,2023-06-07,active,3713132,Senior
+SLR-FR-3E0472D3,FR001,François,Johnson,françois.johnson@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2021-05-16,active,3919191,Lead
+SLR-FR-157E9DF4,FR002,Julie,Davis,julie.davis@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2021-05-12,active,1022322,Senior
+SLR-FR-E2682956,FR003,Sophie,Miller,sophie.miller@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2017-05-23,active,663845,Manager
+SLR-FR-7D720A41,FR004,Catherine,Smith,catherine.smith@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2022-01-30,active,3004944,Manager
+SLR-FR-DCE15E4C,FR005,Sophie,Martin,sophie.martin@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2017-08-23,active,2350012,Manager
+SLR-FR-EEC77B42,FR006,François,Jones,françois.jones@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2021-02-19,active,4573860,Junior
+SLR-FR-7D060E67,FR007,Sophie,Garcia,sophie.garcia@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2018-07-11,active,3891654,Senior
+SLR-FR-B532680A,FR008,Catherine,Williams,catherine.williams@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2019-01-18,active,4980553,Junior
+SLR-FR-C754D836,FR009,Sophie,Wilson,sophie.wilson@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2019-09-12,active,727348,Junior
+SLR-FR-BFB026E3,FR010,Sophie,Williams,sophie.williams@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2016-04-21,active,4373007,Senior
+SLR-FR-57C7AF56,FR011,Jean,Jones,jean.jones@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2021-10-10,active,3246033,Senior
+SLR-FR-9CC4B19C,FR012,Catherine,Garcia,catherine.garcia@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2022-03-29,active,3680341,Lead
+SLR-FR-FE7CBD61,FR013,Sophie,Jones,sophie.jones@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2016-08-30,active,1187079,Manager
+SLR-FR-5434BD66,FR014,Jean,Martin,jean.martin@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2025-06-10,active,3435680,Senior
+SLR-FR-E8CABB1D,FR015,Pierre,Smith,pierre.smith@frbank.com,BU-FR-A8A204,PME-PMI,BR-FR-001,FR,2017-07-26,active,760298,Senior
+SLR-FR-EF2B853D,FR001,François,Smith,françois.smith@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2019-01-22,active,1778275,Senior
+SLR-FR-AF9C42D3,FR002,Michel,Davis,michel.davis@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2018-07-08,active,1459568,Senior
+SLR-FR-32CF4E24,FR003,Catherine,Jones,catherine.jones@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2017-06-04,active,3594517,Senior
+SLR-FR-D7AB5B97,FR004,Emma,Wilson,emma.wilson@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2017-08-21,active,1460771,Senior
+SLR-FR-44EB29CD,FR005,Nicolas,Johnson,nicolas.johnson@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2019-07-15,active,715406,Lead
+SLR-FR-81E0ACAC,FR006,Emma,Miller,emma.miller@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2021-07-30,active,2163710,Junior
+SLR-FR-C6FAE0F4,FR007,Emma,Brown,emma.brown@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2024-11-18,active,3029858,Junior
+SLR-FR-9F9EC207,FR008,Emma,Smith,emma.smith@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2022-02-17,active,4968991,Manager
+SLR-FR-7E755B05,FR009,Marie,Johnson,marie.johnson@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2020-05-08,active,3362454,Junior
+SLR-FR-B2EDB0A1,FR010,Sophie,Davis,sophie.davis@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2024-11-03,active,4136657,Lead
+SLR-FR-4549AB51,FR011,Catherine,Williams,catherine.williams@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2021-02-21,active,1977543,Lead
+SLR-FR-1CC9D9D1,FR012,Emma,Martin,emma.martin@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2017-05-04,active,4555871,Manager
+SLR-FR-CB8F1040,FR013,Sophie,Wilson,sophie.wilson@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2023-01-06,active,3203686,Senior
+SLR-FR-43D1C5BA,FR014,Pierre,Jones,pierre.jones@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2020-12-20,active,2545674,Manager
+SLR-FR-ED5F4659,FR015,Emma,Wilson,emma.wilson@frbank.com,BU-FR-F0697B,Private Banking,BR-FR-001,FR,2018-07-14,active,3679192,Lead
+SLR-ES-D0EEE91E,ES001,José,Davis,josé.davis@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2016-06-25,active,3226416,Senior
+SLR-ES-36558E89,ES002,Ana,Brown,ana.brown@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2022-01-17,active,2667217,Lead
+SLR-ES-EA8B4189,ES003,Miguel,Wilson,miguel.wilson@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2018-02-28,active,2817508,Junior
+SLR-ES-1D888DC1,ES004,Laura,Brown,laura.brown@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2025-01-24,active,2524641,Manager
+SLR-ES-B8D3B2E1,ES005,Ana,Martin,ana.martin@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2017-07-10,active,2515983,Manager
+SLR-ES-9E241A9D,ES006,Ana,Davis,ana.davis@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2017-02-18,active,644646,Junior
+SLR-ES-F9AA54ED,ES007,Miguel,Brown,miguel.brown@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2021-06-28,active,2540991,Lead
+SLR-ES-25F35BA6,ES008,Sofia,Garcia,sofia.garcia@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2020-09-19,active,4953695,Lead
+SLR-ES-7CC2ACB9,ES009,Carmen,Martin,carmen.martin@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2022-04-26,active,3451200,Manager
+SLR-ES-BC295C00,ES010,Miguel,Jones,miguel.jones@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2023-03-17,active,2433893,Junior
+SLR-ES-AF963FE1,ES011,Carlos,Garcia,carlos.garcia@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2024-09-07,active,4995152,Senior
+SLR-ES-7AE0D039,ES012,Carlos,Brown,carlos.brown@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2017-09-28,active,4561752,Lead
+SLR-ES-CA535148,ES013,Sofia,Martin,sofia.martin@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2019-05-02,active,2873965,Junior
+SLR-ES-F42755B4,ES014,Carlos,Jones,carlos.jones@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2023-06-23,active,3527289,Senior
+SLR-ES-E8D3EA75,ES015,Miguel,Smith,miguel.smith@esbank.com,BU-ES-4A26F3,Retail Banking,BR-ES-001,ES,2018-01-31,active,4980649,Senior
+SLR-ES-6A18ABA0,ES001,Miguel,Smith,miguel.smith@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2025-05-31,active,2950619,Senior
+SLR-ES-EACF649C,ES002,Ana,Johnson,ana.johnson@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2025-11-20,active,2885211,Manager
+SLR-ES-98E9B85B,ES003,Ana,Davis,ana.davis@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2022-03-16,active,2046554,Junior
+SLR-ES-CE7FC214,ES004,Miguel,Davis,miguel.davis@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2024-09-29,active,1048140,Manager
+SLR-ES-0C36691C,ES005,Ana,Johnson,ana.johnson@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2019-07-22,active,949705,Senior
+SLR-ES-F4AAABC6,ES006,Juan,Wilson,juan.wilson@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2022-08-14,active,1214549,Senior
+SLR-ES-FECE91DC,ES007,Antonio,Martin,antonio.martin@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2017-06-14,active,3991120,Senior
+SLR-ES-0FACF219,ES008,Laura,Miller,laura.miller@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2020-12-21,active,4213812,Lead
+SLR-ES-EE06494B,ES009,Sofia,Miller,sofia.miller@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2022-08-08,active,1005248,Junior
+SLR-ES-D826B372,ES010,Carlos,Brown,carlos.brown@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2023-01-22,active,1181049,Senior
+SLR-ES-EDDFAB80,ES011,Carlos,Williams,carlos.williams@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2019-11-02,active,1129689,Senior
+SLR-ES-3DC677BB,ES012,José,Miller,josé.miller@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2020-12-21,active,4441911,Lead
+SLR-ES-1CE49644,ES013,José,Brown,josé.brown@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2022-10-17,active,2871613,Manager
+SLR-ES-38C32F1B,ES014,Antonio,Brown,antonio.brown@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2023-01-22,active,2159427,Manager
+SLR-ES-87104601,ES015,Antonio,Martin,antonio.martin@esbank.com,BU-ES-FE910B,Commercial Banking,BR-ES-001,ES,2023-07-04,active,1749813,Lead
+SLR-ES-6B8C4607,ES001,Juan,Johnson,juan.johnson@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2025-05-10,active,1891861,Lead
+SLR-ES-3A28C029,ES002,Sofia,Wilson,sofia.wilson@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2022-10-15,active,4183886,Junior
+SLR-ES-93E8D885,ES003,Ana,Jones,ana.jones@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2018-03-06,active,3876486,Lead
+SLR-ES-90D0B1BA,ES004,Laura,Martin,laura.martin@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2020-06-27,active,4172187,Junior
+SLR-ES-C8F21B1A,ES005,Sofia,Smith,sofia.smith@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2021-03-07,active,3203829,Lead
+SLR-ES-CA6F5838,ES006,José,Johnson,josé.johnson@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2023-06-17,active,674025,Lead
+SLR-ES-09C58BB6,ES007,Sofia,Smith,sofia.smith@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2017-06-20,active,1969606,Manager
+SLR-ES-F1882C6E,ES008,Laura,Davis,laura.davis@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2022-11-27,active,2022441,Manager
+SLR-ES-FA54D10D,ES009,Ana,Johnson,ana.johnson@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2020-10-02,active,3418908,Manager
+SLR-ES-54E68B68,ES010,María,Garcia,maría.garcia@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2018-07-06,active,1377447,Senior
+SLR-ES-E2351820,ES011,María,Miller,maría.miller@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2018-03-31,active,4656295,Lead
+SLR-ES-103E3CD3,ES012,Carmen,Martin,carmen.martin@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2025-08-12,active,4315356,Junior
+SLR-ES-09D3D9CF,ES013,María,Jones,maría.jones@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2022-05-26,active,1472420,Manager
+SLR-ES-F27FF244,ES014,Laura,Smith,laura.smith@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2018-08-26,active,4375338,Manager
+SLR-ES-606F3870,ES015,José,Brown,josé.brown@esbank.com,BU-ES-72F15C,Corporate Banking,BR-ES-001,ES,2020-03-18,active,3534825,Manager
+SLR-ES-0C603015,ES001,Ana,Smith,ana.smith@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2023-09-29,active,2740230,Senior
+SLR-ES-0E15D5E9,ES002,Miguel,Davis,miguel.davis@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2018-03-12,active,4566057,Junior
+SLR-ES-E372611A,ES003,José,Wilson,josé.wilson@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2017-01-23,active,2507372,Senior
+SLR-ES-559F4F1A,ES004,Miguel,Martin,miguel.martin@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2025-11-14,active,3922473,Junior
+SLR-ES-8B4B89FC,ES005,Carlos,Johnson,carlos.johnson@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2020-11-06,active,1485377,Senior
+SLR-ES-E876BF42,ES006,Ana,Jones,ana.jones@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2020-04-26,active,2793654,Manager
+SLR-ES-08BAF012,ES007,Ana,Davis,ana.davis@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2023-04-17,active,4331802,Senior
+SLR-ES-1E9AA22E,ES008,Carmen,Brown,carmen.brown@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2019-04-21,active,4763433,Senior
+SLR-ES-BDEA9E00,ES009,Antonio,Jones,antonio.jones@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2017-05-12,active,3980789,Lead
+SLR-ES-4C1FDBD5,ES010,Laura,Jones,laura.jones@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2016-10-28,active,521518,Lead
+SLR-ES-15430398,ES011,Miguel,Wilson,miguel.wilson@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2019-07-10,active,4607400,Senior
+SLR-ES-B55D6C8E,ES012,Ana,Martin,ana.martin@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2020-08-05,active,3395109,Lead
+SLR-ES-98F12467,ES013,Laura,Martin,laura.martin@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2021-10-17,active,4319707,Lead
+SLR-ES-5DCA9C6B,ES014,Carlos,Brown,carlos.brown@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2019-08-12,active,3712592,Senior
+SLR-ES-09FA7271,ES015,Carmen,Smith,carmen.smith@esbank.com,BU-ES-AAF305,SME,BR-ES-001,ES,2022-06-16,active,4467612,Manager

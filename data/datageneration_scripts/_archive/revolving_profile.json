@@ -1,0 +1,847 @@
+{
+  "profile_name": "Revolving Facility",
+  "commitment": 1000000,
+  "avg_utilization": 0.653,
+  "profile": [
+    {
+      "month": 1,
+      "outstanding": 692795.48,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6928,
+      "available": 307204.52
+    },
+    {
+      "month": 2,
+      "outstanding": 727957.36,
+      "commitment": 1000000,
+      "utilization_ratio": 0.728,
+      "available": 272042.64
+    },
+    {
+      "month": 3,
+      "outstanding": 744434.21,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7444,
+      "available": 255565.79
+    },
+    {
+      "month": 4,
+      "outstanding": 771701.73,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7717,
+      "available": 228298.27
+    },
+    {
+      "month": 5,
+      "outstanding": 693620.59,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6936,
+      "available": 306379.41
+    },
+    {
+      "month": 6,
+      "outstanding": 575132.33,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5751,
+      "available": 424867.67
+    },
+    {
+      "month": 7,
+      "outstanding": 616615.92,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6166,
+      "available": 383384.08
+    },
+    {
+      "month": 8,
+      "outstanding": 550030.59,
+      "commitment": 1000000,
+      "utilization_ratio": 0.55,
+      "available": 449969.41
+    },
+    {
+      "month": 9,
+      "outstanding": 539152.07,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5392,
+      "available": 460847.93
+    },
+    {
+      "month": 10,
+      "outstanding": 569191.7,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5692,
+      "available": 430808.3
+    },
+    {
+      "month": 11,
+      "outstanding": 611614.89,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6116,
+      "available": 388385.11
+    },
+    {
+      "month": 12,
+      "outstanding": 708177.93,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7082,
+      "available": 291822.07
+    },
+    {
+      "month": 13,
+      "outstanding": 732831.83,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7328,
+      "available": 267168.17
+    },
+    {
+      "month": 14,
+      "outstanding": 742127.9,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7421,
+      "available": 257872.1
+    },
+    {
+      "month": 15,
+      "outstanding": 713083.92,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7131,
+      "available": 286916.08
+    },
+    {
+      "month": 16,
+      "outstanding": 685869.42,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6859,
+      "available": 314130.58
+    },
+    {
+      "month": 17,
+      "outstanding": 712317.11,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7123,
+      "available": 287682.89
+    },
+    {
+      "month": 18,
+      "outstanding": 715554.04,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7156,
+      "available": 284445.96
+    },
+    {
+      "month": 19,
+      "outstanding": 602082.84,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6021,
+      "available": 397917.16
+    },
+    {
+      "month": 20,
+      "outstanding": 558081.29,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5581,
+      "available": 441918.71
+    },
+    {
+      "month": 21,
+      "outstanding": 576588.81,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5766,
+      "available": 423411.19
+    },
+    {
+      "month": 22,
+      "outstanding": 490720.19,
+      "commitment": 1000000,
+      "utilization_ratio": 0.4907,
+      "available": 509279.81
+    },
+    {
+      "month": 23,
+      "outstanding": 584386.13,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5844,
+      "available": 415613.87
+    },
+    {
+      "month": 24,
+      "outstanding": 674518.13,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6745,
+      "available": 325481.87
+    },
+    {
+      "month": 25,
+      "outstanding": 743670.22,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7437,
+      "available": 256329.78
+    },
+    {
+      "month": 26,
+      "outstanding": 724571.06,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7246,
+      "available": 275428.94
+    },
+    {
+      "month": 27,
+      "outstanding": 768829.99,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7688,
+      "available": 231170.01
+    },
+    {
+      "month": 28,
+      "outstanding": 749013.21,
+      "commitment": 1000000,
+      "utilization_ratio": 0.749,
+      "available": 250986.79
+    },
+    {
+      "month": 29,
+      "outstanding": 739116.34,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7391,
+      "available": 260883.66
+    },
+    {
+      "month": 30,
+      "outstanding": 594338.89,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5943,
+      "available": 405661.11
+    },
+    {
+      "month": 31,
+      "outstanding": 628412.53,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6284,
+      "available": 371587.47
+    },
+    {
+      "month": 32,
+      "outstanding": 487671.44,
+      "commitment": 1000000,
+      "utilization_ratio": 0.4877,
+      "available": 512328.56
+    },
+    {
+      "month": 33,
+      "outstanding": 419002.73,
+      "commitment": 1000000,
+      "utilization_ratio": 0.419,
+      "available": 580997.27
+    },
+    {
+      "month": 34,
+      "outstanding": 533052.92,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5331,
+      "available": 466947.08
+    },
+    {
+      "month": 35,
+      "outstanding": 554209.5,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5542,
+      "available": 445790.5
+    },
+    {
+      "month": 36,
+      "outstanding": 693800.61,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6938,
+      "available": 306199.39
+    },
+    {
+      "month": 37,
+      "outstanding": 733213.29,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7332,
+      "available": 266786.71
+    },
+    {
+      "month": 38,
+      "outstanding": 675648.8,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6756,
+      "available": 324351.2
+    },
+    {
+      "month": 39,
+      "outstanding": 792368.07,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7924,
+      "available": 207631.93
+    },
+    {
+      "month": 40,
+      "outstanding": 686492.4,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6865,
+      "available": 313507.6
+    },
+    {
+      "month": 41,
+      "outstanding": 695687.81,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6957,
+      "available": 304312.19
+    },
+    {
+      "month": 42,
+      "outstanding": 635305.01,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6353,
+      "available": 364694.99
+    },
+    {
+      "month": 43,
+      "outstanding": 605720.99,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6057,
+      "available": 394279.01
+    },
+    {
+      "month": 44,
+      "outstanding": 604329.28,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6043,
+      "available": 395670.72
+    },
+    {
+      "month": 45,
+      "outstanding": 581920.69,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5819,
+      "available": 418079.31
+    },
+    {
+      "month": 46,
+      "outstanding": 580891.71,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5809,
+      "available": 419108.29
+    },
+    {
+      "month": 47,
+      "outstanding": 632497.4,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6325,
+      "available": 367502.6
+    },
+    {
+      "month": 48,
+      "outstanding": 673924.6,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6739,
+      "available": 326075.4
+    },
+    {
+      "month": 49,
+      "outstanding": 668650.73,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6687,
+      "available": 331349.27
+    },
+    {
+      "month": 50,
+      "outstanding": 700733.99,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7007,
+      "available": 299266.01
+    },
+    {
+      "month": 51,
+      "outstanding": 726501.59,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7265,
+      "available": 273498.41
+    },
+    {
+      "month": 52,
+      "outstanding": 761568.86,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7616,
+      "available": 238431.14
+    },
+    {
+      "month": 53,
+      "outstanding": 687494.22,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6875,
+      "available": 312505.78
+    },
+    {
+      "month": 54,
+      "outstanding": 766787.71,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7668,
+      "available": 233212.29
+    },
+    {
+      "month": 55,
+      "outstanding": 559035.37,
+      "commitment": 1000000,
+      "utilization_ratio": 0.559,
+      "available": 440964.63
+    },
+    {
+      "month": 56,
+      "outstanding": 508453.73,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5085,
+      "available": 491546.27
+    },
+    {
+      "month": 57,
+      "outstanding": 588423.68,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5884,
+      "available": 411576.32
+    },
+    {
+      "month": 58,
+      "outstanding": 634489.96,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6345,
+      "available": 365510.04
+    },
+    {
+      "month": 59,
+      "outstanding": 625284.63,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6253,
+      "available": 374715.37
+    },
+    {
+      "month": 60,
+      "outstanding": 691790.87,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6918,
+      "available": 308209.13
+    },
+    {
+      "month": 61,
+      "outstanding": 771317.25,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7713,
+      "available": 228682.75
+    },
+    {
+      "month": 62,
+      "outstanding": 731901.17,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7319,
+      "available": 268098.83
+    },
+    {
+      "month": 63,
+      "outstanding": 678852.05,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6789,
+      "available": 321147.95
+    },
+    {
+      "month": 64,
+      "outstanding": 709998.71,
+      "commitment": 1000000,
+      "utilization_ratio": 0.71,
+      "available": 290001.29
+    },
+    {
+      "month": 65,
+      "outstanding": 747644.79,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7476,
+      "available": 252355.21
+    },
+    {
+      "month": 66,
+      "outstanding": 577816.08,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5778,
+      "available": 422183.92
+    },
+    {
+      "month": 67,
+      "outstanding": 601676.57,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6017,
+      "available": 398323.43
+    },
+    {
+      "month": 68,
+      "outstanding": 576059.33,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5761,
+      "available": 423940.67
+    },
+    {
+      "month": 69,
+      "outstanding": 534220.39,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5342,
+      "available": 465779.61
+    },
+    {
+      "month": 70,
+      "outstanding": 599579.06,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5996,
+      "available": 400420.94
+    },
+    {
+      "month": 71,
+      "outstanding": 629038.99,
+      "commitment": 1000000,
+      "utilization_ratio": 0.629,
+      "available": 370961.01
+    },
+    {
+      "month": 72,
+      "outstanding": 766070.43,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7661,
+      "available": 233929.57
+    },
+    {
+      "month": 73,
+      "outstanding": 730998.39,
+      "commitment": 1000000,
+      "utilization_ratio": 0.731,
+      "available": 269001.61
+    },
+    {
+      "month": 74,
+      "outstanding": 706132.37,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7061,
+      "available": 293867.63
+    },
+    {
+      "month": 75,
+      "outstanding": 721910.12,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7219,
+      "available": 278089.88
+    },
+    {
+      "month": 76,
+      "outstanding": 695023.49,
+      "commitment": 1000000,
+      "utilization_ratio": 0.695,
+      "available": 304976.51
+    },
+    {
+      "month": 77,
+      "outstanding": 747613.68,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7476,
+      "available": 252386.32
+    },
+    {
+      "month": 78,
+      "outstanding": 621658.36,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6217,
+      "available": 378341.64
+    },
+    {
+      "month": 79,
+      "outstanding": 596486.96,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5965,
+      "available": 403513.04
+    },
+    {
+      "month": 80,
+      "outstanding": 600862.59,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6009,
+      "available": 399137.41
+    },
+    {
+      "month": 81,
+      "outstanding": 513826.85,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5138,
+      "available": 486173.15
+    },
+    {
+      "month": 82,
+      "outstanding": 548714.56,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5487,
+      "available": 451285.44
+    },
+    {
+      "month": 83,
+      "outstanding": 507935.69,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5079,
+      "available": 492064.31
+    },
+    {
+      "month": 84,
+      "outstanding": 595876.07,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5959,
+      "available": 404123.93
+    },
+    {
+      "month": 85,
+      "outstanding": 671613.18,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6716,
+      "available": 328386.82
+    },
+    {
+      "month": 86,
+      "outstanding": 757390.59,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7574,
+      "available": 242609.41
+    },
+    {
+      "month": 87,
+      "outstanding": 809674.66,
+      "commitment": 1000000,
+      "utilization_ratio": 0.8097,
+      "available": 190325.34
+    },
+    {
+      "month": 88,
+      "outstanding": 735679.2,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7357,
+      "available": 264320.8
+    },
+    {
+      "month": 89,
+      "outstanding": 713068.21,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7131,
+      "available": 286931.79
+    },
+    {
+      "month": 90,
+      "outstanding": 658398.47,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6584,
+      "available": 341601.53
+    },
+    {
+      "month": 91,
+      "outstanding": 654237.06,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6542,
+      "available": 345762.94
+    },
+    {
+      "month": 92,
+      "outstanding": 608065.22,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6081,
+      "available": 391934.78
+    },
+    {
+      "month": 93,
+      "outstanding": 563684.67,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5637,
+      "available": 436315.33
+    },
+    {
+      "month": 94,
+      "outstanding": 512850.24,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5129,
+      "available": 487149.76
+    },
+    {
+      "month": 95,
+      "outstanding": 645169.27,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6452,
+      "available": 354830.73
+    },
+    {
+      "month": 96,
+      "outstanding": 669052.36,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6691,
+      "available": 330947.64
+    },
+    {
+      "month": 97,
+      "outstanding": 761347.08,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7613,
+      "available": 238652.92
+    },
+    {
+      "month": 98,
+      "outstanding": 735107.21,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7351,
+      "available": 264892.79
+    },
+    {
+      "month": 99,
+      "outstanding": 847655.05,
+      "commitment": 1000000,
+      "utilization_ratio": 0.8477,
+      "available": 152344.95
+    },
+    {
+      "month": 100,
+      "outstanding": 718658.72,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7187,
+      "available": 281341.28
+    },
+    {
+      "month": 101,
+      "outstanding": 779653.02,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7797,
+      "available": 220346.98
+    },
+    {
+      "month": 102,
+      "outstanding": 655755.95,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6558,
+      "available": 344244.05
+    },
+    {
+      "month": 103,
+      "outstanding": 574186.55,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5742,
+      "available": 425813.45
+    },
+    {
+      "month": 104,
+      "outstanding": 506975.07,
+      "commitment": 1000000,
+      "utilization_ratio": 0.507,
+      "available": 493024.93
+    },
+    {
+      "month": 105,
+      "outstanding": 542448.47,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5424,
+      "available": 457551.53
+    },
+    {
+      "month": 106,
+      "outstanding": 634563.51,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6346,
+      "available": 365436.49
+    },
+    {
+      "month": 107,
+      "outstanding": 640818.72,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6408,
+      "available": 359181.28
+    },
+    {
+      "month": 108,
+      "outstanding": 684444.19,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6844,
+      "available": 315555.81
+    },
+    {
+      "month": 109,
+      "outstanding": 581206.37,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5812,
+      "available": 418793.63
+    },
+    {
+      "month": 110,
+      "outstanding": 772150.75,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7722,
+      "available": 227849.25
+    },
+    {
+      "month": 111,
+      "outstanding": 777792.62,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7778,
+      "available": 222207.38
+    },
+    {
+      "month": 112,
+      "outstanding": 709106.23,
+      "commitment": 1000000,
+      "utilization_ratio": 0.7091,
+      "available": 290893.77
+    },
+    {
+      "month": 113,
+      "outstanding": 668630.78,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6686,
+      "available": 331369.22
+    },
+    {
+      "month": 114,
+      "outstanding": 649884.48,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6499,
+      "available": 350115.52
+    },
+    {
+      "month": 115,
+      "outstanding": 686243.81,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6862,
+      "available": 313756.19
+    },
+    {
+      "month": 116,
+      "outstanding": 510642.42,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5106,
+      "available": 489357.58
+    },
+    {
+      "month": 117,
+      "outstanding": 528609.75,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5286,
+      "available": 471390.25
+    },
+    {
+      "month": 118,
+      "outstanding": 631486.7,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6315,
+      "available": 368513.3
+    },
+    {
+      "month": 119,
+      "outstanding": 577692.46,
+      "commitment": 1000000,
+      "utilization_ratio": 0.5777,
+      "available": 422307.54
+    },
+    {
+      "month": 120,
+      "outstanding": 631787.43,
+      "commitment": 1000000,
+      "utilization_ratio": 0.6318,
+      "available": 368212.57
+    }
+  ]
+}

@@ -4,190 +4,198 @@ on:
   push:
     tags:
       - 'v*'
-
-permissions:
-  contents: write
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
+  SQLX_OFFLINE: true
 
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-
-  release-crates-io-rust-libs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Rust
-        run: rustup update stable && rustup default stable
-      - name: Build
-        run: cargo build --workspace --release
-      - name: Login to crates.io
-        run: cargo login ${CRATES_IO_TOKEN}
-        env:
-          CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-      - name: Publish ftp-calculator-core to crates.io
-        run: cargo publish -p ftp-calculator-core --token ${CRATES_IO_TOKEN}
-        env:
-          CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-      - name: Wait for ftp-calculator-core to be available in the index
-        run: sleep 60
-      - name: Publish ftp-calculator-bindings-c to crates.io
-        run: cargo publish -p ftp-calculator-bindings-c --token ${CRATES_IO_TOKEN}
-        env:
-          CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-      - name: Publish ftp-calculator-bindings-pyo3 to crates.io
-        run: cargo publish -p ftp-calculator-bindings-pyo3 --token ${CRATES_IO_TOKEN}
-        env:
-          CRATES_IO_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
-
-  release-excel:
+  build-windows:
+    name: Build Windows installer
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Rust
-        run: rustup update stable && rustup default stable
-      - name: Install .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      - name: Build C bindings
-        run: cd crates/ftp-calculator-bindings-c && cargo build --release
-      - name: Copy DLL to Excel add-in folder
-        shell: bash
-        run: |
-          mkdir -p excel-addin/Interop
-          cp target/release/ftp_calculator_bindings_c.dll excel-addin/Interop/
-      - name: Build Excel add-in
-        run: cd excel-addin/ftp_addin && dotnet build --configuration Release
-      - name: List Excel build output
-        shell: bash
-        run: |
-          echo "Listing Excel add-in build output:"
-          ls -la excel-addin/ftp_addin/bin/Release/net6.0-windows/
-          echo "Listing packed files in publish/ subdirectory:"
-          ls -la excel-addin/ftp_addin/bin/Release/net6.0-windows/publish/
-      - name: Upload packed XLL to Release
-        shell: bash
-        run: |
-          # Upload only the packed .xll (contains all dependencies)
-          for xll in excel-addin/ftp_addin/bin/Release/net6.0-windows/publish/*-packed.xll; do
-            if [ -f "$xll" ]; then
-              echo "Uploading packed XLL: $xll"
-              gh release upload ${{ github.ref_name }} "$xll" --clobber
-            fi
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  release-python-pypi:
-    name: Publish to PyPI
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          # Linux x86_64
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-          # Windows
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-          # macOS Intel
-          - os: macos-latest
-            target: x86_64-apple-darwin
-          # macOS Apple Silicon
-          - os: macos-latest
-            target: aarch64-apple-darwin
-          # Note: Linux aarch64 disabled due to cross-compilation issues with manylinux/QEMU
-          # Users can build from source with: pip install --no-binary ftp-calculator ftp-calculator
-    runs-on: ${{ matrix.os }}
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/dashboard/package-lock.json
+
+      - name: Build Svelte frontend
+        working-directory: app/dashboard
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Rust binaries (Windows)
+        run: |
+          cargo build --release -p ftp-backend
+          cargo build --release -p ftp-tray
+          cargo build --release -p ftp-installer-helper
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y
+
+      - name: Build Windows installer (slim)
+        working-directory: installer/windows
+        run: iscc setup.iss
+
+      - name: Upload Windows installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: dist/FtpSimulator-*-windows-x64.exe
+
+  build-macos:
+    name: Build macOS app bundle
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Rust
-        run: rustup update stable && rustup target add ${{ matrix.target }}
-      - name: Build and publish ftp-calculator to PyPI
-        uses: PyO3/maturin-action@v1
-        with:
-          target: ${{ matrix.target }}
-          working-directory: python-lib
-          manylinux: auto
-          command: publish
-          args: --username __token__ --password ${{ secrets.PYPI_API_TOKEN }} --skip-existing
 
-  release-python-wheels-github:
-    name: Upload wheels to GitHub Releases
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          # Linux x86_64
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-          # Windows
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-          # macOS Intel
-          - os: macos-latest
-            target: x86_64-apple-darwin
-          # macOS Apple Silicon
-          - os: macos-latest
-            target: aarch64-apple-darwin
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Rust
-        run: rustup update stable && rustup target add ${{ matrix.target }}
-      - name: Build wheel with maturin
-        uses: PyO3/maturin-action@v1
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
         with:
-          target: ${{ matrix.target }}
-          args: --release --out dist
-          working-directory: python-lib
-          manylinux: auto
-      - name: List wheels
-        shell: bash
-        run: ls -la python-lib/dist/
-      - name: Upload wheels to GitHub Release
-        shell: bash
+          targets: aarch64-apple-darwin
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/dashboard/package-lock.json
+
+      - name: Build Svelte frontend
+        working-directory: app/dashboard
         run: |
-          for wheel in python-lib/dist/*.whl; do
-            if [ -f "$wheel" ]; then
-              gh release upload ${{ github.ref_name }} "$wheel" --clobber
-            fi
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          npm ci
+          npm run build
 
-  release-python-sdist-github:
-    name: Upload source distribution to GitHub Releases
+      - name: Build Rust binaries (macOS arm64)
+        run: |
+          cargo build --release --target aarch64-apple-darwin -p ftp-backend
+          cargo build --release --target aarch64-apple-darwin -p ftp-tray
+          cargo build --release --target aarch64-apple-darwin -p ftp-installer-helper
+
+      - name: Build macOS app bundle + DMG
+        working-directory: installer/macos
+        run: bash bundle.sh
+
+      - name: Upload macOS DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-dmg
+          path: dist/FtpSimulator-*.dmg
+
+  build-linux:
+    name: Build Debian package
     runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      - name: Install system dependencies
+        run: |
+          apt-get update -y
+          apt-get install -y curl git build-essential pkg-config dpkg-dev nodejs npm
+
+      - uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-gnu
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/dashboard/package-lock.json
+
+      - name: Build Svelte frontend
+        working-directory: app/dashboard
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Rust binaries (Linux)
+        run: |
+          cargo build --release -p ftp-backend
+          cargo build --release -p ftp-installer-helper
+
+      - name: Build .deb package
+        run: bash installer/build-deb.sh
+
+      - name: Upload Debian package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian-package
+          path: dist/ftp-simulator_*.deb
+
+  upload-ftp:
+    name: Upload to FTP server + GitHub Release
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v4
-      - name: Install Python
-        uses: actions/setup-python@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
         with:
-          python-version: "3.12"
-      - name: Build sdist
-        uses: PyO3/maturin-action@v1
-        with:
-          args: --release --out dist --sdist
-          working-directory: python-lib
-      - name: Upload sdist to GitHub Release
-        shell: bash
-        run: |
-          for tarball in python-lib/dist/*.tar.gz; do
-            if [ -f "$tarball" ]; then
-              gh release upload ${{ github.ref_name }} "$tarball" --clobber
-            fi
-          done
+          path: artifacts/
+
+      - name: Extract version from tag
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Build latest.json and upload to FTP
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER:   ${{ secrets.FTP_USER }}
+          FTP_PASS:   ${{ secrets.FTP_PASS }}
+        run: |
+          apt-get install -y lftp
+
+          WIN_FILE=$(ls artifacts/windows-installer/*.exe 2>/dev/null | head -1)
+          MAC_FILE=$(ls artifacts/macos-dmg/*.dmg         2>/dev/null | head -1)
+          DEB_FILE=$(ls artifacts/debian-package/*.deb    2>/dev/null | head -1)
+          WIN_SHA=$(sha256sum "$WIN_FILE" 2>/dev/null | awk '{print $1}' || echo "")
+          MAC_SHA=$(sha256sum "$MAC_FILE" 2>/dev/null | awk '{print $1}' || echo "")
+          DEB_SHA=$(sha256sum "$DEB_FILE" 2>/dev/null | awk '{print $1}' || echo "")
+
+          cat > artifacts/latest.json << LATESTEOF
+          {
+            "version": "$VERSION",
+            "published_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "windows":   { "url": "releases/FtpSimulator-${VERSION}-windows-x64.exe", "sha256": "$WIN_SHA" },
+            "macos":     { "url": "releases/FtpSimulator-${VERSION}-macos.dmg",        "sha256": "$MAC_SHA" },
+            "linux_deb": { "url": "releases/ftp-simulator_${VERSION}_amd64.deb",       "sha256": "$DEB_SHA" }
+          }
+          LATESTEOF
+
+          lftp -u "$FTP_USER,$FTP_PASS" "$FTP_SERVER" <<LFTP
+            set ftp:ssl-allow true
+            set ssl:verify-certificate false
+            mkdir -p /ftp-simulator/releases
+            put "$WIN_FILE" -o /ftp-simulator/releases/FtpSimulator-${VERSION}-windows-x64.exe || true
+            put "$MAC_FILE" -o /ftp-simulator/releases/FtpSimulator-${VERSION}-macos.dmg       || true
+            put "$DEB_FILE" -o /ftp-simulator/releases/ftp-simulator_${VERSION}_amd64.deb      || true
+            put artifacts/latest.json -o /ftp-simulator/releases/latest.json
+            bye
+          LFTP
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/windows-installer/*.exe
+            artifacts/macos-dmg/*.dmg
+            artifacts/debian-package/*.deb
+          generate_release_notes: true
