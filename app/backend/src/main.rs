@@ -17,19 +17,17 @@ mod db;
 
 use db::AppState;
 
-static DIST: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/../dashboard/dist");
+static DIST: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/../web-app/dist");
 
 async fn serve_frontend(req: Request) -> Response {
     let path = req.uri().path().trim_start_matches('/');
 
-    // Try exact match first, then fall back to index.html for SPA routing
     let file = DIST.get_file(path)
         .or_else(|| DIST.get_file("index.html"));
 
     match file {
         Some(f) => {
-            let mime = mime_guess::from_path(f.path())
-                .first_or_octet_stream();
+            let mime = mime_guess::from_path(f.path()).first_or_octet_stream();
             Response::builder()
                 .status(StatusCode::OK)
                 .header(header::CONTENT_TYPE, mime.as_ref())
@@ -48,15 +46,13 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     let database_url = std::env::var("DATABASE_URL")
-        .unwrap_or_else(|_| {
-            "postgresql://ftp:ftp_local@127.0.0.1:5432/ftp_simulator".to_string()
-        });
+        .unwrap_or_else(|_| "postgresql://ftp_dev:ftp_dev@127.0.0.1:5432/ftp_simulator_dev".to_string());
 
     let pool = PgPoolOptions::new()
         .max_connections(10)
         .connect(&database_url)
         .await
-        .expect("Failed to connect to PostgreSQL. Make sure DATABASE_URL is set.");
+        .expect("Failed to connect to PostgreSQL. Is DATABASE_URL set and the DB running?");
 
     sqlx::migrate!("src/db/migrations")
         .run(&pool)
@@ -73,104 +69,77 @@ async fn main() {
         .allow_headers(Any);
 
     let app = Router::new()
-        // Curves
-        .route("/api/curves", get(api::curves::list_curves))
-        .route("/api/curves", post(api::curves::create_curve))
-        .route("/api/curves/{id}", get(api::curves::get_curve))
-        .route("/api/curves/{id}", put(api::curves::update_curve))
-        .route("/api/curves/{id}", delete(api::curves::delete_curve))
-        // Portfolios
-        .route("/api/portfolios", get(api::portfolio::list_portfolios))
-        .route("/api/portfolios", post(api::portfolio::create_portfolio))
-        .route("/api/portfolios/{id}", get(api::portfolio::get_portfolio))
-        .route("/api/portfolios/{id}", delete(api::portfolio::delete_portfolio))
-        // Positions
-        .route("/api/portfolios/{id}/positions", get(api::portfolio::list_positions))
-        .route("/api/portfolios/{id}/positions", post(api::portfolio::add_position))
-        .route("/api/portfolios/{id}/positions/bulk", post(api::portfolio::bulk_import_positions))
-        .route("/api/positions/{id}", delete(api::portfolio::delete_position))
-        // Runoff models
-        .route("/api/runoff", get(api::runoff::list_runoff_models))
-        .route("/api/runoff", post(api::runoff::create_runoff_model))
-        .route("/api/runoff/{id}", get(api::runoff::get_runoff_model))
-        .route("/api/runoff/{id}", delete(api::runoff::delete_runoff_model))
-        // Executions
-        .route("/api/executions", get(api::executions::list_executions))
-        .route("/api/executions/diff", get(api::executions::diff_executions))
-        .route("/api/executions/{id}", get(api::executions::get_execution))
-        .route("/api/executions/{id}/inputs", get(api::executions::get_execution_inputs))
-        // Compute (runs + persists execution)
-        .route("/api/compute", post(api::compute::run_calculation))
-        // Analytics
-        .route("/api/analytics/portfolio-nim", get(api::analytics::portfolio_nim))
-        // Datasets
-        .route("/api/datasets", get(api::datasets_api::list_datasets))
-        .route("/api/datasets", post(api::datasets_api::create_dataset))
-        .route("/api/datasets/{id}", delete(api::datasets_api::delete_dataset))
-        .route("/api/datasets/{id}/contracts", get(api::datasets_api::list_dataset_contracts))
-        .route("/api/datasets/{id}/freeze", get(api::datasets_api::freeze_dataset))
-        .route("/api/datasets/{id}/items", post(api::datasets_api::add_items_to_dataset))
-        .route("/api/datasets/{id}/summary", get(api::datasets_api::dataset_summary))
-        .route("/api/datasets/upload", post(api::datasets_api::upload_contracts_csv))
-        .route("/api/datasets/available", get(api::datasets_api::list_available_datasets))
-        .route("/api/datasets/fs/{folder}/load", post(api::datasets_api::load_fs_dataset))
-        .route("/api/datasets/{id}/export-zip", get(api::datasets_api::export_dataset_zip))
-        .route("/api/datasets/ingest", post(api::datasets_api::ingest_files))
-        // Rate series (historical time series for curve building)
-        .route("/api/rate-series/names", get(api::rate_series::list_series_names))
-        .route("/api/rate-series", get(api::rate_series::query_rate_series))
-        // Portfolios V3
-        .route("/api/portfolios-v3", get(api::portfolios_v3::list_portfolios))
-        .route("/api/portfolios-v3", post(api::portfolios_v3::create_portfolio))
-        .route("/api/portfolios-v3/{id}", get(api::portfolios_v3::get_portfolio))
-        .route("/api/portfolios-v3/{id}", delete(api::portfolios_v3::delete_portfolio))
-        .route("/api/portfolios-v3/{id}/rows/upload", post(api::portfolios_v3::upload_portfolio_row))
-        .route("/api/portfolios-v3/{id}/rows/{row_id}", get(api::portfolios_v3::get_portfolio_row))
-        .route("/api/portfolio-rows/{row_id}", delete(api::portfolios_v3::delete_portfolio_row))
-        // Executions V3
-        .route("/api/executions-v3", get(api::executions_v3::list_executions))
-        .route("/api/executions-v3", post(api::executions_v3::run_execution))
-        .route("/api/executions-v3/{id}", get(api::executions_v3::get_execution))
-        .route("/api/executions-v3/{id}", delete(api::executions_v3::delete_execution))
-        // Studies (V3)
-        .route("/api/studies", get(api::studies::list_studies))
-        .route("/api/studies", post(api::studies::create_study))
-        .route("/api/studies/{id}", get(api::studies::get_study))
-        .route("/api/studies/{id}", put(api::studies::update_study))
-        .route("/api/studies/{id}", delete(api::studies::delete_study))
-        .route("/api/studies/{id}/linkers", post(api::studies::add_linker_to_study))
-        .route("/api/studies/{id}/linkers/{linker_id}", delete(api::studies::remove_linker_from_study))
-        // Linkers (V3)
-        .route("/api/linkers", get(api::linkers::list_linkers))
-        .route("/api/linkers", post(api::linkers::create_linker))
-        .route("/api/linkers/{id}", get(api::linkers::get_linker))
-        .route("/api/linkers/{id}", delete(api::linkers::delete_linker))
-        // Curve Cubes (V3)
-        .route("/api/cubes", get(api::cubes::list_cubes))
-        .route("/api/cubes", post(api::cubes::create_cube))
-        .route("/api/cubes/{id}", get(api::cubes::get_cube))
-        .route("/api/cubes/{id}", put(api::cubes::update_cube))
-        .route("/api/cubes/{id}", delete(api::cubes::delete_cube))
-        // Curve Stacks (V3)
-        .route("/api/stacks", get(api::stacks::list_stacks))
-        .route("/api/stacks", post(api::stacks::create_stack))
-        .route("/api/stacks/generate-combinations", post(api::stacks::generate_combinations))
-        .route("/api/stacks/{id}", get(api::stacks::get_stack))
-        .route("/api/stacks/{id}", put(api::stacks::update_stack))
-        .route("/api/stacks/{id}", delete(api::stacks::delete_stack))
-        // Export
-        .route("/api/export", get(api::export::export_backup))
+        // Module 1 — Risk types
+        .route("/api/risk-types", get(api::rate_matrices::list_risk_types))
+        // Module 1 — Rate matrices
+        .route("/api/rate-matrices",      get(api::rate_matrices::list_rate_matrices))
+        .route("/api/rate-matrices",      post(api::rate_matrices::create_rate_matrix))
+        .route("/api/rate-matrices/{id}", get(api::rate_matrices::get_rate_matrix))
+        .route("/api/rate-matrices/{id}", put(api::rate_matrices::update_rate_matrix))
+        .route("/api/rate-matrices/{id}", delete(api::rate_matrices::delete_rate_matrix))
+        // Module 2 — Hypercubes
+        .route("/api/hypercubes",                          get(api::hypercubes::list_hypercubes))
+        .route("/api/hypercubes",                          post(api::hypercubes::create_hypercube))
+        .route("/api/hypercubes/{id}",                     get(api::hypercubes::get_hypercube))
+        .route("/api/hypercubes/{id}",                     put(api::hypercubes::update_hypercube))
+        .route("/api/hypercubes/{id}",                     delete(api::hypercubes::delete_hypercube))
+        .route("/api/hypercubes/{id}/combinations",        get(api::hypercubes::get_combinations))
+        // Module 3 — Portfolios
+        .route("/api/portfolios",                          get(api::portfolios::list_portfolios))
+        .route("/api/portfolios",                          post(api::portfolios::create_portfolio))
+        .route("/api/portfolios/{id}",                     get(api::portfolios::get_portfolio))
+        .route("/api/portfolios/{id}",                     put(api::portfolios::update_portfolio))
+        .route("/api/portfolios/{id}",                     delete(api::portfolios::delete_portfolio))
+        .route("/api/portfolios/{id}/vectors",             post(api::portfolios::add_vector_to_portfolio))
+        .route("/api/portfolios/{id}/vectors/{vid}",       delete(api::portfolios::remove_vector_from_portfolio))
+        .route("/api/portfolios/{id}/schedules",           post(api::portfolios::add_schedule_to_portfolio))
+        .route("/api/portfolios/{id}/schedules/{sid}",     delete(api::portfolios::remove_schedule_from_portfolio))
+        .route("/api/portfolios/{id}/pairs",               post(api::portfolios::create_pair))
+        .route("/api/portfolios/{id}/pairs/{pid}",         delete(api::portfolios::delete_pair))
+        // Module 3 — Outstanding vectors
+        .route("/api/outstanding-vectors",                 get(api::portfolios::list_vectors))
+        .route("/api/outstanding-vectors",                 post(api::portfolios::create_vector))
+        .route("/api/outstanding-vectors/{id}",            get(api::portfolios::get_vector))
+        .route("/api/outstanding-vectors/{id}",            put(api::portfolios::update_vector))
+        .route("/api/outstanding-vectors/{id}",            delete(api::portfolios::delete_vector))
+        // Module 3 — Amortization schedules
+        .route("/api/amort-schedules",                     get(api::portfolios::list_schedules))
+        .route("/api/amort-schedules",                     post(api::portfolios::create_schedule))
+        .route("/api/amort-schedules/{id}",                get(api::portfolios::get_schedule))
+        .route("/api/amort-schedules/{id}",                put(api::portfolios::update_schedule))
+        .route("/api/amort-schedules/{id}",                delete(api::portfolios::delete_schedule))
+        // Module 6 — Executions
+        .route("/api/executions",        get(api::executions::list_executions))
+        .route("/api/executions",        post(api::executions::create_execution))
+        .route("/api/executions/{id}",   get(api::executions::get_execution))
+        .route("/api/executions/{id}",   delete(api::executions::delete_execution))
+        // Module 5 — Studies
+        .route("/api/studies",                          get(api::studies::list_studies))
+        .route("/api/studies",                          post(api::studies::create_study))
+        .route("/api/studies/{id}",                     get(api::studies::get_study))
+        .route("/api/studies/{id}",                     put(api::studies::update_study))
+        .route("/api/studies/{id}",                     delete(api::studies::delete_study))
+        .route("/api/studies/{id}/units",               post(api::studies::add_unit))
+        .route("/api/studies/{id}/units/{uid}",         delete(api::studies::remove_unit))
+        // Module 4 — Study units
+        .route("/api/study-units",                              get(api::study_units::list_study_units))
+        .route("/api/study-units",                              post(api::study_units::create_study_unit))
+        .route("/api/study-units/{id}",                         get(api::study_units::get_study_unit))
+        .route("/api/study-units/{id}",                         put(api::study_units::update_study_unit))
+        .route("/api/study-units/{id}",                         delete(api::study_units::delete_study_unit))
+        .route("/api/study-units/{id}/validate",                post(api::study_units::validate_study_unit))
+        .route("/api/study-units/{id}/assignments",             post(api::study_units::create_assignment))
+        .route("/api/study-units/{id}/assignments/{aid}",       put(api::study_units::update_assignment))
+        .route("/api/study-units/{id}/assignments/{aid}",       delete(api::study_units::delete_assignment))
         .layer(cors)
         .with_state(state)
         .fallback(serve_frontend);
 
     let listen_addr = std::env::var("LISTEN_ADDR")
         .unwrap_or_else(|_| "127.0.0.1:3000".to_string());
-    let addr: SocketAddr = listen_addr.parse()
-        .expect("Invalid LISTEN_ADDR");
+    let addr: SocketAddr = listen_addr.parse().expect("Invalid LISTEN_ADDR");
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     tracing::info!("FTP Simulator backend listening on http://{}", addr);
-    tracing::info!("Dashboard available at http://{}", addr);
 
     axum::serve(listener, app).await.unwrap();
 }

@@ -98,6 +98,21 @@ pub fn interpolate_to_ftp(
     Ok(out)
 }
 
+// ── Interpolation at arbitrary tenors (used by execution engine) ─────────────
+
+/// Interpolate at a list of arbitrary query tenors (in months).
+/// `xs` / `ys` must already be sorted by xs ascending.
+pub fn interp_at_tenors(xs: &[f64], ys: &[f64], query_months: &[f64], method: &str) -> Vec<f64> {
+    query_months
+        .iter()
+        .map(|&q| match method {
+            "cubic"        => interp_cubic(xs, ys, q),
+            "flat_forward" => interp_flat_forward(xs, ys, q),
+            _              => interp_linear(xs, ys, q),
+        })
+        .collect()
+}
+
 // ── Linear interpolation ──────────────────────────────────────────────────────
 
 fn interp_linear(xs: &[f64], ys: &[f64], q: f64) -> f64 {

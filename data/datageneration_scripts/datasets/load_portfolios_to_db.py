@@ -340,6 +340,8 @@ if __name__ == "__main__":
     print("=" * 60)
 
     conn = psycopg2.connect(DB_URL)
+    conn.cursor().execute("SET search_path TO sc_portfolios, sc_series, sc_curves, sc_studies, public")
+    conn.commit()
     try:
         load_to_db(conn)
     finally:

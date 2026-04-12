@@ -1,0 +1,12 @@
+{
+	"/": [
+		"src/routes/+page.ts"
+	],
+	"/dashboard": [],
+	"/executions": [],
+	"/hypercubes": [],
+	"/portfolios": [],
+	"/rate-matrices": [],
+	"/studies": [],
+	"/study-units": []
+}

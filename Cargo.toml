@@ -4,7 +4,6 @@ members = [
     "crates-core/ftp-calculator-bindings-c",
     "crates-core/ftp-calculator-bindings-pyo3",
     "app/backend",
-    "installer/ftp-installer-helper",
     # "app/tray",  # requires GTK3 on Linux; built only in Windows/macOS CI
 ]
 resolver = "2"

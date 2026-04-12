@@ -34,6 +34,7 @@ THIS_DIR = Path(__file__).parent
 # ── Mapping: CSV file → (series_name, component, currency) ───────────────────
 
 SERIES = [
+    # Component 1 — Base Rate
     {
         "file":       THIS_DIR / "historical_sofr.csv",
         "name":       "SOFR",
@@ -46,10 +47,44 @@ SERIES = [
         "component":  "base_rate",
         "currency":   "EUR",
     },
+    # IBOR reference (Component 7C basis)
     {
         "file":       THIS_DIR / "historical_euribor.csv",
         "name":       "EURIBOR",
         "component":  "ibor",
+        "currency":   "EUR",
+    },
+    # Component 2 — Credit Spread (bank senior unsecured z-spread)
+    {
+        "file":       THIS_DIR / "historical_usd_credit_spread.csv",
+        "name":       "USD_CREDIT_SPREAD",
+        "component":  "credit_spread",
+        "currency":   "USD",
+    },
+    {
+        "file":       THIS_DIR / "historical_eur_credit_spread.csv",
+        "name":       "EUR_CREDIT_SPREAD",
+        "component":  "credit_spread",
+        "currency":   "EUR",
+    },
+    # Component 3 — Term Liquidity Premium
+    {
+        "file":       THIS_DIR / "historical_usd_tlp.csv",
+        "name":       "USD_TLP",
+        "component":  "tlp",
+        "currency":   "USD",
+    },
+    {
+        "file":       THIS_DIR / "historical_eur_tlp.csv",
+        "name":       "EUR_TLP",
+        "component":  "tlp",
+        "currency":   "EUR",
+    },
+    # Component 7B — Cross-Currency Basis
+    {
+        "file":       THIS_DIR / "historical_xccy_eur_usd.csv",
+        "name":       "XCCY_EUR_USD",
+        "component":  "basis_risk",
         "currency":   "EUR",
     },
 ]
@@ -58,20 +93,30 @@ SERIES = [
 # ── Regenerate CSVs if missing ────────────────────────────────────────────────
 
 def ensure_csvs_exist() -> None:
+    import subprocess
     missing = [s for s in SERIES if not s["file"].exists()]
     if not missing:
         return
-    print(f"[info] {len(missing)} CSV file(s) missing — regenerating...")
-    gen_script = THIS_DIR / "generate_rate_series.py"
-    if not gen_script.exists():
-        print(f"[error] Generator script not found: {gen_script}", file=sys.stderr)
-        sys.exit(1)
-    import subprocess
-    result = subprocess.run([sys.executable, str(gen_script)], capture_output=True, text=True)
-    if result.returncode != 0:
-        print(result.stderr, file=sys.stderr)
-        sys.exit(1)
-    print(result.stdout)
+
+    # Determine which generators to run based on which files are missing
+    missing_names = {s["name"] for s in missing}
+    base_series   = {"SOFR", "ESTR", "EURIBOR"}
+    spread_series = {"USD_CREDIT_SPREAD", "EUR_CREDIT_SPREAD", "USD_TLP", "EUR_TLP", "XCCY_EUR_USD"}
+
+    for gen_name, needed_set, gen_file in [
+        ("base rate", base_series, THIS_DIR / "generate_rate_series.py"),
+        ("FTP spread", spread_series, THIS_DIR / "generate_ftp_spreads.py"),
+    ]:
+        if missing_names & needed_set:
+            print(f"[info] Regenerating {gen_name} series from {gen_file.name}...")
+            if not gen_file.exists():
+                print(f"[error] Generator not found: {gen_file}", file=sys.stderr)
+                sys.exit(1)
+            result = subprocess.run([sys.executable, str(gen_file)], capture_output=True, text=True)
+            if result.returncode != 0:
+                print(result.stderr, file=sys.stderr)
+                sys.exit(1)
+            print(result.stdout)
 
 
 # ── Load CSV into rate_series_data ────────────────────────────────────────────
@@ -151,6 +196,8 @@ if __name__ == "__main__":
     ensure_csvs_exist()
 
     conn = psycopg2.connect(DB_URL)
+    conn.cursor().execute("SET search_path TO sc_series, sc_curves, sc_portfolios, sc_studies, public")
+    conn.commit()
     total = 0
     try:
         for s in SERIES:

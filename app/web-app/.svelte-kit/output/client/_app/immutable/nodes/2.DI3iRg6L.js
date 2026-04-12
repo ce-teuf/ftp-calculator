@@ -1,0 +1,1 @@
+import{R as r}from"../chunks/CWeFt6jb.js";function o(e,t){throw new r(e,t.toString())}function n(){throw o(307,"/rate-matrices")}const a=Object.freeze(Object.defineProperty({__proto__:null,load:n},Symbol.toStringTag,{value:"Module"}));export{a as universal};

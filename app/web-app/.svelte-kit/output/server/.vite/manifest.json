@@ -1,0 +1,334 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "name": "internal",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_root.js",
+      "_environment.js",
+      "_internal.js"
+    ]
+  },
+  "_Icon.js": {
+    "file": "chunks/Icon.js",
+    "name": "Icon",
+    "imports": [
+      "_renderer.js"
+    ]
+  },
+  "_MonthPicker.svelte_svelte_type_style_lang.js": {
+    "file": "chunks/MonthPicker.svelte_svelte_type_style_lang.js",
+    "name": "MonthPicker.svelte_svelte_type_style_lang"
+  },
+  "_book-open.js": {
+    "file": "chunks/book-open.js",
+    "name": "book-open",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_briefcase.js": {
+    "file": "chunks/briefcase.js",
+    "name": "briefcase",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_client.js": {
+    "file": "chunks/client.js",
+    "name": "client"
+  },
+  "_environment.js": {
+    "file": "chunks/environment.js",
+    "name": "environment"
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js",
+    "name": "exports"
+  },
+  "_flask-conical.js": {
+    "file": "chunks/flask-conical.js",
+    "name": "flask-conical",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_index.js": {
+    "file": "chunks/index.js",
+    "name": "index",
+    "imports": [
+      "_renderer.js"
+    ]
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "name": "internal",
+    "imports": [
+      "_root.js",
+      "_environment.js"
+    ]
+  },
+  "_layout-dashboard.js": {
+    "file": "chunks/layout-dashboard.js",
+    "name": "layout-dashboard",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_pencil.js": {
+    "file": "chunks/pencil.js",
+    "name": "pencil",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_play.js": {
+    "file": "chunks/play.js",
+    "name": "play",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_plus.js": {
+    "file": "chunks/plus.js",
+    "name": "plus",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_render-context.js": {
+    "file": "chunks/render-context.js",
+    "name": "render-context"
+  },
+  "_renderer.js": {
+    "file": "chunks/renderer.js",
+    "name": "renderer",
+    "imports": [
+      "_render-context.js"
+    ]
+  },
+  "_root.js": {
+    "file": "chunks/root.js",
+    "name": "root",
+    "imports": [
+      "_renderer.js"
+    ]
+  },
+  "_shared.js": {
+    "file": "chunks/shared.js",
+    "name": "shared",
+    "imports": [
+      "_utils.js",
+      "_render-context.js"
+    ]
+  },
+  "_state.svelte.js": {
+    "file": "chunks/state.svelte.js",
+    "name": "state.svelte",
+    "imports": [
+      "_renderer.js",
+      "_exports.js",
+      "_root.js"
+    ]
+  },
+  "_trash-2.js": {
+    "file": "chunks/trash-2.js",
+    "name": "trash-2",
+    "imports": [
+      "_renderer.js",
+      "_Icon.js"
+    ]
+  },
+  "_utils.js": {
+    "file": "chunks/utils.js",
+    "name": "utils"
+  },
+  "node_modules/@sveltejs/kit/src/runtime/app/server/remote/index.js": {
+    "file": "remote-entry.js",
+    "name": "remote-entry",
+    "src": "node_modules/@sveltejs/kit/src/runtime/app/server/remote/index.js",
+    "isEntry": true,
+    "imports": [
+      "_shared.js",
+      "_render-context.js",
+      "_environment.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "name": "entries/fallbacks/error.svelte",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_state.svelte.js",
+      "_exports.js",
+      "_utils.js",
+      "_index.js",
+      "_root.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "name": "index",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_shared.js",
+      "_render-context.js",
+      "_environment.js",
+      "_exports.js",
+      "_utils.js",
+      "_index.js",
+      "_internal.js"
+    ]
+  },
+  "src/routes/+layout.svelte": {
+    "file": "entries/pages/_layout.svelte.js",
+    "name": "entries/pages/_layout.svelte",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_exports.js",
+      "_utils.js",
+      "_root.js",
+      "_state.svelte.js",
+      "_Icon.js",
+      "_briefcase.js",
+      "_flask-conical.js",
+      "_book-open.js",
+      "_play.js",
+      "_layout-dashboard.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.CNthXU1u.css"
+    ]
+  },
+  "src/routes/+page.ts": {
+    "file": "entries/pages/_page.ts.js",
+    "name": "entries/pages/_page.ts",
+    "src": "src/routes/+page.ts",
+    "isEntry": true
+  },
+  "src/routes/dashboard/+page.svelte": {
+    "file": "entries/pages/dashboard/_page.svelte.js",
+    "name": "entries/pages/dashboard/_page.svelte",
+    "src": "src/routes/dashboard/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_client.js",
+      "_layout-dashboard.js",
+      "_Icon.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.BV9bkkCw.css"
+    ]
+  },
+  "src/routes/executions/+page.svelte": {
+    "file": "entries/pages/executions/_page.svelte.js",
+    "name": "entries/pages/executions/_page.svelte",
+    "src": "src/routes/executions/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_client.js",
+      "_play.js",
+      "_trash-2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.DX4ao0bq.css"
+    ]
+  },
+  "src/routes/hypercubes/+page.svelte": {
+    "file": "entries/pages/hypercubes/_page.svelte.js",
+    "name": "entries/pages/hypercubes/_page.svelte",
+    "src": "src/routes/hypercubes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_client.js",
+      "_MonthPicker.svelte_svelte_type_style_lang.js",
+      "_plus.js",
+      "_pencil.js",
+      "_trash-2.js",
+      "_Icon.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.D8AJHizK.css"
+    ]
+  },
+  "src/routes/portfolios/+page.svelte": {
+    "file": "entries/pages/portfolios/_page.svelte.js",
+    "name": "entries/pages/portfolios/_page.svelte",
+    "src": "src/routes/portfolios/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_client.js",
+      "_plus.js",
+      "_briefcase.js",
+      "_pencil.js",
+      "_trash-2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.Bgm5BE85.css"
+    ]
+  },
+  "src/routes/rate-matrices/+page.svelte": {
+    "file": "entries/pages/rate-matrices/_page.svelte.js",
+    "name": "entries/pages/rate-matrices/_page.svelte",
+    "src": "src/routes/rate-matrices/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_plus.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.7jYf60zm.css"
+    ]
+  },
+  "src/routes/studies/+page.svelte": {
+    "file": "entries/pages/studies/_page.svelte.js",
+    "name": "entries/pages/studies/_page.svelte",
+    "src": "src/routes/studies/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_client.js",
+      "_plus.js",
+      "_book-open.js",
+      "_pencil.js",
+      "_trash-2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.DfibWT_N.css"
+    ]
+  },
+  "src/routes/study-units/+page.svelte": {
+    "file": "entries/pages/study-units/_page.svelte.js",
+    "name": "entries/pages/study-units/_page.svelte",
+    "src": "src/routes/study-units/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_renderer.js",
+      "_client.js",
+      "_MonthPicker.svelte_svelte_type_style_lang.js",
+      "_plus.js",
+      "_pencil.js",
+      "_trash-2.js",
+      "_flask-conical.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.CHw-5YZu.css"
+    ]
+  }
+}
