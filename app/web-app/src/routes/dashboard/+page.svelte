@@ -1,713 +1,540 @@
 <script lang="ts">
-  import { executions } from '$lib/api/client';
-  import type { ExecutionSummary, ExecutionDetail, AssignmentResult, TimeStep } from '$lib/api/client';
-  import * as echarts from 'echarts';
-  import { LayoutDashboard, Download, RefreshCw } from '@lucide/svelte';
+  import { executions, studies } from '$lib/api/client';
+  import type { ExecutionSummary, ExecutionDetail, StudySummary, AssignmentResult } from '$lib/api/client';
+  import { Play, Trash2, X, ChevronDown, Copy, Check } from '@lucide/svelte';
+  import { C_OBS, C_FLUX, ptColor, ptLabel } from '$lib/components/dashboard/utils';
+  import type { KpiData } from '$lib/components/dashboard/utils';
+  import KpiStrip      from '$lib/components/dashboard/KpiStrip.svelte';
+  import TimelineChart from '$lib/components/dashboard/TimelineChart.svelte';
+  import RunoffChart   from '$lib/components/dashboard/RunoffChart.svelte';
+  import CourbesChart  from '$lib/components/dashboard/CourbesChart.svelte';
+  import PnlChart      from '$lib/components/dashboard/PnlChart.svelte';
+  import HeatmapChart  from '$lib/components/dashboard/HeatmapChart.svelte';
+  import DataTable     from '$lib/components/dashboard/DataTable.svelte';
 
   // ── State ─────────────────────────────────────────────────────────────────────
+  let execList      = $state<ExecutionSummary[]>([]);
+  let loading       = $state(true);
+  let error         = $state<string | null>(null);
+  let selectedId    = $state<string | null>(null);
+  let detail        = $state<ExecutionDetail | null>(null);
+  let detailLoading = $state(false);
 
-  let execList       = $state<ExecutionSummary[]>([]);
-  let loading        = $state(true);
-  let error          = $state<string | null>(null);
+  // Launch modal
+  let showLaunchModal = $state(false);
+  let allStudies      = $state<StudySummary[]>([]);
+  let launchStudyId   = $state('');
+  let launchLabel     = $state('');
+  let launchError     = $state<string | null>(null);
+  let launching       = $state(false);
 
-  let primaryId      = $state('');
-  let compareId      = $state('');
-  let primaryDetail  = $state<ExecutionDetail | null>(null);
-  let compareDetail  = $state<ExecutionDetail | null>(null);
-  let loadingPrimary = $state(false);
-  let loadingCompare = $state(false);
+  // Dashboard state
+  type Tab = 'timeline' | 'runoff' | 'courbes' | 'pnl' | 'heatmap' | 'data';
+  let activeTab    = $state<Tab>('timeline');
+  let selAssignIdx = $state(0);
+  let runoffDates  = $state<string[]>([]);
 
-  // Filters
-  let dateFrom      = $state('');
-  let dateTo        = $state('');
-  let hiddenAssigns = $state<Record<string, boolean>>({});
-  let tenorDateIdx  = $state(0);
-  let heatAssignIdx = $state(0);
-
-  // Chart DOM refs
-  let chartFtpEl   = $state<HTMLDivElement | null>(null);
-  let chartOutEl   = $state<HTMLDivElement | null>(null);
-  let chartTenorEl = $state<HTMLDivElement | null>(null);
-  let chartHeatEl  = $state<HTMLDivElement | null>(null);
-
-  // Chart instances (non-reactive, managed via effects)
-  let chartFtp:   echarts.ECharts | null = null;
-  let chartOut:   echarts.ECharts | null = null;
-  let chartTenor: echarts.ECharts | null = null;
-  let chartHeat:  echarts.ECharts | null = null;
-
-  const PALETTE = ['#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#f97316','#14b8a6'];
-
-  // ── Init ──────────────────────────────────────────────────────────────────────
-
-  async function load() {
+  // ── Load ──────────────────────────────────────────────────────────────────────
+  async function loadAll() {
     loading = true; error = null;
-    try { execList = (await executions.list()).filter(e => e.status === 'completed'); }
-    catch (e: any) { error = e.message; }
+    try {
+      const [el, sl] = await Promise.all([executions.list(), studies.list()]);
+      execList = el; allStudies = sl;
+    } catch (e: any) { error = e.message; }
     finally { loading = false; }
   }
-  load();
 
-  // ── Load execution details ────────────────────────────────────────────────────
-
-  $effect(() => {
-    const id = primaryId;
-    if (!id) { primaryDetail = null; return; }
-    loadingPrimary = true;
-    hiddenAssigns = {};
-    tenorDateIdx = 0;
-    heatAssignIdx = 0;
-    executions.get(id)
-      .then(d  => { primaryDetail = d; })
-      .catch(e  => { error = e.message; })
-      .finally(() => { loadingPrimary = false; });
-  });
-
-  $effect(() => {
-    const id = compareId;
-    if (!id) { compareDetail = null; return; }
-    loadingCompare = true;
-    executions.get(id)
-      .then(d  => { compareDetail = d; })
-      .catch(e  => { error = e.message; })
-      .finally(() => { loadingCompare = false; });
-  });
-
-  // ── Helpers ───────────────────────────────────────────────────────────────────
-
-  function allAssignments(detail: ExecutionDetail | null): AssignmentResult[] {
-    if (!detail?.result) return [];
-    return detail.result.study_units.flatMap(su => su.assignments);
+  async function selectExec(id: string) {
+    if (selectedId === id) return;
+    selectedId = id; detail = null; detailLoading = true;
+    runoffDates = []; selAssignIdx = 0;
+    try { detail = await executions.get(id); }
+    catch (e: any) { error = e.message; }
+    finally { detailLoading = false; }
   }
 
-  function filteredSteps(a: AssignmentResult): TimeStep[] {
-    return a.time_steps.filter(ts =>
-      (!dateFrom || ts.date >= dateFrom) && (!dateTo || ts.date <= dateTo)
-    );
-  }
-
-  function assignLabel(a: AssignmentResult): string {
-    return a.pair_label ?? `${a.vector_name} × ${a.schedule_name}`;
-  }
-
-  function tenorToMonths(label: string): number {
-    const n = parseFloat(label);
-    if (isNaN(n)) return 0;
-    if (label.endsWith('Y')) return n * 12;
-    if (label.endsWith('M')) return n;
-    if (label.endsWith('W')) return n / 4.33;
-    if (label.endsWith('D')) return n / 30;
-    return n;
-  }
-
-  function sortedTenors(keys: string[]): string[] {
-    return [...keys].sort((a, b) => tenorToMonths(a) - tenorToMonths(b));
-  }
-
-  function fmtPct(v: number)  { return (v * 100).toFixed(4) + '%'; }
-  function fmtM(v: number)    { return (v / 1e6).toFixed(2) + ' M'; }
-  function fmtAmt(v: number)  { return v.toLocaleString('fr-FR', { maximumFractionDigits: 0 }); }
-  function fmtStd(v: number)  { return (v * 100).toFixed(4) + ' pp'; }
+  loadAll();
 
   // ── Derived ───────────────────────────────────────────────────────────────────
-
-  let primaryAssigns = $derived(
-    allAssignments(primaryDetail).filter(a => !hiddenAssigns[a.assignment_id])
-  );
-  let compareAssigns = $derived(
-    allAssignments(compareDetail).filter(a => !hiddenAssigns[a.assignment_id])
+  const allAssignments = $derived<AssignmentResult[]>(
+    detail?.result?.study_units?.flatMap(su => su.assignments) ?? []
   );
 
-  let uniqueDates = $derived.by(() => {
-    const set = new Set<string>();
-    for (const a of primaryAssigns) {
-      for (const ts of filteredSteps(a)) set.add(ts.date);
-    }
-    return [...set].sort();
-  });
-
-  let globalKpis = $derived.by(() => {
-    if (!primaryAssigns.length) return null;
-    let wRateSum = 0, outSum = 0, totalInterest = 0, lastOut = 0;
-    const rates: number[] = [];
-    for (const a of primaryAssigns) {
-      const steps = filteredSteps(a);
-      if (!steps.length) continue;
-      for (const ts of steps) {
-        wRateSum      += ts.kpis.weighted_ftp_rate * ts.kpis.total_outstanding;
-        outSum        += ts.kpis.total_outstanding;
-        totalInterest += ts.kpis.ftp_interest_periodic;
-        rates.push(ts.kpis.weighted_ftp_rate);
-      }
-      lastOut += steps[steps.length - 1].kpis.total_outstanding;
-    }
-    const avgRate = outSum > 0 ? wRateSum / outSum : 0;
-    const variance = rates.length
-      ? rates.reduce((s, r) => s + (r - avgRate) ** 2, 0) / rates.length
-      : 0;
-    return { avgRate, stdRate: Math.sqrt(variance), totalInterest, lastOut };
-  });
-
-  // ── Chart: FTP rate evolution ─────────────────────────────────────────────────
-
-  $effect(() => {
-    const assigns    = primaryAssigns;
-    const cmpAssigns = compareAssigns;
-    const el = chartFtpEl;
-    if (!el) { if (chartFtp) { chartFtp.dispose(); chartFtp = null; } return; }
-
-    if (chartFtp) { chartFtp.dispose(); chartFtp = null; }
-    chartFtp = echarts.init(el);
-
-    const mkSeries = (list: AssignmentResult[], dashed: boolean) =>
-      list.map((a, i) => {
-        const steps = filteredSteps(a);
-        return {
-          name: dashed ? `[Comp] ${assignLabel(a)}` : assignLabel(a),
-          type: 'line',
-          data: steps.map(ts => [ts.date, +((ts.kpis.weighted_ftp_rate * 100).toFixed(4))]),
-          smooth: true,
-          lineStyle: { color: PALETTE[i % PALETTE.length], width: dashed ? 1.5 : 2, type: dashed ? 'dashed' : 'solid' },
-          itemStyle: { color: PALETTE[i % PALETTE.length] },
-          symbol: 'none',
-        };
-      });
-
-    chartFtp.setOption({
-      backgroundColor: 'transparent',
-      tooltip: {
-        trigger: 'axis',
-        formatter: (params: any[]) => {
-          const d = params[0]?.axisValue ?? '';
-          return `<b>${d}</b><br/>` + params.map(p =>
-            `${p.marker}${p.seriesName}: <b>${(+p.value[1]).toFixed(4)}%</b>`
-          ).join('<br/>');
-        },
-      },
-      legend: { top: 4, type: 'scroll', textStyle: { fontSize: 11 } },
-      grid:   { top: 44, right: 20, bottom: 40, left: 64 },
-      xAxis:  { type: 'category', data: uniqueDates, axisLabel: { fontSize: 10, rotate: uniqueDates.length > 24 ? 35 : 0 } },
-      yAxis:  { type: 'value', name: 'Taux FTP (%)', axisLabel: { fontSize: 10, formatter: (v: number) => v.toFixed(2) + '%' } },
-      series: [...mkSeries(assigns, false), ...mkSeries(cmpAssigns, true)],
-    });
-
-    return () => { if (chartFtp) { chartFtp.dispose(); chartFtp = null; } };
-  });
-
-  // ── Chart: Outstanding evolution ─────────────────────────────────────────────
-
-  $effect(() => {
-    const assigns = primaryAssigns;
-    const el = chartOutEl;
-    if (!el) { if (chartOut) { chartOut.dispose(); chartOut = null; } return; }
-
-    if (chartOut) { chartOut.dispose(); chartOut = null; }
-    chartOut = echarts.init(el);
-
-    chartOut.setOption({
-      backgroundColor: 'transparent',
-      tooltip: {
-        trigger: 'axis',
-        formatter: (params: any[]) => {
-          const d = params[0]?.axisValue ?? '';
-          return `<b>${d}</b><br/>` + params.map(p =>
-            `${p.marker}${p.seriesName}: <b>${(+p.value[1]).toFixed(2)} M</b>`
-          ).join('<br/>');
-        },
-      },
-      legend: { top: 4, type: 'scroll', textStyle: { fontSize: 11 } },
-      grid:   { top: 44, right: 20, bottom: 40, left: 68 },
-      xAxis:  { type: 'category', data: uniqueDates, axisLabel: { fontSize: 10, rotate: uniqueDates.length > 24 ? 35 : 0 } },
-      yAxis:  { type: 'value', name: 'Encours (M)', axisLabel: { fontSize: 10, formatter: (v: number) => v.toFixed(0) + 'M' } },
-      series: assigns.map((a, i) => {
-        const steps = filteredSteps(a);
-        return {
-          name: assignLabel(a),
-          type: 'line',
-          stack: 'total',
-          areaStyle: { color: PALETTE[i % PALETTE.length], opacity: 0.18 },
-          data: steps.map(ts => [ts.date, +(ts.kpis.total_outstanding / 1e6).toFixed(2)]),
-          smooth: true,
-          lineStyle: { color: PALETTE[i % PALETTE.length], width: 1.5 },
-          itemStyle: { color: PALETTE[i % PALETTE.length] },
-          symbol: 'none',
-        };
-      }),
-    });
-
-    return () => { if (chartOut) { chartOut.dispose(); chartOut = null; } };
-  });
-
-  // ── Chart: FTP by tenor at selected date ─────────────────────────────────────
-
-  $effect(() => {
-    const assigns = primaryAssigns;
-    const dates   = uniqueDates;
-    const idx     = tenorDateIdx;
-    const el      = chartTenorEl;
-    if (!el || !dates.length) { if (chartTenor) { chartTenor.dispose(); chartTenor = null; } return; }
-
-    if (chartTenor) { chartTenor.dispose(); chartTenor = null; }
-    chartTenor = echarts.init(el);
-
-    const date = dates[Math.min(idx, dates.length - 1)];
-    const tenorSet = new Set<string>();
-    for (const a of assigns) {
-      const ts = a.time_steps.find(t => t.date === date);
-      if (ts) Object.keys(ts.ftp_by_tenor).forEach(k => tenorSet.add(k));
-    }
-    const tenors = sortedTenors([...tenorSet]);
-
-    chartTenor.setOption({
-      backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', valueFormatter: (v: number) => (+v).toFixed(4) + '%' },
-      legend: { top: 4, type: 'scroll', textStyle: { fontSize: 11 } },
-      grid:   { top: 44, right: 20, bottom: 40, left: 64 },
-      xAxis:  { type: 'category', data: tenors, axisLabel: { fontSize: 11 } },
-      yAxis:  { type: 'value', name: 'Taux FTP (%)', axisLabel: { fontSize: 10, formatter: (v: number) => v.toFixed(2) + '%' } },
-      series: assigns.map((a, i) => {
-        const ts = a.time_steps.find(t => t.date === date);
-        return {
-          name: assignLabel(a),
-          type: 'line',
-          data: tenors.map(t => ts ? +((ts.ftp_by_tenor[t] ?? 0) * 100).toFixed(4) : 0),
-          smooth: false,
-          lineStyle: { color: PALETTE[i % PALETTE.length], width: 2 },
-          itemStyle: { color: PALETTE[i % PALETTE.length] },
-          symbolSize: 5,
-        };
-      }),
-    });
-
-    return () => { if (chartTenor) { chartTenor.dispose(); chartTenor = null; } };
-  });
-
-  // ── Chart: Heatmap time × tenor ───────────────────────────────────────────────
-
-  $effect(() => {
-    const assigns = primaryAssigns;
-    const idx     = heatAssignIdx;
-    const el      = chartHeatEl;
-    if (!el || !assigns.length) { if (chartHeat) { chartHeat.dispose(); chartHeat = null; } return; }
-
-    const a = assigns[Math.min(idx, assigns.length - 1)];
-    if (!a) return;
-
-    const steps = filteredSteps(a);
-    if (!steps.length) return;
-
-    if (chartHeat) { chartHeat.dispose(); chartHeat = null; }
-    chartHeat = echarts.init(el);
-
-    const tenors = sortedTenors(Object.keys(steps[0]?.ftp_by_tenor ?? {}));
-    const dates  = steps.map(ts => ts.date);
-    const data: [number, number, number][] = [];
-    let minV = Infinity, maxV = -Infinity;
-
-    for (let ti = 0; ti < dates.length; ti++) {
-      const ts = steps[ti];
-      for (let yi = 0; yi < tenors.length; yi++) {
-        const v = (ts.ftp_by_tenor[tenors[yi]] ?? 0) * 100;
-        data.push([ti, yi, +v.toFixed(4)]);
-        if (v < minV) minV = v;
-        if (v > maxV) maxV = v;
-      }
-    }
-
-    chartHeat.setOption({
-      backgroundColor: 'transparent',
-      tooltip: {
-        formatter: (p: any) =>
-          `<b>${dates[p.value[0]]}</b> · ${tenors[p.value[1]]}<br/>Taux FTP : <b>${p.value[2].toFixed(4)}%</b>`,
-      },
-      grid: { top: 12, right: 90, bottom: 60, left: 52 },
-      xAxis: {
-        type: 'category', data: dates, splitArea: { show: true },
-        axisLabel: { fontSize: 9, rotate: dates.length > 16 ? 45 : 0 },
-      },
-      yAxis: { type: 'category', data: tenors, splitArea: { show: true }, axisLabel: { fontSize: 11 } },
-      visualMap: {
-        min: minV, max: maxV, calculable: true,
-        orient: 'vertical', right: 0, top: 'center',
-        inRange: { color: ['#e0e7ff', '#6366f1', '#312e81'] },
-        textStyle: { fontSize: 9 },
-        formatter: (v: number) => v.toFixed(2) + '%',
-      },
-      series: [{
-        type: 'heatmap', data,
-        emphasis: { itemStyle: { shadowBlur: 8, shadowColor: 'rgba(0,0,0,.4)' } },
-      }],
-    });
-
-    return () => { if (chartHeat) { chartHeat.dispose(); chartHeat = null; } };
-  });
-
-  // ── Export ────────────────────────────────────────────────────────────────────
-
-  function exportPng(chart: echarts.ECharts | null, filename: string) {
-    if (!chart) return;
-    const url = chart.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#fff' });
-    const a = document.createElement('a');
-    a.href = url; a.download = filename + '.png'; a.click();
-  }
-
-  function exportCsv() {
-    if (!primaryAssigns.length) return;
-
-    const firstSteps = primaryAssigns.flatMap(a => filteredSteps(a));
-    const tenors = firstSteps[0] ? sortedTenors(Object.keys(firstSteps[0].ftp_by_tenor)) : [];
-    const header = ['assignment','date','total_outstanding','weighted_ftp_rate_%','ftp_interest_periodic',...tenors.map(t => `ftp_${t}_%`)];
-
-    const rows: string[][] = [header];
-    for (const a of primaryAssigns) {
-      for (const ts of filteredSteps(a)) {
-        rows.push([
-          assignLabel(a), ts.date,
-          String(ts.kpis.total_outstanding),
-          String((ts.kpis.weighted_ftp_rate * 100).toFixed(6)),
-          String(ts.kpis.ftp_interest_periodic),
-          ...tenors.map(t => String(((ts.ftp_by_tenor[t] ?? 0) * 100).toFixed(6))),
-        ]);
-      }
-    }
-
-    const csv  = rows.map(r => r.map(v => `"${v.replace(/"/g, '""')}"`).join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href = url; a.download = 'ftp-results.csv'; a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function toggleAssign(id: string) {
-    hiddenAssigns = { ...hiddenAssigns, [id]: !hiddenAssigns[id] };
-  }
-
-  const hasResults = $derived(
-    !!primaryDetail && primaryDetail.status === 'completed' && !!primaryDetail.result
+  const selAssign = $derived<AssignmentResult | null>(
+    allAssignments[selAssignIdx] ?? null
   );
+
+  const projBoundary = $derived.by<string | null>(() => {
+    for (const a of allAssignments) {
+      for (const ts of a.time_steps) {
+        if (ts.period_type !== 'observed') return ts.date;
+      }
+    }
+    return null;
+  });
+
+  const kpis = $derived.by<KpiData | null>(() => {
+    if (!allAssignments.length) return null;
+    let obsTotalOut = 0, projTotalOut = 0;
+    let obsRateSum = 0, obsRateW = 0, projRateSum = 0, projRateW = 0;
+    let obsInt = 0, projInt = 0;
+    for (const a of allAssignments) {
+      for (const ts of a.time_steps) {
+        const o = ts.kpis.total_outstanding;
+        const r = ts.kpis.weighted_ftp_rate;
+        const i = ts.kpis.ftp_interest_periodic;
+        if (ts.period_type === 'observed') {
+          obsTotalOut = o; obsRateSum += r * o; obsRateW += o; obsInt += i;
+        } else {
+          projTotalOut = o; projRateSum += r * o; projRateW += o; projInt += i;
+        }
+      }
+    }
+    const lastA  = allAssignments[0];
+    const lastTs = lastA?.time_steps[lastA.time_steps.length - 1];
+    let wal = 0;
+    if (lastTs?.profile?.length) {
+      const buckets = lastA.bucket_labels.map(Number).filter(Boolean);
+      let wSum = 0, wTot = 0;
+      lastTs.profile.forEach((w: number, j: number) => { wSum += (buckets[j] ?? j+1) * w; wTot += w; });
+      wal = wTot > 0 ? wSum / wTot : 0;
+    }
+    return {
+      obsTotalOut, projTotalOut,
+      obsAvgRate:  obsRateW  > 0 ? obsRateSum  / obsRateW  : 0,
+      projAvgRate: projRateW > 0 ? projRateSum / projRateW : 0,
+      obsInt, projInt, wal,
+      method: allAssignments.map(a => a.method).filter((v,i,arr) => arr.indexOf(v) === i).join(' + '),
+    };
+  });
+
+  // ── Launch / delete ───────────────────────────────────────────────────────────
+
+  async function confirmLaunch() {
+    if (!launchStudyId) { launchError = 'Sélectionner une étude'; return; }
+    launching = true; launchError = null;
+    try {
+      const result = await executions.create({ study_id: launchStudyId, label: launchLabel || undefined });
+      showLaunchModal = false; await loadAll(); await selectExec(result.id);
+    } catch (e: any) { launchError = e.message; } finally { launching = false; }
+  }
+  async function deleteExec(id: string) {
+    if (!confirm('Supprimer cette exécution ?')) return;
+    try {
+      await executions.delete(id);
+      if (selectedId === id) { selectedId = null; detail = null; }
+      await loadAll();
+    } catch (e: any) { alert(e.message); }
+  }
+
+  // ── Debug JSON panel ─────────────────────────────────────────────────────────
+  let showJsonDebug = $state(false);
+  let jsonCopied    = $state(false);
+
+  function copyJson() {
+    if (!detail?.result) return;
+    navigator.clipboard.writeText(JSON.stringify(detail.result, null, 2)).then(() => {
+      jsonCopied = true;
+      setTimeout(() => { jsonCopied = false; }, 2000);
+    });
+  }
+
+  // ── Runoff date picker ────────────────────────────────────────────────────────
+  function toggleRunoffDate(d: string) {
+    if (runoffDates.includes(d)) runoffDates = runoffDates.filter(x => x !== d);
+    else runoffDates = [...runoffDates, d].slice(-6);
+  }
+
+  // ── Formatters (left panel) ───────────────────────────────────────────────────
+  function fmtDuration(ms?: number) {
+    if (!ms) return '—'; return ms < 1000 ? `${ms} ms` : `${(ms/1000).toFixed(1)} s`;
+  }
+  function statusClass(s: string) {
+    return s === 'completed' ? 'badge-active' : s === 'error' ? 'badge-error'
+         : s === 'running'   ? 'badge-pending' : 'badge-draft';
+  }
+  function statusLabel(s: string) {
+    return s === 'completed' ? 'Terminée' : s === 'error' ? 'Erreur'
+         : s === 'running'   ? 'En cours' : 'En attente';
+  }
 </script>
 
-<!-- ── Page ──────────────────────────────────────────────────────────────────── -->
-<div class="dash-page">
+<!-- ══════════════════════════════════════════════════════════ Layout -->
+<div class="page">
 
-  <!-- ── Header ── -->
-  <header class="dash-header card">
-    <div class="header-left">
-      <span class="header-icon"><LayoutDashboard size={18} /></span>
-      <span class="header-title">Dashboard</span>
-    </div>
-
-    <div class="header-controls">
-      <!-- Execution selectors -->
-      <div class="ctrl-group">
-        <label class="ctrl-label">Exécution
-          <select class="ctrl-select" bind:value={primaryId} disabled={loading}>
-            <option value="">— Sélectionner —</option>
+  <!-- ── Top bar ────────────────────────────────────────────────────────────── -->
+  <div class="top-bar">
+    <h1 class="top-title">Dashboard</h1>
+    <div class="top-controls">
+      {#if loading}
+        <span class="loading">Chargement…</span>
+      {:else if error}
+        <span class="top-error">{error}</span>
+      {:else}
+        <div class="exec-select-wrap">
+          <ChevronDown size={14} class="select-icon" />
+          <select
+            class="exec-select"
+            onchange={(e) => selectExec((e.target as HTMLSelectElement).value)}
+          >
+            <option value="">— Sélectionner une exécution —</option>
             {#each execList as ex}
-              <option value={ex.id}>{ex.study_name ?? ex.id}{ex.label ? ` · ${ex.label}` : ''}</option>
+              <option value={ex.id} selected={selectedId === ex.id}>
+                {ex.study_name ?? '—'}{ex.label ? ` · ${ex.label}` : ''} — {new Date(ex.created_at).toLocaleDateString('fr-FR')} [{ex.method}] · {statusLabel(ex.status)}
+              </option>
             {/each}
           </select>
-        </label>
-
-        <label class="ctrl-label">Comparaison
-          <select class="ctrl-select" bind:value={compareId} disabled={loading || !primaryId}>
-            <option value="">— Aucune —</option>
-            {#each execList.filter(e => e.id !== primaryId) as ex}
-              <option value={ex.id}>{ex.study_name ?? ex.id}{ex.label ? ` · ${ex.label}` : ''}</option>
-            {/each}
-          </select>
-        </label>
-      </div>
-
-      <!-- Date filters -->
-      <div class="ctrl-group">
-        <label class="ctrl-label">Du
-          <input class="ctrl-month" type="month" bind:value={dateFrom} />
-        </label>
-        <label class="ctrl-label">Au
-          <input class="ctrl-month" type="month" bind:value={dateTo} />
-        </label>
-        {#if dateFrom || dateTo}
-          <button class="btn-sm" onclick={() => { dateFrom = ''; dateTo = ''; }}>
-            <RefreshCw size={11} /> Reset
-          </button>
-        {/if}
-      </div>
-
-      <!-- CSV export -->
-      {#if hasResults}
-        <button class="btn-sm btn-export" onclick={exportCsv}>
-          <Download size={12} /> CSV
+        </div>
+      {/if}
+      {#if selectedId}
+        <button class="btn-sm btn-danger" onclick={() => deleteExec(selectedId!)} title="Supprimer cette exécution">
+          <Trash2 size={12} />
         </button>
       {/if}
-    </div>
-  </header>
 
-  <!-- ── Empty / Loading ── -->
-  {#if loading}
-    <p class="loading" style="padding:40px 32px">Chargement des exécutions…</p>
-  {:else if error}
-    <div class="alert-error" style="margin:24px 32px">{error}</div>
-  {:else if !primaryId}
-    <div class="empty-state" style="margin:60px auto;max-width:380px">
-      <LayoutDashboard size={36} style="margin:0 auto 14px;opacity:.25" />
-      <p>Sélectionnez une exécution terminée pour visualiser les résultats FTP.</p>
     </div>
-  {:else if loadingPrimary}
-    <p class="loading" style="padding:40px 32px">Chargement des résultats…</p>
-  {:else if primaryDetail?.status !== 'completed'}
-    <div class="alert-error" style="margin:24px 32px">
-      L'exécution sélectionnée n'est pas terminée (statut : {primaryDetail?.status ?? '?'}).
-    </div>
-  {:else if hasResults}
+  </div>
 
-    <!-- ── Assignment filter chips ── -->
-    {@const allAssigns = allAssignments(primaryDetail)}
-    {#if allAssigns.length > 1}
-      <div class="assign-chips">
-        <span class="chips-label">Assignments :</span>
-        {#each allAssigns as a, i}
-          <button
-            class="chip"
-            class:chip--off={hiddenAssigns[a.assignment_id]}
-            style="--chip-color:{PALETTE[i % PALETTE.length]}"
-            onclick={() => toggleAssign(a.assignment_id)}
-          >
-            {assignLabel(a)}
-          </button>
-        {/each}
+  <!-- ── Main content ───────────────────────────────────────────────────────── -->
+  <main class="main-content">
+
+    {#if !selectedId}
+      <div class="empty-state" style="margin:40px auto;max-width:400px">
+        <Play size={32} style="margin:0 auto 12px;opacity:.3" />
+        <p>Sélectionnez une exécution dans la liste déroulante ci-dessus</p>
       </div>
-    {/if}
 
-    <!-- ── KPI row ── -->
-    {#if globalKpis}
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <span class="kpi-label">Taux FTP moyen pondéré</span>
-          <span class="kpi-value">{fmtPct(globalKpis.avgRate)}</span>
+    {:else if detailLoading}
+      <p class="loading" style="padding:32px">Chargement…</p>
+
+    {:else if detail}
+
+      <!-- ── Debug JSON panel ───────────────────────────────────────────────── -->
+      <details class="json-debug" bind:open={showJsonDebug}>
+        <summary class="json-debug-summary">
+          🛠 JSON résultat brut
+          <div class="json-debug-actions">
+            <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+            <span class="json-copy-btn" onclick={(e) => { e.preventDefault(); copyJson(); }}
+                  title="Copier le JSON">
+              {#if jsonCopied}
+                <Check size={12} /> Copié
+              {:else}
+                <Copy size={12} /> Copier
+              {/if}
+            </span>
+            <span class="json-debug-hint">{showJsonDebug ? 'Masquer' : 'Afficher'}</span>
+          </div>
+        </summary>
+        <pre class="json-debug-body">{JSON.stringify(detail.result, null, 2)}</pre>
+      </details>
+
+      <!-- Execution header -->
+      <div class="detail-header">
+        <div class="detail-title-row">
+          <div>
+            <h2>{detail.study_name ?? 'Exécution'}</h2>
+            {#if detail.label}<p class="detail-desc">{detail.label}</p>{/if}
+          </div>
+          <div class="detail-meta-row">
+            <span class="badge {statusClass(detail.status)}">{statusLabel(detail.status)}</span>
+            <span class="detail-meta">Méthode : <b>{detail.method}</b></span>
+            <span class="detail-meta">Durée : {fmtDuration(detail.duration_ms)}</span>
+            <span class="detail-meta">{new Date(detail.created_at).toLocaleString('fr-FR')}</span>
+          </div>
         </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Écart-type du taux</span>
-          <span class="kpi-value">{fmtStd(globalKpis.stdRate)}</span>
+      </div>
+
+      {#if detail.status === 'error' && detail.error_message}
+        <div class="alert-error" style="margin:20px 28px">
+          <strong>Erreur de calcul :</strong> {detail.error_message}
         </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Dernier encours total</span>
-          <span class="kpi-value">{fmtM(globalKpis.lastOut)}</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Intérêts FTP cumulés</span>
-          <span class="kpi-value">{fmtAmt(globalKpis.totalInterest)}</span>
-        </div>
-        {#if compareDetail?.result}
-          {@const cmpAssigns = allAssignments(compareDetail)}
-          {@const cmpOut = cmpAssigns.flatMap(a => filteredSteps(a)).reduce((s, ts) => s + ts.kpis.total_outstanding, 0)}
-          {@const cmpWR  = cmpAssigns.flatMap(a => filteredSteps(a)).reduce((s, ts) => s + ts.kpis.weighted_ftp_rate * ts.kpis.total_outstanding, 0)}
-          <div class="kpi-card kpi-card--compare">
-            <span class="kpi-label">Taux moyen [Comp]</span>
-            <span class="kpi-value">{cmpOut > 0 ? fmtPct(cmpWR / cmpOut) : '—'}</span>
+
+      {:else if detail.status === 'completed' && detail.result && kpis}
+
+        <KpiStrip {kpis} />
+
+        <!-- Assignment selector (if multiple) -->
+        {#if allAssignments.length > 1}
+          <div class="assign-selector">
+            <span class="assign-sel-label">Assignment :</span>
+            {#each allAssignments as a, i}
+              <button class="assign-chip" class:assign-chip--on={selAssignIdx === i}
+                      onclick={() => { selAssignIdx = i; }}>
+                <span class="method-dot" style="background:{a.method.includes('Flux') ? C_FLUX : C_OBS}"></span>
+                {a.pair_label ?? a.vector_name}
+                <span class="method-tag-sm">{a.method.includes('Flux') ? 'Flux' : 'Stock'}</span>
+              </button>
+            {/each}
           </div>
         {/if}
-      </div>
-    {/if}
 
-    <!-- ── Charts grid ── -->
-    <div class="charts-grid">
+        <!-- Tab nav -->
+        <nav class="tab-nav">
+          {#each ([
+            ['timeline', 'Timeline'],
+            ['runoff',   'Runoff'],
+            ['courbes',  'Courbes FTP'],
+            ['pnl',      'P&L'],
+            ['heatmap',  'Heatmap'],
+            ['data',     'Données'],
+          ] as [Tab, string][]) as [tid, tname]}
+            <button class="tab-btn" class:tab-btn--on={activeTab === tid}
+                    onclick={() => activeTab = tid}>{tname}</button>
+          {/each}
+        </nav>
 
-      <!-- Chart 1 — FTP rate evolution -->
-      <div class="chart-card card">
-        <div class="chart-card-head">
-          <span class="chart-title">Évolution du Taux FTP</span>
-          <button class="btn-sm" onclick={() => exportPng(chartFtp, 'ftp-rate')}>
-            <Download size={11} /> PNG
-          </button>
-        </div>
-        <div bind:this={chartFtpEl} class="chart-el"></div>
-      </div>
+        <!-- Tab body -->
+        <div class="tab-body">
 
-      <!-- Chart 2 — Outstanding evolution -->
-      <div class="chart-card card">
-        <div class="chart-card-head">
-          <span class="chart-title">Évolution des Encours</span>
-          <button class="btn-sm" onclick={() => exportPng(chartOut, 'encours')}>
-            <Download size={11} /> PNG
-          </button>
-        </div>
-        <div bind:this={chartOutEl} class="chart-el"></div>
-      </div>
+          {#if activeTab === 'timeline'}
+            <TimelineChart assignments={allAssignments} {projBoundary} />
 
-      <!-- Chart 3 — FTP by tenor at date -->
-      <div class="chart-card card">
-        <div class="chart-card-head">
-          <span class="chart-title">Courbe FTP par Tenor</span>
-          <div class="chart-head-controls">
-            {#if uniqueDates.length}
-              <select
-                class="date-select"
-                value={uniqueDates[Math.min(tenorDateIdx, uniqueDates.length - 1)]}
-                onchange={e => { tenorDateIdx = uniqueDates.indexOf((e.target as HTMLSelectElement).value); }}
-              >
-                {#each uniqueDates as d, i}
-                  <option value={d}>{d}</option>
-                {/each}
-              </select>
+          {:else if activeTab === 'runoff' || activeTab === 'courbes'}
+            {#if selAssign}
+              <div class="runoff-section">
+                <div class="runoff-picker-label">
+                  Sélectionner jusqu'à 6 dates ({runoffDates.length}/6) :
+                </div>
+                <div class="date-chips">
+                  {#each selAssign.time_steps as ts}
+                    <button
+                      class="date-chip"
+                      class:date-chip--on={runoffDates.includes(ts.date)}
+                      style="--c:{ptColor(ts.period_type)}"
+                      onclick={() => toggleRunoffDate(ts.date)}
+                    >
+                      {ts.date}
+                      <span class="date-chip-pt">{ptLabel(ts.period_type)}</span>
+                    </button>
+                  {/each}
+                </div>
+              </div>
+
+              {#if runoffDates.length === 0}
+                <div class="empty-state" style="padding:40px">
+                  <p>Sélectionnez des dates ci-dessus pour afficher les profils.</p>
+                </div>
+              {:else if activeTab === 'runoff'}
+                <RunoffChart assign={selAssign} {runoffDates} />
+              {:else}
+                <CourbesChart assign={selAssign} {runoffDates} />
+              {/if}
             {/if}
-            <button class="btn-sm" onclick={() => exportPng(chartTenor, 'ftp-tenor')}>
-              <Download size={11} /> PNG
-            </button>
-          </div>
-        </div>
-        <div bind:this={chartTenorEl} class="chart-el"></div>
-      </div>
 
-      <!-- Chart 4 — Heatmap -->
-      <div class="chart-card card">
-        <div class="chart-card-head">
-          <span class="chart-title">Heatmap FTP (Temps × Tenor)</span>
-          <div class="chart-head-controls">
-            {#if primaryAssigns.length > 1}
-              <select
-                class="date-select"
-                value={heatAssignIdx}
-                onchange={e => { heatAssignIdx = +((e.target as HTMLSelectElement).value); }}
-              >
-                {#each primaryAssigns as a, i}
-                  <option value={i}>{assignLabel(a)}</option>
-                {/each}
-              </select>
+          {:else if activeTab === 'pnl'}
+            <PnlChart assignments={allAssignments} />
+
+          {:else if activeTab === 'heatmap'}
+            {#if selAssign}
+              <HeatmapChart assign={selAssign} />
             {/if}
-            <button class="btn-sm" onclick={() => exportPng(chartHeat, 'heatmap-ftp')}>
-              <Download size={11} /> PNG
-            </button>
-          </div>
-        </div>
-        <div bind:this={chartHeatEl} class="chart-el chart-el--heat"></div>
-      </div>
 
-    </div><!-- /charts-grid -->
+          {:else if activeTab === 'data'}
+            {#if selAssign}
+              <DataTable assign={selAssign} />
+            {/if}
+          {/if}
 
-    <!-- ── Multi-execution comparison note ── -->
-    {#if compareDetail?.result}
-      <div class="compare-banner">
-        Comparaison activée — tirets = <strong>{compareDetail.study_name ?? compareDetail.id}</strong>
-        {#if compareDetail.label}<em> ({compareDetail.label})</em>{/if}
-      </div>
+        </div><!-- tab-body -->
+
+      {:else}
+        <p class="loading" style="padding:32px">En attente…</p>
+      {/if}
     {/if}
-
-  {/if}
+  </main>
 </div>
 
+
+<!-- Launch modal -->
+{#if showLaunchModal}
+  <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+  <div class="overlay" onclick={() => showLaunchModal = false}>
+    <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+    <div class="modal" onclick={e => e.stopPropagation()}>
+      <div class="modal-hd">
+        <h3>Lancer une exécution</h3>
+        <button onclick={() => showLaunchModal = false}><X size={16} /></button>
+      </div>
+      <div class="modal-bd">
+        {#if launchError}<div class="alert-error">{launchError}</div>{/if}
+        <label>Étude
+          <select bind:value={launchStudyId}>
+            <option value="">— Sélectionner —</option>
+            {#each allStudies as s}
+              <option value={s.id}>{s.name} ({s.status === 'ready' ? '✓' : s.status}) · {s.unit_count} unité(s)</option>
+            {/each}
+          </select>
+        </label>
+        <label>Label (optionnel)
+          <input bind:value={launchLabel} placeholder="Ex. Run Q4 2024 baseline" />
+        </label>
+        {#if launching}
+          <div class="launch-progress">⏳ Calcul en cours…</div>
+        {/if}
+      </div>
+      <div class="modal-ft">
+        <button class="btn-sm" onclick={() => showLaunchModal = false} disabled={launching}>Annuler</button>
+        <button class="btn-primary" onclick={confirmLaunch} disabled={launching || !launchStudyId}>
+          {#if launching}Calcul…{:else}<Play size={13} /> Lancer{/if}
+        </button>
+      </div>
+    </div>
+  </div>
+{/if}
+
 <style>
-  /* ── Page ── */
-  .dash-page {
-    min-height: 100vh;
+  /* ── Layout ── */
+  .page {
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
     background: #f4f5f9;
-    padding: 0 0 40px;
+  }
+  .main-content { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+  /* ── Top bar ── */
+  .top-bar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 24px; background: #fff;
+    border-bottom: 1px solid #e5e7eb; flex-shrink: 0;
+  }
+  .top-title { font-size: 16px; font-weight: 700; color: #1a1a2e; white-space: nowrap; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex: 1; }
+  .top-error { font-size: 12px; color: #b91c1c; }
+
+  .exec-select-wrap {
+    position: relative; flex: 1; max-width: 520px;
+  }
+  .exec-select-wrap :global(.select-icon) {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    pointer-events: none; color: #6b7280;
+  }
+  .exec-select {
+    width: 100%; appearance: none; padding: 7px 32px 7px 12px;
+    border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb;
+    font-size: 13px; color: #1a1a2e; cursor: pointer;
+    transition: border-color 120ms, box-shadow 120ms;
+  }
+  .exec-select:focus {
+    outline: none; border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,.12);
   }
 
-  /* ── Header ── */
-  .dash-header {
-    display: flex; align-items: center; gap: 24px;
-    padding: 14px 28px; border-radius: 0;
-    border-bottom: 1px solid #e5e7eb;
-    flex-wrap: wrap; row-gap: 10px;
+  /* ── Detail header ── */
+  .detail-header {
+    padding: 16px 24px 12px; background: #fff;
+    border-bottom: 1px solid #e5e7eb; flex-shrink: 0;
   }
-  .header-left  { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .header-icon  { color: #6366f1; display: flex; }
-  .header-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+  .detail-title-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .detail-header h2 { font-size: 17px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+  .detail-desc { font-size: 12px; color: #6366f1; }
+  .detail-meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .detail-meta { font-size: 12px; color: #6b7280; }
 
-  .header-controls {
-    display: flex; align-items: flex-end; gap: 16px; flex: 1; flex-wrap: wrap;
+  /* ── Assignment selector ── */
+  .assign-selector {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 8px 24px; background: #fafafa; border-bottom: 1px solid #f1f1f5;
+    flex-shrink: 0;
   }
-  .ctrl-group { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
-  .ctrl-label {
-    display: flex; flex-direction: column; gap: 3px;
-    font-size: 11.5px; font-weight: 500; color: #6b7280;
+  .assign-sel-label { font-size: 11px; font-weight: 600; color: #9ca3af; }
+  .assign-chip {
+    display: flex; align-items: center; gap: 5px;
+    border: 1px solid #e5e7eb; border-radius: 20px; padding: 3px 10px;
+    font-size: 12px; background: #fff; cursor: pointer; transition: all 100ms;
   }
-  .ctrl-select {
-    border: 1px solid #e5e7eb; border-radius: 7px; padding: 5px 10px;
-    font-size: 12.5px; background: #fff; color: #1a1a2e;
-    min-width: 180px; max-width: 240px; width: auto;
-    cursor: pointer;
-  }
-  .ctrl-month {
-    border: 1px solid #e5e7eb; border-radius: 7px; padding: 5px 9px;
-    font-size: 12.5px; background: #fff; color: #1a1a2e;
-    width: 140px;
-  }
-  .btn-export {
-    background: #f0fdf4; color: #15803d; align-self: flex-end;
-  }
-  .btn-export:hover { background: #dcfce7; }
-
-  /* ── Assignment chips ── */
-  .assign-chips {
-    display: flex; align-items: center; gap: 6px;
-    padding: 10px 28px; flex-wrap: wrap;
-    border-bottom: 1px solid #eee;
-  }
-  .chips-label { font-size: 11.5px; font-weight: 600; color: #6b7280; flex-shrink: 0; }
-  .chip {
-    border: 1.5px solid var(--chip-color, #6366f1);
-    background: transparent;
-    color: var(--chip-color, #6366f1);
-    border-radius: 20px; padding: 3px 10px;
-    font-size: 11.5px; font-weight: 600; cursor: pointer;
-    transition: background 120ms, opacity 120ms;
-  }
-  .chip:hover { background: color-mix(in srgb, var(--chip-color, #6366f1) 10%, transparent); }
-  .chip--off  { opacity: 0.3; }
-
-  /* ── KPI row ── */
-  .kpi-row {
-    display: flex; gap: 14px; padding: 16px 28px;
-    flex-wrap: wrap;
-  }
-  .kpi-card {
-    background: #fff; border-radius: 10px; padding: 12px 18px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.06);
-    display: flex; flex-direction: column; gap: 3px;
-    min-width: 160px;
-  }
-  .kpi-card--compare { border: 1.5px dashed #c7d2fe; }
-  .kpi-label { font-size: 10.5px; font-weight: 600; color: #9ca3af; text-transform: uppercase; }
-  .kpi-value { font-size: 18px; font-weight: 700; color: #1a1a2e; }
-
-  /* ── Charts grid ── */
-  .charts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    padding: 0 28px;
+  .assign-chip--on { border-color: #6366f1; background: #eef2ff; color: #4338ca; }
+  .method-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .method-tag-sm {
+    font-size: 10px; font-weight: 600; background: #f3f4f6;
+    padding: 1px 5px; border-radius: 4px; color: #374151;
   }
 
-  .chart-card { border-radius: 12px; overflow: hidden; }
-  .chart-card-head {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 16px 8px;
-    border-bottom: 1px solid #f1f1f5;
+  /* ── Tab nav ── */
+  .tab-nav {
+    display: flex; gap: 2px; padding: 10px 24px 0;
+    background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;
   }
-  .chart-title { font-size: 13px; font-weight: 600; color: #374151; }
-  .chart-head-controls { display: flex; align-items: center; gap: 6px; }
+  .tab-btn {
+    padding: 7px 16px; font-size: 13px; font-weight: 500; color: #6b7280;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; transition: all 100ms; border-radius: 4px 4px 0 0;
+  }
+  .tab-btn:hover { color: #1a1a2e; background: #f4f5f9; }
+  .tab-btn--on { color: #6366f1; border-bottom-color: #6366f1; font-weight: 600; }
 
-  .chart-el { width: 100%; height: 280px; }
-  .chart-el--heat { height: 260px; }
+  /* ── Tab body ── */
+  .tab-body { flex: 1; padding: 20px 24px; min-height: 0; overflow-y: auto; }
 
-  .date-select {
-    border: 1px solid #e5e7eb; border-radius: 6px;
-    padding: 3px 8px; font-size: 11.5px;
-    background: #fff; color: #374151; cursor: pointer;
+  /* ── Runoff date picker ── */
+  .runoff-section { margin-bottom: 16px; }
+  .runoff-picker-label { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 8px; }
+  .date-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .date-chip {
+    display: flex; align-items: center; gap: 4px;
+    border: 1.5px solid var(--c, #6366f1); border-radius: 20px;
+    padding: 3px 10px; font-size: 11.5px; font-weight: 500; color: var(--c, #6366f1);
+    background: #fff; cursor: pointer; transition: all 100ms; opacity: 0.55;
+  }
+  .date-chip:hover { opacity: 0.8; }
+  .date-chip--on { background: var(--c, #6366f1); color: #fff; opacity: 1; }
+  .date-chip-pt { font-size: 9px; font-weight: 700; opacity: 0.8; }
+
+  /* ── Debug JSON panel ── */
+  .json-debug {
+    border-bottom: 1px solid #e5e7eb; background: #fafafa; flex-shrink: 0;
+  }
+  .json-debug-summary {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 24px; cursor: pointer; font-size: 12px; font-weight: 600;
+    color: #6b7280; list-style: none; user-select: none;
+  }
+  .json-debug-summary::-webkit-details-marker { display: none; }
+  .json-debug-summary:hover { background: #f1f1f5; color: #374151; }
+  .json-debug-actions { display: flex; align-items: center; gap: 12px; }
+  .json-debug-hint { font-size: 11px; font-weight: 400; color: #9ca3af; }
+  .json-copy-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 500; color: #6366f1;
+    background: #eef2ff; border-radius: 5px; padding: 2px 8px;
+    cursor: pointer; transition: background 100ms;
+  }
+  .json-copy-btn:hover { background: #e0e7ff; }
+  .json-debug-body {
+    margin: 0; padding: 16px 24px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px;
+    line-height: 1.6; color: #1e293b; background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+    max-height: 400px; overflow-y: auto; overflow-x: auto;
+    white-space: pre;
   }
 
-  /* ── Compare banner ── */
-  .compare-banner {
-    margin: 14px 28px 0;
+  /* ── Launch progress ── */
+  .launch-progress {
     background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px;
-    padding: 8px 14px; font-size: 12.5px; color: #1e40af;
+    padding: 10px 14px; font-size: 13px; color: #1e40af;
   }
 
-  /* ── Responsive ── */
-  @media (max-width: 900px) {
-    .charts-grid { grid-template-columns: 1fr; }
+  /* ── Modal ── */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: flex; align-items: center; justify-content: center; z-index: 100;
+  }
+  .modal {
+    background: #fff; border-radius: 14px; width: 460px; max-width: 95vw;
+    display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  }
+  .modal-hd {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 20px 14px; border-bottom: 1px solid #f1f1f5;
+  }
+  .modal-hd h3 { font-size: 15px; font-weight: 700; }
+  .modal-hd button { background: none; border: none; cursor: pointer; color: #6b7280; }
+  .modal-bd { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .modal-ft {
+    display: flex; justify-content: flex-end; gap: 8px;
+    padding: 12px 20px; border-top: 1px solid #f1f1f5;
   }
 </style>

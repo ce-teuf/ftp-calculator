@@ -570,6 +570,7 @@ dependencies = [
  "ftp-calculator-core",
  "include_dir",
  "mime_guess",
+ "ndarray",
  "serde",
  "serde_json",
  "sqlx",

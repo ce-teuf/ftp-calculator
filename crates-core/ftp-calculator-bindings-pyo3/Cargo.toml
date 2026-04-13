@@ -21,7 +21,7 @@ ndarray = "0.16.1"
 
 [dependencies.ftp-calculator-core]
 path = "../ftp-calculator-core"
-version = "0.1.799"
+version = "0.1.816"
 
 [dependencies.pyo3]
 version = "0.26.0"

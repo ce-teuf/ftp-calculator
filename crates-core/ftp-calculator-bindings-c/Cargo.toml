@@ -26,4 +26,4 @@ approx = "0.5"
 
 [dependencies.ftp-calculator-core]
 path = "../ftp-calculator-core"
-version = "0.1.799"
+version = "0.1.816"

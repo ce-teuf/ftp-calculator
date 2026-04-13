@@ -260,7 +260,7 @@
               : `<span style="background:#dbeafe;color:#1e40af;padding:1px 6px;border-radius:4px;font-size:10px">réalisé</span>`;
             const maturity = fmtTs(params.value[0]);
             const tenor    = params.data?.tenor ?? '';
-            return `<div style="font-size:12px;line-height:1.9">Obs&nbsp;: <b>${params.seriesName}</b> ${badge}<br/>Maturité&nbsp;: <b>${maturity}</b> (${tenor})<br/>Taux&nbsp;: <b style="color:${params.color}">${params.value[1]}%</b></div>`;
+            return `<div style="font-size:12px;line-height:1.9">Obs&nbsp;: <b>${params.seriesName}</b> ${badge}<br/>Maturity&nbsp;: <b>${maturity}</b> (${tenor})<br/>Rate curves&nbsp;: <b style="color:${params.color}">${params.value[1]}%</b></div>`;
           },
         },
         grid: { left: 56, right: 20, top: 16, bottom: 44 },
@@ -401,7 +401,7 @@
 <div class="tab-content">
   <!-- ── En-tête ─────────────────────────────────────────────────────────────── -->
   <div class="tab-header">
-    <h2>Matrices de taux</h2>
+    <h2>Curve matrices</h2>
     <button class="btn-primary" onclick={openUpload}>
       <Plus size={15} /> Nouvelle matrice
     </button>
@@ -416,7 +416,7 @@
     <p class="loading">Chargement…</p>
   {:else if matrices.length === 0}
     <div class="empty-state">
-      <p>Aucune matrice de taux</p>
+      <p>No curve matrices</p>
       <p>Importez un fichier .xlsx ou .ods pour commencer</p>
     </div>
   {:else}
@@ -649,7 +649,7 @@
   <div class="overlay" onclick={() => (showUpload = false)}>
     <div class="modal" onclick={(e) => e.stopPropagation()}>
       <div class="modal-header">
-        <h3>Importer une matrice de taux</h3>
+        <h3>Import curve matrices</h3>
         <button class="modal-close" onclick={() => (showUpload = false)}><X size={16}/></button>
       </div>
 

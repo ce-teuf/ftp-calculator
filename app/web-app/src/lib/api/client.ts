@@ -203,6 +203,8 @@ export interface ScheduleSummary {
   id: string;
   name: string;
   description?: string;
+  /** "stock" = book existant | "new_production" = nouvelles originations */
+  schedule_type: 'stock' | 'new_production';
   bucket_labels: string[];
   row_count: number;
   date_from?: string;
@@ -214,6 +216,8 @@ export interface ScheduleDetail {
   id: string;
   name: string;
   description?: string;
+  /** "stock" = book existant | "new_production" = nouvelles originations */
+  schedule_type: 'stock' | 'new_production';
   bucket_labels: string[];
   rows: ScheduleRow[];
   created_at: string;
@@ -318,20 +322,45 @@ export interface ExecutionSummary {
   created_at: string;
 }
 
+export interface TimeStepMatrices {
+  /** stock_amort[j]   = outstanding × profile[j]  (balance résiduelle) — taille B+1 */
+  stock_amort:     number[];
+  /** stock_instal[j]  = stock_amort[j-1] − stock_amort[j]              — taille B+1 */
+  stock_instal:    number[];
+  /** varstock_amort[j] = variation de stock entre t et t-1              — taille B+1 */
+  varstock_amort:  number[];
+  /** varstock_instal[j] = différences de varstock_amort                 — taille B+1 */
+  varstock_instal: number[];
+  /** ftp_rate[j]   = taux FTP calculé par le kernel (moyenne pondérée)  — taille B+1 */
+  ftp_rate:        number[];
+  /** ftp_int[j]    = intérêts FTP par bucket                            — taille B+1 */
+  ftp_int:         number[];
+  /** market_rate[j] = taux marché back-solved                           — taille B+1 */
+  market_rate:     number[];
+}
+
 export interface TimeStep {
   date: string;
+  period_type: 'observed' | 'projected' | 'contrafactual';
   kpis: {
     total_outstanding: number;
     weighted_ftp_rate: number;
     ftp_interest_periodic: number;
   };
+  /** Taux d'entrée interpolés depuis la matrice de taux, indexés par label de bucket */
   ftp_by_tenor: Record<string, number>;
+  /** Poids d'amortissement du schedule à cette date (Σ ≈ 1) */
+  profile: number[];
+  /** Matrices intermédiaires du kernel matched-maturity (toutes de taille B+1) */
+  matrices: TimeStepMatrices;
 }
 
 export interface AssignmentResult {
   assignment_id: string;
   pair_id: string;
   pair_label?: string;
+  /** 'Stock' | 'Flux' */
+  method: string;
   vector_name: string;
   schedule_name: string;
   bucket_labels: string[];
@@ -448,9 +477,11 @@ export interface AssignmentInfo {
   vector_name: string;
   schedule_id: string;
   schedule_name: string;
+  schedule_type: 'stock' | 'new_production';
   combination_matrix_ids: string[];
   label?: string;
   is_existing_stock: boolean;
+  methods: string[];
   initial_ftp_profile_json?: { tenor: string; rate: number }[];
   created_at: string;
 }
@@ -504,13 +535,14 @@ export const studyUnits = {
   createAssignment: (id: string, data: {
     pair_id: string; combination_matrix_ids: string[];
     label?: string; is_existing_stock?: boolean;
+    methods?: string[];
     initial_ftp_profile_json?: { tenor: string; rate: number }[];
   }) => req<AssignmentInfo>(`/study-units/${id}/assignments`, {
     method: 'POST', body: JSON.stringify(data),
   }),
   updateAssignment: (id: string, aid: string, data: {
     combination_matrix_ids?: string[]; label?: string;
-    is_existing_stock?: boolean;
+    is_existing_stock?: boolean; methods?: string[];
     initial_ftp_profile_json?: { tenor: string; rate: number }[];
   }) => req<AssignmentInfo>(`/study-units/${id}/assignments/${aid}`, {
     method: 'PUT', body: JSON.stringify(data),

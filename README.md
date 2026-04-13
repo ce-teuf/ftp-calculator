@@ -1,220 +1,212 @@
 # FTP Simulator
 
-Application web complète de **calcul et pilotage du Funds Transfer Pricing (FTP)** pour les équipes ALM/Trésorerie bancaires.
+Full-stack **Funds Transfer Pricing (FTP) simulator** for ALM/Treasury teams.
 
-Moteur de calcul en **Rust**, dashboard en **Svelte 5**, base de données **PostgreSQL 18**.
+Computation engine in **Rust**, web interface in **SvelteKit 5**, database **PostgreSQL 18**.
+
+> **Web application**: the simulator UI is under ongoing construction. Core computation engine, API, and bindings are stable.
 
 ---
 
-## Architecture
+## Repository layout
 
 ```
 ftp-calculator/
 ├── app/
-│   ├── backend/          # API REST Rust/Axum (binaire autonome, frontend embarqué)
-│   └── dashboard/        # UI Svelte 5 + Vite (dev: HMR ; prod: embarqué dans le binaire)
+│   ├── backend/          # REST API — Rust / Axum / SQLx
+│   └── web-app/          # SvelteKit 5 frontend (Vite, ECharts, Lucide)
 ├── crates-core/
-│   ├── ftp-calculator-core/           # Moteur de calcul Rust (9 méthodes FTP)
-│   ├── ftp-calculator-bindings-c/     # Bindings C → Excel Add-In
-│   └── ftp-calculator-bindings-pyo3/  # Bindings Python (PyO3)
-├── installer/
-│   ├── ftp-installer-helper/  # Téléchargeur FTP (télécharge PostgreSQL à l'install)
-│   ├── build-deb.sh           # Paquet Debian slim
-│   ├── windows/setup.iss      # Installeur Inno Setup (Windows)
-│   └── macos/bundle.sh        # App Bundle + DMG (macOS)
-├── data/dev/seed.sql     # Jeu de données de démonstration (dev local, sans FTP)
-├── .env.dev              # Variables d'environnement de développement
-├── .env.prod.example     # Template de configuration de production
-├── Makefile              # Orchestration dev + prod
-└── .github/workflows/    # Pipeline CI/CD (Windows / macOS / Linux Debian 13)
+│   ├── ftp-calculator-core/           # FTP computation engine (Rust)
+│   ├── ftp-calculator-bindings-c/     # C bindings → Excel Add-In
+│   └── ftp-calculator-bindings-pyo3/  # Python bindings (PyO3)
+├── python-lib/           # ftp_calculator Python package (wraps PyO3 bindings)
+├── excel-addin/          # Excel-DNA Add-In (.NET / C#)
+├── data/
+│   └── datageneration_scripts/   # Demo data loader (Python)
+├── docs/                 # Internal documentation
+├── docker-compose.dev.yml
+├── Makefile
+└── mkdocs.yml
 ```
 
 ---
 
-## Méthodes FTP implémentées
+## FTP methods implemented
 
-| Méthode | Description |
+| Method | Description |
 |---|---|
-| Stock | Taux de marché anti-diagonaux, stock amorti |
-| Flux | Profil de liquidité, taux de marché par tranche |
-| Matched Maturity | Courbe spot interpolée à la duration exacte |
-| Pool | Taux pool pondéré par duration moyenne |
-| Optionnel | Inclut la valeur des options de remboursement anticipé |
-| Refinancement | Taux de refinancement court terme à la maturité |
-| Taux Variable | Double profil taux + liquidité |
-| Marchés | Taux de marché direct (OIS/IBOR) |
-| Comportemental | Runoff comportemental (NMD, épargne) |
+| **Stock** | Stock amortization profiles — prices the existing book by extracting variable-stock installments via the anti-diagonal; CoF locked at each cohort's origination period |
+| **Flux** | New-production method — derives new originations from the stock evolution, applies production amortization profiles, locks CoF at origination; gives the marginal FTP rate per cohort |
+
+Both methods operate at **cohort level**: the outstanding vector represents the observed portfolio stock; each row corresponds to an observation period. The aggregate FTP rate at any point is the installment-weighted average of all active cohorts' locked-in rates.
 
 ---
 
-## Démarrage rapide — Développement
+## Application modules
 
-> **Prérequis :** Rust stable, Node.js 20+, **Docker** (pour PostgreSQL)
+| # | Module | Frontend route | Backend API |
+|---|--------|----------------|-------------|
+| 1 | Rate matrices | `/rate-matrices` | `/api/rate-matrices`, `/api/risk-types` |
+| 2 | Hypercubes | `/hypercubes` | `/api/hypercubes` |
+| 3 | Portfolios | `/portfolios` | `/api/portfolios`, `/api/outstanding-vectors`, `/api/amort-schedules` |
+| 4 | Study units | `/study-units` | `/api/study-units` |
+| 5 | Studies | `/studies` | `/api/studies` |
+| 6 | Executions | `/executions` | `/api/executions` |
+
+---
+
+## Quick start — Development
+
+**Prerequisites:** Rust stable, Node.js 20+, Docker
 
 ```bash
-# 1. Démarrer PostgreSQL dans Docker
+# 1. Start PostgreSQL in Docker
 make dev-db
 
-# 2. Charger les données de démonstration (10 positions, 3 courbes)
-make dev-seed
-
-# 3. Lancer le backend (terminal 1)
+# 2. Start the backend (terminal 1)
 make dev-backend      # → http://localhost:3000
 
-# 4. Lancer le frontend Vite avec HMR (terminal 2)
+# 3. Start the frontend with HMR (terminal 2)
 make dev-frontend     # → http://localhost:5173
 
-# Ou tout en un avec tmux
+# Load demo data (vectors + schedules) after the backend is running
+make dev-data
+
+# Or run backend + frontend together in tmux
 make dev-tmux
 ```
 
-En mode dev :
-- **PostgreSQL tourne dans Docker** (`docker-compose.dev.yml`) — pas d'installation locale requise
-- Backend et frontend tournent localement (rechargement automatique)
-- Pas de serveur FTP — les données sont dans `data/dev/seed.sql`
-- Le frontend tourne sur Vite (:5173) avec proxy `/api → :3000`
+In dev mode:
+- PostgreSQL runs in Docker (`docker-compose.dev.yml`) — no local installation required
+- Backend and frontend run locally with auto-reload
+- Frontend proxies `/api` → `http://localhost:3000/api`
+- Demo data loaded via `data/datageneration_scripts/load_vectors_schedules.py`
 
----
-
-## Démarrage rapide — Production
-
-> **Prérequis sur la machine cible :** Docker Engine (>= 23.0) avec Docker Compose v2
-
-```bash
-# 1. Compiler le binaire release (frontend Svelte embarqué)
-make prod-build
-
-# 2. Générer le paquet Debian
-make prod-deb         # → dist/ftp-simulator_X.Y.Z_amd64.deb
-
-# 3. Installer sur la machine cible
-sudo dpkg -i dist/ftp-simulator_X.Y.Z_amd64.deb
-# → vérifie Docker, démarre le conteneur PostgreSQL, démarre le backend
+**DB connection string:**
+```
+postgresql://ftp_dev:ftp_dev@127.0.0.1:5432/ftp_simulator_dev
 ```
 
-En mode prod :
-- **PostgreSQL tourne dans Docker** (image `postgres:17`, volume persistant `ftp-simulator-pgdata`)
-- Le mot de passe DB est généré aléatoirement à l'installation (`/etc/ftp-simulator/db_password`)
-- Le frontend est compilé et embarqué dans le binaire Rust (`include_dir!`) — un seul binaire autonome
-- L'installeur **vérifie que Docker est installé** et bloque si ce n'est pas le cas
+Query the DB directly:
+```bash
+docker exec ftp-simulator-dev-db psql -U ftp_dev -d ftp_simulator_dev -c "SELECT ..."
+# or interactively:
+make dev-psql
+```
 
 ---
 
-## Référence Makefile
+## Quick start — Production
 
-### Développement
+```bash
+# Build the frontend, then compile the release binary (frontend embedded via include_dir)
+make prod-build       # → target/release/ftp-backend
 
-| Commande | Description |
+# Run the release binary locally (requires DATABASE_URL)
+make prod-run
+```
+
+---
+
+## Makefile reference
+
+### Development
+
+| Command | Description |
 |---|---|
-| `make dev-up` | Initialise la DB + affiche les instructions |
-| `make dev-db` | Crée la base PostgreSQL de dev |
-| `make dev-seed` | Charge `data/dev/seed.sql` |
-| `make dev-backend` | Lance le backend Rust (port 3000) |
-| `make dev-frontend` | Lance Vite HMR (port 5173) |
-| `make dev-tmux` | Lance les deux dans des panneaux tmux |
-| `make dev-reset` | Remet la base à zéro + reseed |
-| `make dev-stop` | Arrête backend + session tmux |
+| `make dev-db` | Start PostgreSQL container (creates it if absent) |
+| `make dev-backend` | Run Rust backend (port 3000, auto-migrations on start) |
+| `make dev-frontend` | Run Vite HMR (port 5173, proxies /api) |
+| `make dev-data` | Load demo vectors + schedules via Python script |
+| `make dev-tmux` | Run backend + frontend in tmux panes |
+| `make dev-psql` | Interactive psql shell on the Docker DB |
+| `make dev-stop` | Stop backend, frontend, and PostgreSQL |
+| `make dev-reset` | Drop and recreate the DB volume |
 
 ### Production
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `make prod-build` | Compile release (frontend embarqué) |
-| `make prod-deb` | Génère le paquet `.deb` (Debian 13) |
-| `make prod-check` | Vérifie `.env.prod` + code Rust |
-| `make prod-run` | Lance le binaire release localement |
+| `make prod-build` | Build frontend + release binary (frontend embedded) |
+| `make prod-run` | Run release binary locally |
 
-### Tests & qualité
+### Tests & quality
 
-| Commande | Description |
+| Command | Description |
 |---|---|
-| `make test` | Tous les tests du workspace |
-| `make unit` | Tests unitaires core |
-| `make integration` | Tests d'intégration |
-| `make check` | Clippy + fmt |
-| `make coverage` | Rapport tarpaulin (HTML) |
-| `make ci` | Pipeline CI local (check + test) |
+| `make test` | All workspace tests |
+| `make unit` | Core unit tests only |
+| `make integration` | Core integration tests |
+| `make check` | Clippy + rustfmt check |
+| `make check-ts` | TypeScript check (frontend) |
+| `make coverage` | Tarpaulin coverage report (HTML) |
+| `make ci` | check + test |
 
 ### Bindings (Python / C / Excel)
 
-| Commande | Description |
+| Command | Description |
 |---|---|
 | `make build-core` | Compile `ftp-calculator-core` |
-| `make build-c-bindings` | `.so/.dll` pour l'add-in Excel |
-| `make build-py-bindings` | Wheel Python (maturin) |
+| `make build-c-bindings` | `.so` / `.dll` for the Excel Add-In |
+| `make build-py-bindings` | Python wheel (maturin) |
 
 ---
 
-## Dashboard — Onglets
-
-| Onglet | Contenu |
-|---|---|
-| **Dashboard** | NIM waterfall agrégée, heatmap par branche/produit/vendeur, export JSON |
-| **Courbes** | Bibliothèque de courbes de taux + CoF Curve Builder 14 composantes |
-| **Portefeuille** | CRUD positions, RAROC par position, export Excel |
-| **Exécutions** | Historique, replay, diff A/B, export Excel multi-onglets |
-| **Pricer** | Calcul à la volée sur une position unique |
-| **Scénarios** | 6 chocs BCBS (parallel ±100/200 bps, bear flattening, bull steepening…) |
-| **NMD** | Calibration λ OLS, WAL, profil combiné (core + volatile), sauvegarde runoff model |
-| **Gouvernance** | Approbation ALCO des courbes, piste d'audit des exécutions |
-
----
-
-## Configuration
-
-### `.env.dev` (développement)
-
-```env
-DATABASE_URL=postgresql://ftp_dev:ftp_dev@127.0.0.1:5432/ftp_simulator_dev
-LISTEN_ADDR=127.0.0.1:3000
-RUST_LOG=info,ftp_backend=debug
-```
-
-### `.env.prod` (production — à créer depuis `.env.prod.example`)
-
-```env
-DATABASE_URL=postgresql://ftp:CHANGE_ME@127.0.0.1:5432/ftp_simulator
-LISTEN_ADDR=127.0.0.1:3000
-RUST_LOG=warn
-FTP_SOURCE_URL=ftp://ftp.monorganisation.com/ftp-simulator
-```
-
----
-
-## CI/CD
-
-Le pipeline `.github/workflows/release.yml` produit sur chaque tag :
-
-- `ftp-simulator-X.Y.Z-windows-setup.exe` — installeur Inno Setup slim (télécharge PG18 via FTP)
-- `ftp-simulator-X.Y.Z-macos.dmg` — App Bundle macOS (menu-bar only, aarch64)
-- `ftp-simulator_X.Y.Z_amd64.deb` — paquet Debian 13 slim
-
-Les artefacts sont uploadés sur le serveur FTP de l'organisation avec un `latest.json` (SHA256 + URLs).
-
----
-
-## Bindings Python / Excel (héritage)
-
-Le moteur de calcul est aussi exposé en Python et via un Add-In Excel :
+## Python bindings
 
 ```python
 from ftp_calculator import FtpCalculator
+
 calc = FtpCalculator(outstanding, profiles, rates)
-calc.compute("stock")
+calc.compute("stock")   # or "flux"
 print(calc.ftp_rate)
 ```
 
 ```bash
-make build-py-bindings   # génère la wheel Python
-make build-c-bindings    # génère le .so/.dll pour l'add-in Excel
+make build-py-bindings   # generates the Python wheel
 ```
 
 ---
 
-## Licence
+## Excel Add-In
+
+The Excel Add-In (Excel-DNA, .NET) exposes the engine as worksheet functions:
+
+- `FTP_COMPUTE_STOCK(outstanding, profiles, rates)` — run the stock method
+- `FTP_COMPUTE_FLUX(outstanding, profiles, rates)` — run the flux method
+- Individual getters: `FTP_STOCK_AMORT`, `FTP_FTP_RATE`, `FTP_FTP_INT`, etc.
+
+The native library (`.so` / `.dll`) is built with `make build-c-bindings` and placed under `excel-addin/Interop/`.
+
+---
+
+## DB schema
+
+Migrations run automatically at backend startup (`app/backend/src/db/migrations/`):
+
+| File | Content |
+|---|---|
+| `001_init.sql` | `risk_types`, `rate_matrices` |
+| `002_hypercubes.sql` | `hypercubes`, `hypercube_matrices` |
+| `003_portfolios.sql` | `portfolios`, `outstanding_vectors`, `amort_schedules`, join tables |
+| `004_study_units.sql` | `study_units`, `study_unit_assignments` |
+| `005_studies.sql` | `studies`, `study_study_units` |
+| `006_executions.sql` | `executions`, `execution_results` |
+
+---
+
+## Development setup from scratch
+
+```bash
+make setup-dev   # installs rustup components, npm deps, Python venv + maturin
+```
+
+---
+
+## License
 
 MIT OR Apache-2.0
 
-## Auteur
+## Author
 
 Charles Teuf

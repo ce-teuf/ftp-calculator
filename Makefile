@@ -2,17 +2,11 @@
 # FTP Simulator — Makefile
 # ==============================================================================
 #
-# ENVIRONNEMENTS
-#   dev   PostgreSQL local, frontend Vite HMR, pas de FTP, données dans data/dev/
-#   prod  Build release, frontend embarqué, installeur, FTP serveur pour les data
-#
 # DÉMARRAGE RAPIDE
-#   make dev-up       Démarre tout l'environnement de développement
-#   make dev-seed     Charge les données de démonstration (local, sans FTP)
-#   make dev-stop     Arrête PostgreSQL de dev
-#
-#   make prod-build   Compile le binaire release (frontend embarqué)
-#   make prod-deb     Génère le paquet Debian slim (.deb)
+#   make dev-db          Démarre PostgreSQL dans Docker (une seule fois)
+#   make dev-backend     Lance le backend Rust  (port 3000, terminal 1)
+#   make dev-frontend    Lance Vite HMR         (port 5173, terminal 2)
+#   make dev-data        Charge vecteurs + schedules de démo via le script Python
 #
 # ==============================================================================
 
@@ -21,17 +15,26 @@
 CARGO        = cargo
 SQLX_OFFLINE = true
 BACKEND_DIR  = app/backend
-FRONTEND_DIR = app/dashboard
-INSTALLER_DIR= installer
-DATA_DIR     = data/dev
+FRONTEND_DIR = app/web-app
+DATA_SCRIPTS = data/datageneration_scripts
 
-# Environnement de développement
 DEV_DB_NAME  = ftp_simulator_dev
 DEV_DB_USER  = ftp_dev
 DEV_DB_PASS  = ftp_dev
 DEV_DB_PORT  = 5432
 DEV_DB_URL   = postgresql://$(DEV_DB_USER):$(DEV_DB_PASS)@127.0.0.1:$(DEV_DB_PORT)/$(DEV_DB_NAME)
-DATASETS_DIR = $(shell pwd)/data/datageneration_scripts/datasets
+
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+  LIB_NAME := libftp_calculator_bindings_c.so
+  VENV_BIN := .venv/bin
+else ifeq ($(UNAME), Darwin)
+  LIB_NAME := libftp_calculator_bindings_c.dylib
+  VENV_BIN := .venv/bin
+else
+  LIB_NAME := ftp_calculator_bindings_c.dll
+  VENV_BIN := .venv/Scripts
+endif
 
 # Couleurs
 GREEN  = \033[0;32m
@@ -42,38 +45,18 @@ CYAN   = \033[0;36m
 NC     = \033[0m
 
 .PHONY: all help \
-        dev-up dev-db dev-migrate dev-backend dev-frontend dev-seed dev-stop dev-reset dev-logs \
-        prod-build prod-deb prod-check \
-        test unit integration check lint fmt \
+        dev-db dev-backend dev-frontend dev-data dev-tmux dev-stop dev-reset \
+        prod-build prod-frontend prod-run \
+        test unit integration check lint fmt coverage \
         build-core build-py-bindings build-c-bindings \
-        docs-serve docs-deploy \
-        clean clean-dev
-
-# ── Cible par défaut ───────────────────────────────────────────────────────────
+        docs-serve \
+        clean clean-dev setup-dev ci
 
 all: help
 
 # ==============================================================================
-# ENVIRONNEMENT DEV
+# DÉVELOPPEMENT
 # ==============================================================================
-# - PostgreSQL tourne en local (pg_ctl ou service système)
-# - Données de seed dans data/dev/seed.sql (pas de serveur FTP)
-# - Backend démarre avec cargo run (SQLX_OFFLINE=true)
-# - Frontend démarre avec npm run dev (Vite HMR sur :5173, proxy /api → :3000)
-
-## Démarre l'environnement de développement complet
-dev-up: dev-db
-	@echo "$(CYAN)==> Environnement de développement$(NC)"
-	@echo "$(BLUE)    Backend  : http://localhost:3000  (cargo run)$(NC)"
-	@echo "$(BLUE)    Frontend : http://localhost:5173  (Vite HMR)$(NC)"
-	@echo "$(BLUE)    DB       : postgresql://localhost:$(DEV_DB_PORT)/$(DEV_DB_NAME)$(NC)"
-	@echo ""
-	@echo "$(YELLOW)Lancez dans deux terminaux séparés :$(NC)"
-	@echo "  make dev-backend    # Terminal 1 — API Rust"
-	@echo "  make dev-frontend   # Terminal 2 — Svelte HMR"
-	@echo ""
-	@echo "Ou tout en un avec tmux :"
-	@echo "  make dev-tmux"
 
 ## Démarre PostgreSQL de dev dans Docker (crée le conteneur si absent)
 dev-db:
@@ -84,108 +67,73 @@ dev-db:
 	    pg_isready -U $(DEV_DB_USER) -d $(DEV_DB_NAME) -q 2>/dev/null; do sleep 1; done
 	@echo "$(GREEN)✓ PostgreSQL prêt sur 127.0.0.1:$(DEV_DB_PORT)$(NC)"
 
-## Lance le backend en mode développement (rechargement automatique avec cargo-watch)
+## Lance le backend Rust en mode développement (port 3000, migrations auto au démarrage)
 dev-backend:
-	@echo "$(BLUE)==> Backend (dev) sur http://localhost:3000$(NC)"
+	@echo "$(BLUE)==> Backend sur http://localhost:3000$(NC)"
 	@cd $(BACKEND_DIR) && \
-	  DATABASE_URL=$(DEV_DB_URL) DATASETS_DIR=$(DATASETS_DIR) \
-	  SQLX_OFFLINE=$(SQLX_OFFLINE) RUST_LOG=info,ftp_backend=debug \
+	  DATABASE_URL=$(DEV_DB_URL) \
+	  SQLX_OFFLINE=$(SQLX_OFFLINE) \
+	  RUST_LOG=info,ftp_backend=debug \
 	  $(CARGO) run 2>&1
 
-## Lance le frontend en mode développement (Vite HMR + proxy → :3000)
+## Lance le frontend Vite en mode développement (port 5173, proxy /api → :3000)
 dev-frontend:
-	@echo "$(BLUE)==> Frontend (dev) sur http://localhost:5173$(NC)"
+	@echo "$(BLUE)==> Frontend sur http://localhost:5173$(NC)"
 	@cd $(FRONTEND_DIR) && npm run dev
+
+## Charge les vecteurs et schedules de démo via le script Python
+dev-data:
+	@echo "$(BLUE)==> Chargement des données de démo$(NC)"
+	@cd $(DATA_SCRIPTS) && python3 load_vectors_schedules.py
+	@echo "$(GREEN)✓ Données chargées$(NC)"
 
 ## Lance backend + frontend dans des panneaux tmux
 dev-tmux:
 	@which tmux > /dev/null || (echo "$(RED)tmux non installé$(NC)" && exit 1)
 	@tmux new-session -d -s ftp-dev -n backend \
-	  "cd $(BACKEND_DIR) && DATABASE_URL=$(DEV_DB_URL) SQLX_OFFLINE=$(SQLX_OFFLINE) cargo run; read"
+	  "cd $(BACKEND_DIR) && DATABASE_URL=$(DEV_DB_URL) SQLX_OFFLINE=$(SQLX_OFFLINE) RUST_LOG=info cargo run; read"
 	@tmux new-window -t ftp-dev -n frontend \
 	  "cd $(FRONTEND_DIR) && npm run dev; read"
 	@tmux attach -t ftp-dev
-	@echo "$(CYAN)Ctrl+B puis D pour détacher, Ctrl+B X pour fermer un panneau$(NC)"
 
-## Applique les migrations SQL (crée les tables) sans démarrer le backend
-dev-migrate:
-	@echo "$(BLUE)==> Application des migrations$(NC)"
-	@for f in $(BACKEND_DIR)/src/db/migrations/*.sql; do \
-	  echo "    $$f"; \
-	  docker compose -f docker-compose.dev.yml exec -T db \
-	    psql -U $(DEV_DB_USER) -d $(DEV_DB_NAME) -q < $$f; \
-	done
-	@echo "$(GREEN)✓ Migrations appliquées$(NC)"
-
-## Charge les données de démonstration dans la DB Docker
-dev-seed: dev-migrate
-	@echo "$(BLUE)==> Chargement du seed de développement$(NC)"
-	@docker compose -f docker-compose.dev.yml exec -T db \
-	    psql -U $(DEV_DB_USER) -d $(DEV_DB_NAME) < $(DATA_DIR)/seed.sql
-	@echo "$(GREEN)✓ Données chargées dans $(DEV_DB_NAME)$(NC)"
-
-## Affiche les logs du backend (si lancé via systemd)
-dev-logs:
-	@journalctl -fu ftp-simulator-app 2>/dev/null || \
-	  echo "$(YELLOW)Backend lancé manuellement — pas de journalctl disponible$(NC)"
-
-## Remet la base de dev à zéro (supprime le volume Docker + recrée)
-dev-reset:
-	@echo "$(YELLOW)==> Réinitialisation de la base de dev$(NC)"
-	@docker compose -f docker-compose.dev.yml down -v
-	@$(MAKE) dev-db dev-seed
-	@echo "$(GREEN)✓ Base réinitialisée et seedée$(NC)"
-
-## Arrête les processus de développement locaux (backend, frontend, DB Docker)
+## Arrête PostgreSQL Docker (+ session tmux si active)
 dev-stop:
-	@echo "$(YELLOW)==> Arrêt de l'environnement de dev$(NC)"
-	@pkill -f "ftp-backend" 2>/dev/null && echo "$(GREEN)✓ Backend arrêté$(NC)" || echo "Backend non actif"
+	@pkill -f "ftp-backend" 2>/dev/null && echo "$(GREEN)✓ Backend arrêté$(NC)" || true
+	@fuser -k 5173/tcp 2>/dev/null && echo "$(GREEN)✓ Frontend arrêté$(NC)" || true
 	@tmux kill-session -t ftp-dev 2>/dev/null || true
-	@docker compose -f docker-compose.dev.yml stop && echo "$(GREEN)✓ PostgreSQL (Docker) arrêté$(NC)" || true
+	@docker compose -f docker-compose.dev.yml stop && echo "$(GREEN)✓ PostgreSQL arrêté$(NC)" || true
+
+## Remet la base à zéro (supprime le volume Docker, recrée, recharge les données)
+dev-reset:
+	@echo "$(YELLOW)==> Réinitialisation de la base$(NC)"
+	@docker compose -f docker-compose.dev.yml down -v
+	@$(MAKE) dev-db
+	@echo "$(YELLOW)    Démarrez le backend puis lancez : make dev-data$(NC)"
+
+## Requête SQL directe sur la DB Docker
+dev-psql:
+	@docker exec -it ftp-simulator-dev-db psql -U $(DEV_DB_USER) -d $(DEV_DB_NAME)
 
 # ==============================================================================
-# ENVIRONNEMENT PROD
+# PRODUCTION
 # ==============================================================================
-# - Frontend embarqué dans le binaire (include_dir!)
-# - PostgreSQL téléchargé depuis le serveur FTP de l'organisation
-# - Installeurs : .deb (Linux) + .exe (Windows via CI) + .dmg (macOS via CI)
 
-## Compile le binaire de production (frontend Svelte embarqué)
-prod-build: prod-frontend
-	@echo "$(BLUE)==> Build release (prod)$(NC)"
-	@SQLX_OFFLINE=$(SQLX_OFFLINE) $(CARGO) build --release -p ftp-backend -p ftp-installer-helper
-	@echo "$(GREEN)✓ Binaires compilés dans target/release/$(NC)"
-	@echo "    ftp-backend              — serveur API + frontend statique"
-	@echo "    ftp-installer-helper     — téléchargeur FTP"
-
-## Compile le frontend Svelte en mode production
+## Compile le frontend Svelte en mode production (génère dist/)
 prod-frontend:
 	@echo "$(BLUE)==> Build frontend (prod)$(NC)"
 	@cd $(FRONTEND_DIR) && npm ci --silent && npm run build
-	@echo "$(GREEN)✓ dist/ généré$(NC)"
+	@echo "$(GREEN)✓ $(FRONTEND_DIR)/dist/ généré$(NC)"
 
-## Génère le paquet Debian slim (.deb)
-prod-deb: prod-build
-	@echo "$(BLUE)==> Génération du paquet .deb$(NC)"
-	@bash $(INSTALLER_DIR)/build-deb.sh
-	@echo "$(GREEN)✓ Paquet disponible dans dist/$(NC)"
+## Compile le binaire release (frontend embarqué via include_dir)
+prod-build: prod-frontend
+	@echo "$(BLUE)==> Build release$(NC)"
+	@SQLX_OFFLINE=$(SQLX_OFFLINE) $(CARGO) build --release -p ftp-backend
+	@echo "$(GREEN)✓ target/release/ftp-backend$(NC)"
 
-## Vérifie la configuration de production (sans lancer)
-prod-check:
-	@echo "$(BLUE)==> Vérification configuration prod$(NC)"
-	@[ -f .env.prod ] && echo "$(GREEN)✓ .env.prod présent$(NC)" || \
-	  (echo "$(RED)✗ .env.prod manquant — copier .env.prod.example$(NC)" && exit 1)
-	@grep -q 'FTP_SOURCE_URL' .env.prod && \
-	  echo "$(GREEN)✓ FTP_SOURCE_URL configuré$(NC)" || \
-	  echo "$(YELLOW)⚠ FTP_SOURCE_URL non configuré dans .env.prod$(NC)"
-	@SQLX_OFFLINE=$(SQLX_OFFLINE) $(CARGO) check -p ftp-backend -p ftp-installer-helper 2>&1 | \
-	  grep -E "^error" || echo "$(GREEN)✓ Code Rust valide$(NC)"
-
-## Lance le binaire de production localement (pour tester avant déploiement)
+## Lance le binaire de production localement (nécessite DATABASE_URL dans l'environnement)
 prod-run:
-	@[ -f .env.prod ] || (echo "$(RED).env.prod manquant$(NC)" && exit 1)
 	@echo "$(BLUE)==> Lancement prod sur http://localhost:3000$(NC)"
-	@env $$(cat .env.prod | grep -v '^#' | xargs) ./target/release/ftp-backend
+	@DATABASE_URL=$(DEV_DB_URL) ./target/release/ftp-backend
 
 # ==============================================================================
 # TESTS & QUALITÉ
@@ -195,77 +143,70 @@ prod-run:
 test:
 	@echo "$(BLUE)==> Tests$(NC)"
 	@$(CARGO) test --workspace 2>&1
-	@echo "$(GREEN)✓ Tous les tests sont passés$(NC)"
+	@echo "$(GREEN)✓ Tous les tests passés$(NC)"
 
-## Tests du core uniquement
+## Tests unitaires du core uniquement
 unit:
 	@$(CARGO) test -p ftp-calculator-core
 
-## Tests d'intégration
+## Tests d'intégration du core
 integration:
 	@$(CARGO) test -p ftp-calculator-core --test integration_tests
 
-## Vérification statique (clippy + fmt)
+## Vérification Clippy + format
 check:
 	@echo "$(BLUE)==> Clippy$(NC)"
-	@$(CARGO) clippy --workspace -- -D warnings
+	@SQLX_OFFLINE=$(SQLX_OFFLINE) $(CARGO) clippy --workspace -- -D warnings
 	@echo "$(BLUE)==> Format$(NC)"
 	@$(CARGO) fmt --all -- --check
 	@echo "$(GREEN)✓ Code valide$(NC)"
 
+## Vérification TypeScript du frontend
+check-ts:
+	@echo "$(BLUE)==> TypeScript$(NC)"
+	@cd $(FRONTEND_DIR) && npx tsc --noEmit 2>&1 | grep -v node_modules | grep -v "LinkersTab\|PortfolioV3Tab\|pyodide" || true
+	@echo "$(GREEN)✓ TypeScript OK$(NC)"
+
 lint:
-	@$(CARGO) clippy --workspace -- -D warnings
+	@SQLX_OFFLINE=$(SQLX_OFFLINE) $(CARGO) clippy --workspace -- -D warnings
 
 fmt:
 	@$(CARGO) fmt --all
 
-## Couverture de code
+## Couverture de code (nécessite cargo-tarpaulin)
 coverage:
-	@cargo tarpaulin --workspace --ignore-tests --out Html
+	@cargo tarpaulin -p ftp-calculator-core --ignore-tests --out Html
 	@echo "$(GREEN)✓ Rapport dans tarpaulin-report.html$(NC)"
 
 # ==============================================================================
-# BUILD DES BINDINGS (legacy — pour Python + Excel)
+# BUILD DES BINDINGS (Python + C / Excel)
 # ==============================================================================
-
-UNAME := $(shell uname)
-ifeq ($(UNAME), Linux)
-  LIB_NAME  := libftp_calculator_bindings_c.so
-  VENV_BIN  := .venv/bin
-else ifeq ($(UNAME), Darwin)
-  LIB_NAME  := libftp_calculator_bindings_c.dylib
-  VENV_BIN  := .venv/bin
-else
-  LIB_NAME  := ftp_calculator_bindings_c.dll
-  VENV_BIN  := .venv/Scripts
-endif
 
 build-core:
 	@$(CARGO) build --release -p ftp-calculator-core
 
 build-c-bindings:
 	@echo "$(BLUE)==> Bindings C$(NC)"
-	@cd crates-core/ftp-calculator-bindings-c && $(CARGO) build --release
+	@$(CARGO) build --release -p ftp-calculator-bindings-c
 	@mkdir -p excel-addin/Interop
 	@cp target/release/$(LIB_NAME) excel-addin/Interop/
-	@echo "$(GREEN)✓ $(LIB_NAME) copié dans excel-addin/Interop/$(NC)"
+	@echo "$(GREEN)✓ $(LIB_NAME) → excel-addin/Interop/$(NC)"
 
 build-py-bindings:
-	@echo "$(BLUE)==> Bindings Python$(NC)"
-	@cd python-lib && ../$(VENV_BIN)/maturin build --release
+	@echo "$(BLUE)==> Bindings Python (maturin)$(NC)"
+	@cd python-lib && $(VENV_BIN)/maturin build --release
 	@echo "$(GREEN)✓ Wheel Python générée$(NC)"
+
+build-all: build-core build-c-bindings build-py-bindings
 
 # ==============================================================================
 # DOCUMENTATION
 # ==============================================================================
 
+## Serveur MkDocs local (port 8000)
 docs-serve:
 	@echo "$(BLUE)==> Documentation MkDocs sur http://localhost:8000$(NC)"
 	@$(VENV_BIN)/mkdocs serve -f mkdocs.yml
-
-docs-deploy:
-	@$(VENV_BIN)/mkdocs gh-deploy --force -f mkdocs.yml
-	@echo "$(GREEN)✓ Documentation déployée sur GitHub Pages$(NC)"
 
 # ==============================================================================
 # SETUP
@@ -276,35 +217,32 @@ setup-dev:
 	@echo "$(BLUE)==> Installation des outils de développement$(NC)"
 	@rustup component add clippy rustfmt
 	@cargo install cargo-watch cargo-tarpaulin 2>/dev/null || true
-	@npm install --prefix $(FRONTEND_DIR)
-	@test -d .venv || python -m venv .venv
-	@$(VENV_BIN)/pip install maturin mkdocs-material mkdocstrings mkdocstrings-python pdoc 2>/dev/null || true
+	@cd $(FRONTEND_DIR) && npm install
+	@test -d .venv || python3 -m venv .venv
+	@$(VENV_BIN)/pip install maturin mkdocs-material openpyxl requests 2>/dev/null || true
 	@echo "$(GREEN)✓ Environnement de développement prêt$(NC)"
 	@echo ""
-	@echo "Démarrez avec :  make dev-up"
+	@echo "Démarrez avec :  make dev-db  puis  make dev-backend  +  make dev-frontend"
 
 # ==============================================================================
 # NETTOYAGE
 # ==============================================================================
 
-## Nettoyage des artefacts de build
+## Supprime les artefacts de build Rust + frontend
 clean:
-	@echo "$(YELLOW)==> Nettoyage$(NC)"
 	@$(CARGO) clean
-	@rm -rf dist/
-	@rm -rf $(FRONTEND_DIR)/dist/
+	@rm -rf $(FRONTEND_DIR)/dist/ $(FRONTEND_DIR)/.svelte-kit/
 	@echo "$(GREEN)✓ Nettoyé$(NC)"
 
 ## Supprime le conteneur et le volume Docker de dev
 clean-dev:
 	@docker compose -f docker-compose.dev.yml down -v 2>/dev/null || true
-	@echo "$(GREEN)✓ Conteneur et volume PostgreSQL dev supprimés$(NC)"
+	@echo "$(GREEN)✓ Conteneur PostgreSQL supprimé$(NC)"
 
 # ==============================================================================
-# CI/CD LOCALE
+# CI
 # ==============================================================================
 
-## Simulation complète du pipeline CI
 ci: check test
 	@echo "$(GREEN)✓ Pipeline CI local OK$(NC)"
 
@@ -318,52 +256,44 @@ help:
 	@echo "$(CYAN)║             FTP Simulator — Guide des commandes          ║$(NC)"
 	@echo "$(CYAN)╚══════════════════════════════════════════════════════════╝$(NC)"
 	@echo ""
-	@echo "$(GREEN)── DÉVELOPPEMENT (sans FTP, données locales) ──$(NC)"
-	@echo "  make dev-up          Démarre PostgreSQL Docker + affiche les instructions"
-	@echo "  make dev-db          Démarre PostgreSQL dans Docker (docker-compose.dev.yml)"
-	@echo "  make dev-backend     Lance le backend Rust localement (port 3000)"
-	@echo "  make dev-frontend    Lance Vite HMR localement (port 5173, proxy → 3000)"
-	@echo "  make dev-tmux        Lance backend + frontend dans des panneaux tmux"
-	@echo "  make dev-seed        Charge le jeu de données de démo dans le conteneur DB"
-	@echo "  make dev-reset       Supprime le volume Docker + recrée + reseed"
-	@echo "  make dev-stop        Arrête backend + tmux + conteneur PostgreSQL"
+	@echo "$(GREEN)── DÉVELOPPEMENT ──$(NC)"
+	@echo "  make dev-db          Démarre PostgreSQL dans Docker"
+	@echo "  make dev-backend     Lance le backend Rust (port 3000)"
+	@echo "  make dev-frontend    Lance Vite HMR (port 5173)"
+	@echo "  make dev-data        Charge vecteurs + schedules de démo (Python)"
+	@echo "  make dev-tmux        Lance backend + frontend dans tmux"
+	@echo "  make dev-psql        Shell psql interactif sur la DB Docker"
+	@echo "  make dev-stop        Arrête backend, frontend et PostgreSQL"
+	@echo "  make dev-reset       Remet la base à zéro (volume Docker supprimé)"
 	@echo ""
-	@echo "$(GREEN)── PRODUCTION (build release, installeur, FTP serveur) ──$(NC)"
-	@echo "  make prod-build      Compile release (frontend embarqué)"
-	@echo "  make prod-deb        Génère le paquet .deb slim Debian 13"
-	@echo "  make prod-check      Vérifie .env.prod + code Rust"
-	@echo "  make prod-run        Lance le binaire release localement (.env.prod)"
+	@echo "$(GREEN)── PRODUCTION ──$(NC)"
+	@echo "  make prod-build      Build release (frontend embarqué)"
+	@echo "  make prod-run        Lance le binaire release localement"
 	@echo ""
 	@echo "$(GREEN)── TESTS & QUALITÉ ──$(NC)"
 	@echo "  make test            Tous les tests workspace"
 	@echo "  make unit            Tests unitaires core"
-	@echo "  make integration     Tests d'intégration"
-	@echo "  make check           Clippy + fmt"
-	@echo "  make coverage        Rapport tarpaulin (HTML)"
+	@echo "  make integration     Tests d'intégration core"
+	@echo "  make check           Clippy + fmt (Rust)"
+	@echo "  make check-ts        TypeScript check (frontend)"
+	@echo "  make coverage        Rapport de couverture tarpaulin"
+	@echo "  make ci              check + test"
 	@echo ""
-	@echo "$(GREEN)── BUILD BINDINGS (Python / C / Excel) ──$(NC)"
-	@echo "  make build-core      Compile ftp-calculator-core"
-	@echo "  make build-c-bindings  .so/.dll pour l'add-in Excel"
-	@echo "  make build-py-bindings Wheel Python (maturin)"
-	@echo ""
-	@echo "$(GREEN)── DOCUMENTATION ──$(NC)"
-	@echo "  make docs-serve      Serveur MkDocs local (port 8000)"
-	@echo "  make docs-deploy     Déploiement GitHub Pages"
+	@echo "$(GREEN)── BUILD BINDINGS ──$(NC)"
+	@echo "  make build-core         Compile ftp-calculator-core"
+	@echo "  make build-c-bindings   .so/.dll pour l'add-in Excel"
+	@echo "  make build-py-bindings  Wheel Python (maturin)"
 	@echo ""
 	@echo "$(GREEN)── MAINTENANCE ──$(NC)"
-	@echo "  make setup-dev       Installe tous les outils de développement"
+	@echo "  make setup-dev       Installe les outils (rustup, npm, venv)"
 	@echo "  make clean           Supprime artefacts build"
-	@echo "  make ci              Pipeline CI local (check + test)"
+	@echo "  make clean-dev       Supprime le conteneur PostgreSQL Docker"
+	@echo "  make docs-serve      Serveur MkDocs local (port 8000)"
 	@echo ""
-	@echo "$(CYAN)Fichiers de configuration :$(NC)"
-	@echo "  .env.dev             Variables d'env de développement (DB locale)"
-	@echo "  .env.prod.example    Template pour la production (copier → .env.prod)"
-	@echo "  data/dev/seed.sql    Données de démonstration (10 positions, 3 courbes)"
+	@echo "$(CYAN)DB directe :$(NC)"
+	@echo "  docker exec ftp-simulator-dev-db psql -U ftp_dev -d ftp_simulator_dev -c 'SELECT ...'"
 	@echo ""
 
-# ── Alias de rétrocompatibilité ────────────────────────────────────────────────
-docs:       docs-serve
-docs-serve: docs-serve
-deploy:     prod-deb
-build-all:  build-core build-c-bindings build-py-bindings
-setup:      setup-dev
+# Alias
+setup: setup-dev
+docs:  docs-serve

@@ -8,13 +8,6 @@ use crate::methods;
 pub enum ComputeMethod {
     Stock,
     Flux,
-    Duration,
-    Pool,
-    Refinancing,
-    Floating,
-    Behavioral,
-    Replicating,
-    Ldi,
 }
 
 /// Main structure holding all FTP calculation inputs and outputs.
@@ -86,7 +79,7 @@ impl FtpResult {
             return Err(FtpError::InvalidOutstandingColumns { got: ncols_outs });
         }
         let ncols_profiles = self.input_profiles.dim().1;
-        if ncols_profiles - 1 != ncols_rate {
+        if ncols_profiles == 0 || ncols_profiles - 1 != ncols_rate {
             return Err(FtpError::RateProfileColumnMismatch {
                 rate_cols: ncols_rate,
                 profile_cols: ncols_profiles,
@@ -113,28 +106,6 @@ impl FtpResult {
         match method {
             ComputeMethod::Stock => methods::stock::compute_stock(self, nrows, ncols),
             ComputeMethod::Flux => methods::flux::compute_flux(self, nrows, ncols),
-            ComputeMethod::Duration => methods::duration::compute_duration(self, nrows, ncols),
-            ComputeMethod::Pool => methods::pool::compute_single_pool(self, nrows, ncols),
-            ComputeMethod::Refinancing => {
-                methods::refinancing::compute_refinancing(self, nrows, ncols)
-            }
-            ComputeMethod::Floating => methods::floating::compute_floating(self, nrows, ncols, 12),
-            ComputeMethod::Behavioral => {
-                methods::behavioral::compute_behavioral(self, nrows, ncols, 0.05)
-            }
-            ComputeMethod::Replicating => {
-                let default_instruments = crate::methods::replicating::ReplicatingParams::default();
-                methods::replicating::compute_replicating(
-                    self,
-                    nrows,
-                    ncols,
-                    &default_instruments.instruments,
-                )
-            }
-            ComputeMethod::Ldi => {
-                let default_params = crate::methods::ldi::LdiParams::default();
-                methods::ldi::compute_ldi(self, nrows, ncols, &default_params)
-            }
         }
 
         Ok(())

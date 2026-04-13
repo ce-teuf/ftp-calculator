@@ -29,9 +29,6 @@ import requests
 API         = "http://localhost:3000/api"
 SCRIPTS_DIR = Path(__file__).parent
 
-TENOR_LABELS  = ["1M",  "3M",  "6M",  "12M", "24M", "60M", "120M"]
-TENOR_MONTHS  = [ 1,     3,     6,     12,    24,    60,    120  ]
-
 # Dates pivot : avant cette date → observed, à partir de → projected
 # Aligner sur la même convention que les matrices (observed jusqu'à 2024-12)
 PROJ_FROM = (2025, 1)
@@ -125,31 +122,29 @@ def vector_csv_to_xlsx(csv_path: Path) -> bytes:
 def schedule_csv_to_xlsx(csv_path: Path) -> bytes:
     """
     Lit un CSV avec colonnes [date, 1, 2, 3, …, N] (mois numérotés).
-    Extrait les colonnes correspondant aux tenors cibles [1, 3, 6, 12, 24, 60, 120].
-    Produit un XLSX avec [date_month, period_type, 1M, 3M, 6M, 12M, 24M, 60M, 120M].
+    Passe TOUTES les colonnes mensuelles dans le XLSX sans filtrage.
+    Produit un XLSX avec [date_month, period_type, 1, 2, 3, …, N].
     """
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Schedule"
 
-    headers = ["date_month", "period_type"] + TENOR_LABELS
-    ws.append(headers)
-    _style_header(ws, len(headers))
-
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames or []
-        # Colonnes disponibles (numéros de mois sous forme de string)
-        available = {int(k): k for k in fieldnames if k.isdigit()}
+        # Toutes les colonnes numériques = mois, triées
+        month_cols = sorted(int(k) for k in fieldnames if k.isdigit())
+        if not month_cols:
+            raise ValueError(f"Aucune colonne mensuelle trouvée dans {csv_path.name}")
+        month_labels = [str(m) for m in month_cols]
+
+        headers = ["date_month", "period_type"] + month_labels
+        ws.append(headers)
+        _style_header(ws, len(headers))
 
         for row in reader:
             date_ym, pt = convert_date(row["date"])
-            buckets = []
-            for t in TENOR_MONTHS:
-                if t in available:
-                    buckets.append(round(float(row[available[t]]), 6))
-                else:
-                    buckets.append(0.0)   # au-delà de la maturité
+            buckets = [round(float(row.get(str(m), 0) or 0), 6) for m in month_cols]
             ws.append([date_ym, pt] + buckets)
             if pt == "projected":
                 for col in range(1, len(headers) + 1):
@@ -157,9 +152,9 @@ def schedule_csv_to_xlsx(csv_path: Path) -> bytes:
 
     ws.column_dimensions["A"].width = 12
     ws.column_dimensions["B"].width = 14
-    for i, label in enumerate(TENOR_LABELS):
-        col_letter = chr(ord("C") + i)
-        ws.column_dimensions[col_letter].width = 10
+    for i in range(len(month_labels)):
+        col_letter = openpyxl.utils.get_column_letter(3 + i)
+        ws.column_dimensions[col_letter].width = max(4, len(month_labels[i]) + 1)
     return _xlsx_bytes(wb)
 
 
@@ -183,21 +178,21 @@ def upload_vector(name: str, desc: str, xlsx: bytes, dry_run: bool) -> str | Non
     return vid
 
 
-def upload_schedule(name: str, desc: str, xlsx: bytes, dry_run: bool) -> str | None:
+def upload_schedule(name: str, desc: str, schedule_type: str, xlsx: bytes, dry_run: bool) -> str | None:
     if dry_run:
         out = SCRIPTS_DIR / "data_schedules" / f"{name.replace(' ', '_')}.xlsx"
         out.write_bytes(xlsx)
-        print(f"  [dry-run] Écrit : {out}")
+        print(f"  [dry-run] Écrit : {out}  [{schedule_type}]")
         return None
     files = [("file", (f"{name}.xlsx", xlsx,
               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))]
-    data  = [("name", name), ("description", desc)]
+    data  = [("name", name), ("description", desc), ("schedule_type", schedule_type)]
     r = requests.post(f"{API}/amort-schedules", data=data, files=files, timeout=30)
     if not r.ok:
         print(f"  ✗ {name}: {r.status_code} — {r.text[:200]}")
         return None
     sid = r.json()["id"]
-    print(f"  ✓ {name:<50} → {sid}")
+    print(f"  ✓ {name:<50} [{schedule_type}] → {sid}")
     return sid
 
 
@@ -237,25 +232,49 @@ VECTOR_DEFS = [
 ]
 
 SCHEDULE_DEFS = [
+    # ── Stock schedules (book existant) ──────────────────────────────────────
     {
-        "csv":  "data_schedules/resultats_matrix.csv",
-        "name": "Schedule 5Y Multi-Period",
-        "desc": "Amortissement 3 périodes : 60M (curvature 1.5) → 30M (2021) → 12M (2023) — généré depuis config.yaml",
+        "csv":   "data_schedules/resultats_matrix.csv",
+        "name":  "Schedule 5Y — Stock",
+        "desc":  "Stock : amortissement 3 périodes : 60M → 30M (2021) → 12M (2023)",
+        "stype": "stock",
     },
     {
-        "csv":  "data_schedules/schedule_24m.csv",
-        "name": "Schedule 2Y Linear",
-        "desc": "Amortissement linéaire 24 mois (curvature 1.0, std 0.2) — 2022-2025",
+        "csv":   "data_schedules/schedule_24m.csv",
+        "name":  "Schedule 2Y — Stock",
+        "desc":  "Stock : amortissement linéaire 24 mois (curvature 1.0, std 0.2) — 2022-2025",
+        "stype": "stock",
     },
     {
-        "csv":  "data_schedules/schedule_120m.csv",
-        "name": "Schedule 10Y Standard",
-        "desc": "Amortissement 10 ans (120 mois, curvature 1.5, std 0.1) — 2022-2025",
+        "csv":   "data_schedules/schedule_120m.csv",
+        "name":  "Schedule 10Y — Stock",
+        "desc":  "Stock : amortissement 10 ans (120 mois, curvature 1.5, std 0.1) — 2022-2025",
+        "stype": "stock",
     },
     {
-        "csv":  "data_schedules/schedule_240m.csv",
-        "name": "Schedule 20Y Long",
-        "desc": "Amortissement 20 ans (240 mois, curvature 1.5, std 0.15) — 2022-2025",
+        "csv":   "data_schedules/schedule_240m.csv",
+        "name":  "Schedule 20Y — Stock",
+        "desc":  "Stock : amortissement 20 ans (240 mois, curvature 1.5, std 0.15) — 2022-2025",
+        "stype": "stock",
+    },
+    # ── Nouvelle production schedules (flux entrants) ─────────────────────────
+    {
+        "csv":   "data_schedules/schedule_24m.csv",
+        "name":  "Schedule 2Y — Nvl. Production",
+        "desc":  "Nvl. prod. : profil de nouvelle production 24 mois — 2022-2025",
+        "stype": "new_production",
+    },
+    {
+        "csv":   "data_schedules/schedule_120m.csv",
+        "name":  "Schedule 10Y — Nvl. Production",
+        "desc":  "Nvl. prod. : profil de nouvelle production 10 ans (120 mois) — 2022-2025",
+        "stype": "new_production",
+    },
+    {
+        "csv":   "data_schedules/schedule_240m.csv",
+        "name":  "Schedule 20Y — Nvl. Production",
+        "desc":  "Nvl. prod. : profil de nouvelle production 20 ans (240 mois) — 2022-2025",
+        "stype": "new_production",
     },
 ]
 
@@ -312,7 +331,7 @@ def main():
             continue
         try:
             xlsx = schedule_csv_to_xlsx(csv_path)
-            result = upload_schedule(sdef["name"], sdef["desc"], xlsx, args.dry_run)
+            result = upload_schedule(sdef["name"], sdef["desc"], sdef.get("stype", "stock"), xlsx, args.dry_run)
             if result or args.dry_run:
                 s_ok += 1
             else:

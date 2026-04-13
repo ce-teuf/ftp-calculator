@@ -43,9 +43,11 @@ pub struct AssignmentInfo {
     pub vector_name: String,
     pub schedule_id: String,
     pub schedule_name: String,
+    pub schedule_type: String,
     pub combination_matrix_ids: Vec<String>,
     pub label: Option<String>,
     pub is_existing_stock: bool,
+    pub methods: Vec<String>,
     pub initial_ftp_profile_json: Option<JsonValue>,
     pub created_at: DateTime<Utc>,
 }
@@ -104,6 +106,7 @@ pub struct CreateAssignmentRequest {
     pub combination_matrix_ids: Vec<String>,
     pub label: Option<String>,
     pub is_existing_stock: Option<bool>,
+    pub methods: Option<Vec<String>>,
     pub initial_ftp_profile_json: Option<JsonValue>,
 }
 
@@ -112,6 +115,7 @@ pub struct UpdateAssignmentRequest {
     pub combination_matrix_ids: Option<Vec<String>>,
     pub label: Option<String>,
     pub is_existing_stock: Option<bool>,
+    pub methods: Option<Vec<String>>,
     pub initial_ftp_profile_json: Option<JsonValue>,
 }
 
@@ -140,9 +144,11 @@ struct AssignmentRow {
     vector_name: String,
     schedule_id: String,
     schedule_name: String,
+    schedule_type: String,
     combination_matrix_ids: String,
     label: Option<String>,
     is_existing_stock: bool,
+    methods_json: String,
     initial_ftp_profile_json: Option<String>,
     created_at: DateTime<Utc>,
 }
@@ -188,10 +194,10 @@ async fn load_assignments(
     let rows = sqlx::query_as::<_, AssignmentRow>(
         "SELECT sua.id, sua.pair_id, pp.label AS pair_label,
                 pp.vector_id, ov.name AS vector_name,
-                pp.schedule_id, ams.name AS schedule_name,
+                pp.schedule_id, ams.name AS schedule_name, ams.schedule_type,
                 sua.combination_matrix_ids, sua.label,
-                sua.is_existing_stock, sua.initial_ftp_profile_json,
-                sua.created_at
+                sua.is_existing_stock, sua.methods_json,
+                sua.initial_ftp_profile_json, sua.created_at
          FROM study_unit_assignments sua
          JOIN portfolio_pairs pp       ON pp.id  = sua.pair_id
          JOIN outstanding_vectors ov   ON ov.id  = pp.vector_id
@@ -208,6 +214,8 @@ async fn load_assignments(
     for r in rows {
         let combo_ids: Vec<String> =
             serde_json::from_str(&r.combination_matrix_ids).unwrap_or_default();
+        let methods: Vec<String> =
+            serde_json::from_str(&r.methods_json).unwrap_or_else(|_| vec!["Stock".to_string()]);
         let ftp_profile: Option<JsonValue> = r
             .initial_ftp_profile_json
             .and_then(|s| serde_json::from_str(&s).ok());
@@ -219,9 +227,11 @@ async fn load_assignments(
             vector_name: r.vector_name,
             schedule_id: r.schedule_id,
             schedule_name: r.schedule_name,
+            schedule_type: r.schedule_type,
             combination_matrix_ids: combo_ids,
             label: r.label,
             is_existing_stock: r.is_existing_stock,
+            methods,
             initial_ftp_profile_json: ftp_profile,
             created_at: r.created_at,
         });
@@ -744,6 +754,9 @@ pub async fn create_assignment(
     let id = Uuid::new_v4().to_string();
     let combo_json = serde_json::to_string(&body.combination_matrix_ids)
         .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
+    let methods = body.methods.unwrap_or_else(|| vec!["Stock".to_string()]);
+    let methods_json = serde_json::to_string(&methods)
+        .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
     let ftp_json = body
         .initial_ftp_profile_json
         .map(|v| serde_json::to_string(&v).unwrap_or_default());
@@ -752,8 +765,8 @@ pub async fn create_assignment(
     sqlx::query(
         "INSERT INTO study_unit_assignments
              (id, study_unit_id, pair_id, combination_matrix_ids, label,
-              is_existing_stock, initial_ftp_profile_json)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)",
+              is_existing_stock, methods_json, initial_ftp_profile_json)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
     )
     .bind(&id)
     .bind(&study_unit_id)
@@ -761,6 +774,7 @@ pub async fn create_assignment(
     .bind(&combo_json)
     .bind(&body.label)
     .bind(is_existing)
+    .bind(&methods_json)
     .bind(&ftp_json)
     .execute(&state.pool)
     .await
@@ -819,6 +833,16 @@ pub async fn update_assignment(
     if let Some(v) = body.is_existing_stock {
         sqlx::query("UPDATE study_unit_assignments SET is_existing_stock = $1 WHERE id = $2")
             .bind(v)
+            .bind(&assignment_id)
+            .execute(&state.pool)
+            .await
+            .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
+    }
+    if let Some(methods) = &body.methods {
+        let json = serde_json::to_string(methods)
+            .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
+        sqlx::query("UPDATE study_unit_assignments SET methods_json = $1 WHERE id = $2")
+            .bind(&json)
             .bind(&assignment_id)
             .execute(&state.pool)
             .await

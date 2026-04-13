@@ -119,6 +119,8 @@ pub struct ScheduleSummary {
     pub id: String,
     pub name: String,
     pub description: Option<String>,
+    /// "stock" | "new_production"
+    pub schedule_type: String,
     pub bucket_labels: Vec<String>,
     pub row_count: i64,
     pub date_from: Option<String>,
@@ -131,6 +133,8 @@ pub struct ScheduleDetail {
     pub id: String,
     pub name: String,
     pub description: Option<String>,
+    /// "stock" | "new_production"
+    pub schedule_type: String,
     pub bucket_labels: Vec<String>,
     pub rows: Vec<ScheduleRow>,
     pub created_at: DateTime<Utc>,
@@ -224,6 +228,7 @@ struct ScheduleRow_ {
     id: String,
     name: String,
     description: Option<String>,
+    schedule_type: String,
     bucket_labels_json: String,
     rows_json: String,
     created_at: DateTime<Utc>,
@@ -373,7 +378,7 @@ async fn fetch_portfolio_detail(
 
     // Schedules associés
     let s_rows = sqlx::query_as::<_, ScheduleRow_>(
-        r#"SELECT s.id, s.name, s.description, s.bucket_labels_json, s.rows_json, s.created_at
+        r#"SELECT s.id, s.name, s.description, s.schedule_type, s.bucket_labels_json, s.rows_json, s.created_at
            FROM amort_schedules s
            JOIN portfolio_schedules ps ON ps.schedule_id = s.id
            WHERE ps.portfolio_id = $1
@@ -385,7 +390,7 @@ async fn fetch_portfolio_detail(
     let schedules = s_rows.into_iter().map(|r| {
         let (row_count, date_from, date_to) = rows_summary(&r.rows_json);
         let bucket_labels: Vec<String> = serde_json::from_str(&r.bucket_labels_json).unwrap_or_default();
-        ScheduleSummary { id: r.id, name: r.name, description: r.description, bucket_labels, row_count, date_from, date_to, created_at: r.created_at }
+        ScheduleSummary { id: r.id, name: r.name, description: r.description, schedule_type: r.schedule_type, bucket_labels, row_count, date_from, date_to, created_at: r.created_at }
     }).collect();
 
     // Paires
@@ -693,14 +698,14 @@ pub async fn list_schedules(
     State(state): State<AppState>,
 ) -> Result<Json<Vec<ScheduleSummary>>, (StatusCode, String)> {
     let rows = sqlx::query_as::<_, ScheduleRow_>(
-        "SELECT id, name, description, bucket_labels_json, rows_json, created_at FROM amort_schedules ORDER BY name"
+        "SELECT id, name, description, schedule_type, bucket_labels_json, rows_json, created_at FROM amort_schedules ORDER BY name"
     )
     .fetch_all(&state.pool).await.map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
 
     Ok(Json(rows.into_iter().map(|r| {
         let (row_count, date_from, date_to) = rows_summary(&r.rows_json);
         let bucket_labels: Vec<String> = serde_json::from_str(&r.bucket_labels_json).unwrap_or_default();
-        ScheduleSummary { id: r.id, name: r.name, description: r.description, bucket_labels, row_count, date_from, date_to, created_at: r.created_at }
+        ScheduleSummary { id: r.id, name: r.name, description: r.description, schedule_type: r.schedule_type, bucket_labels, row_count, date_from, date_to, created_at: r.created_at }
     }).collect()))
 }
 
@@ -712,13 +717,15 @@ pub async fn create_schedule(
     let mut name = String::new();
     let mut description: Option<String> = None;
     let mut portfolio_id: Option<String> = None;
+    let mut schedule_type = "stock".to_string();
 
     while let Some(field) = multipart.next_field().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))? {
         match field.name() {
-            Some("file")         => { file_bytes = Some(field.bytes().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?.to_vec()); }
-            Some("name")         => { name = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; }
-            Some("description")  => { let v = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; if !v.is_empty() { description = Some(v); } }
-            Some("portfolio_id") => { let v = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; if !v.is_empty() { portfolio_id = Some(v); } }
+            Some("file")          => { file_bytes = Some(field.bytes().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?.to_vec()); }
+            Some("name")          => { name = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; }
+            Some("description")   => { let v = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; if !v.is_empty() { description = Some(v); } }
+            Some("portfolio_id")  => { let v = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; if !v.is_empty() { portfolio_id = Some(v); } }
+            Some("schedule_type") => { let v = field.text().await.map_err(|e| err(StatusCode::BAD_REQUEST, e))?; if v == "new_production" { schedule_type = v; } }
             _ => { let _ = field.bytes().await; }
         }
     }
@@ -730,8 +737,8 @@ pub async fn create_schedule(
     let rows_json = serde_json::to_string(&rows).map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
 
     let id = Uuid::new_v4().to_string();
-    sqlx::query("INSERT INTO amort_schedules (id, name, description, bucket_labels_json, rows_json) VALUES ($1, $2, $3, $4, $5)")
-        .bind(&id).bind(name.trim()).bind(&description).bind(&bucket_labels_json).bind(&rows_json)
+    sqlx::query("INSERT INTO amort_schedules (id, name, description, schedule_type, bucket_labels_json, rows_json) VALUES ($1, $2, $3, $4, $5, $6)")
+        .bind(&id).bind(name.trim()).bind(&description).bind(&schedule_type).bind(&bucket_labels_json).bind(&rows_json)
         .execute(&state.pool).await.map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
 
     if let Some(pid) = portfolio_id {
@@ -741,14 +748,14 @@ pub async fn create_schedule(
     }
 
     let r = sqlx::query_as::<_, ScheduleRow_>(
-        "SELECT id, name, description, bucket_labels_json, rows_json, created_at FROM amort_schedules WHERE id = $1"
+        "SELECT id, name, description, schedule_type, bucket_labels_json, rows_json, created_at FROM amort_schedules WHERE id = $1"
     ).bind(&id).fetch_one(&state.pool).await.map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
 
     let rows: Vec<ScheduleRow> = serde_json::from_str(&r.rows_json)
         .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
     let bucket_labels: Vec<String> = serde_json::from_str(&r.bucket_labels_json)
         .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
-    Ok(Json(ScheduleDetail { id: r.id, name: r.name, description: r.description, bucket_labels, rows, created_at: r.created_at }))
+    Ok(Json(ScheduleDetail { id: r.id, name: r.name, description: r.description, schedule_type: r.schedule_type, bucket_labels, rows, created_at: r.created_at }))
 }
 
 pub async fn get_schedule(
@@ -756,7 +763,7 @@ pub async fn get_schedule(
     Path(id): Path<String>,
 ) -> Result<Json<ScheduleDetail>, (StatusCode, String)> {
     let r = sqlx::query_as::<_, ScheduleRow_>(
-        "SELECT id, name, description, bucket_labels_json, rows_json, created_at FROM amort_schedules WHERE id = $1"
+        "SELECT id, name, description, schedule_type, bucket_labels_json, rows_json, created_at FROM amort_schedules WHERE id = $1"
     ).bind(&id).fetch_optional(&state.pool).await
     .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?
     .ok_or_else(|| err(StatusCode::NOT_FOUND, "Schedule introuvable"))?;
@@ -765,7 +772,7 @@ pub async fn get_schedule(
         .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
     let bucket_labels: Vec<String> = serde_json::from_str(&r.bucket_labels_json)
         .map_err(|e| err(StatusCode::INTERNAL_SERVER_ERROR, e))?;
-    Ok(Json(ScheduleDetail { id: r.id, name: r.name, description: r.description, bucket_labels, rows, created_at: r.created_at }))
+    Ok(Json(ScheduleDetail { id: r.id, name: r.name, description: r.description, schedule_type: r.schedule_type, bucket_labels, rows, created_at: r.created_at }))
 }
 
 pub async fn update_schedule(

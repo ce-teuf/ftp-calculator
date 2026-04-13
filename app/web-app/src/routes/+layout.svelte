@@ -13,6 +13,7 @@
   type NavEntry = NavItem | NavGroup;
 
   const NAV: NavEntry[] = [
+
     {
       kind: 'group',
       key: 'rates',
@@ -27,7 +28,7 @@
     { kind: 'link', label: 'Study Units',  icon: FlaskConical,  href: '/study-units'  },
     { kind: 'link', label: 'Studies',      icon: BookOpen,      href: '/studies'      },
     { kind: 'link', label: 'Exécutions',   icon: Play,          href: '/executions'   },
-    { kind: 'link', label: 'Dashboard',    icon: LayoutDashboard, href: '/dashboard'  },
+        { kind: 'link', label: 'Dashboard',    icon: LayoutDashboard, href: '/dashboard'  }
   ];
 
   // ── Group open state ──────────────────────────────────────────────────────────

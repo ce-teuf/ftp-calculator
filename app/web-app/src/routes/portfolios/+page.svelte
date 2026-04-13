@@ -52,6 +52,7 @@
   let sFile = $state<File | null>(null);
   let sName = $state('');
   let sDesc = $state('');
+  let sType = $state<'stock' | 'new_production'>('stock');
   let sUploading = $state(false);
   let sError = $state<string | null>(null);
   let sFileInput: HTMLInputElement;
@@ -69,10 +70,11 @@
   let expandedScheduleId = $state<string | null>(null);
   let vectorChartData    = $state<VectorDetail | null>(null);
   let scheduleChartData  = $state<ScheduleDetail | null>(null);
-  let vectorChartEl:   HTMLDivElement;
-  let scheduleChartEl: HTMLDivElement;
-  let vchart: echarts.ECharts | null = null;
-  let schart: echarts.ECharts | null = null;
+  // Viewer grands graphiques + tables (sous le bloc principal)
+  let vectorViewerEl:   HTMLDivElement;
+  let scheduleViewerEl: HTMLDivElement;
+  let vviewer: echarts.ECharts | null = null;
+  let sviewer: echarts.ECharts | null = null;
 
   // ── Chargement ────────────────────────────────────────────────────────────────
 
@@ -225,45 +227,11 @@
     } catch (e: any) { error = e.message; }
   }
 
-  $effect(() => {
-    const d = vectorChartData;
-    if (!d) return;
-    tick().then(() => {
-      if (!vectorChartEl) return;
-      if (vchart) vchart.dispose();
-      vchart = echarts.init(vectorChartEl);
-
-      const obs  = d.rows.filter(r => r.period_type !== 'projected');
-      const proj = d.rows.filter(r => r.period_type === 'projected');
-      const fmt  = (v: number) => v >= 1e9 ? `${(v/1e9).toFixed(2)} Md` : v >= 1e6 ? `${(v/1e6).toFixed(1)} M` : v.toLocaleString();
-
-      vchart.setOption({
-        grid:    { left: 70, right: 20, top: 12, bottom: 36 },
-        tooltip: { trigger: 'axis', formatter: (p: any[]) => `${p[0].axisValue}<br/>${fmt(p[0].value)}` },
-        xAxis:   { type: 'category', data: d.rows.map(r => r.date), axisLabel: { rotate: 30, fontSize: 10 } },
-        yAxis:   { type: 'value', axisLabel: { formatter: (v: number) => fmt(v), fontSize: 10 } },
-        series: [
-          {
-            name: 'Réalisé', type: 'line', data: obs.map(r => [r.date, r.value]),
-            areaStyle: { opacity: 0.15, color: '#6366f1' }, lineStyle: { color: '#6366f1', width: 1.5 },
-            itemStyle: { color: '#6366f1' }, symbol: 'none',
-          },
-          {
-            name: 'Projection', type: 'line', data: proj.map(r => [r.date, r.value]),
-            areaStyle: { opacity: 0.08, color: '#f59e0b' },
-            lineStyle: { color: '#f59e0b', width: 1.5, type: [6, 4] },
-            itemStyle: { color: '#f59e0b' }, symbol: 'none',
-          },
-        ],
-      });
-    });
-  });
-
   // ── Schedules ────────────────────────────────────────────────────────────────
 
   function openSchedulePanel(mode: 'upload' | 'associate') {
     schedulePanelMode = mode;
-    sFile = null; sName = ''; sDesc = ''; sError = null;
+    sFile = null; sName = ''; sDesc = ''; sType = 'stock'; sError = null;
     showSchedulePanel = true;
   }
 
@@ -276,6 +244,7 @@
       form.append('file', sFile);
       form.append('name', sName.trim());
       if (sDesc) form.append('description', sDesc);
+      form.append('schedule_type', sType);
       if (selectedId) form.append('portfolio_id', selectedId);
       await amortSchedules.create(form);
       await Promise.all([reloadDetail(), loadAll()]);
@@ -318,28 +287,74 @@
 
   const BUCKET_COLORS = ['#6366f1','#3b82f6','#06b6d4','#10b981','#84cc16','#f59e0b','#ef4444','#8b5cf6','#ec4899'];
 
+  // ── Viewers grands (sous le bloc principal) ──────────────────────────────────
+
+  $effect(() => {
+    const d = vectorChartData;
+    if (!d) { if (vviewer) { vviewer.dispose(); vviewer = null; } return; }
+    tick().then(() => {
+      if (!vectorViewerEl) return;
+      if (vviewer) vviewer.dispose();
+      vviewer = echarts.init(vectorViewerEl);
+      const obs  = d.rows.filter(r => r.period_type !== 'projected');
+      const proj = d.rows.filter(r => r.period_type === 'projected');
+      const fmt  = (v: number) => v >= 1e9 ? `${(v/1e9).toFixed(2)} Md` : v >= 1e6 ? `${(v/1e6).toFixed(1)} M` : v.toLocaleString();
+      vviewer.setOption({
+        grid:    { left: 84, right: 24, top: 20, bottom: 56 },
+        tooltip: { trigger: 'axis', formatter: (p: any[]) => `${p[0].axisValue}<br/>${fmt(p[0].value)}` },
+        xAxis:   { type: 'category', data: d.rows.map(r => r.date), axisLabel: { rotate: 30, fontSize: 11 } },
+        yAxis:   { type: 'value', axisLabel: { formatter: (v: number) => fmt(v), fontSize: 11 } },
+        series: [
+          {
+            name: 'Réalisé', type: 'line', data: obs.map(r => [r.date, r.value]),
+            areaStyle: { opacity: 0.15, color: '#6366f1' }, lineStyle: { color: '#6366f1', width: 2 },
+            itemStyle: { color: '#6366f1' }, symbol: 'circle', symbolSize: 3,
+          },
+          {
+            name: 'Projection', type: 'line', data: proj.map(r => [r.date, r.value]),
+            areaStyle: { opacity: 0.08, color: '#f59e0b' },
+            lineStyle: { color: '#f59e0b', width: 2, type: [6, 4] },
+            itemStyle: { color: '#f59e0b' }, symbol: 'circle', symbolSize: 3,
+          },
+        ],
+      });
+    });
+    return () => { if (vviewer) { vviewer.dispose(); vviewer = null; } };
+  });
+
   $effect(() => {
     const d = scheduleChartData;
-    if (!d) return;
+    if (!d) { if (sviewer) { sviewer.dispose(); sviewer = null; } return; }
     tick().then(() => {
-      if (!scheduleChartEl) return;
-      if (schart) schart.dispose();
-      schart = echarts.init(scheduleChartEl);
+      if (!scheduleViewerEl) return;
+      if (sviewer) sviewer.dispose();
+      sviewer = echarts.init(scheduleViewerEl);
 
-      schart.setOption({
-        grid:    { left: 50, right: 20, top: 12, bottom: 56 },
-        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+      // Échantillonner jusqu'à 8 dates pour comparer les profils
+      const n = d.rows.length;
+      const step = Math.max(1, Math.floor(n / 8));
+      const sampled = d.rows.filter((_, i) => i % step === 0 || i === n - 1).slice(0, 8);
+      const xs = d.bucket_labels;
+      const interval = Math.max(0, Math.ceil(xs.length / 12) - 1);
+
+      sviewer.setOption({
+        grid:    { left: 56, right: 20, top: 20, bottom: 56 },
+        tooltip: { trigger: 'axis', formatter: (params: any[]) =>
+          `Mois ${params[0].axisValue}<br/>` + params.map((p: any) => `${p.marker}${p.seriesName}: ${(+p.value).toFixed(3)}%`).join('<br/>'),
+        },
         legend:  { bottom: 0, textStyle: { fontSize: 10 }, itemHeight: 8 },
-        xAxis:   { type: 'category', data: d.rows.map(r => r.date), axisLabel: { rotate: 30, fontSize: 10 } },
-        yAxis:   { type: 'value', max: 1, axisLabel: { formatter: (v: number) => `${(v*100).toFixed(0)}%`, fontSize: 10 } },
-        series: d.bucket_labels.map((label, i) => ({
-          name: label, type: 'bar', stack: 'total',
-          data: d.rows.map(r => +(r.buckets[i] ?? 0).toFixed(4)),
-          color: BUCKET_COLORS[i % BUCKET_COLORS.length],
-          barMaxWidth: 20,
+        xAxis:   { type: 'category', data: xs, axisLabel: { interval, fontSize: 10 }, name: 'Mois', nameTextStyle: { fontSize: 10 }, nameLocation: 'end' },
+        yAxis:   { type: 'value', axisLabel: { formatter: (v: number) => `${v.toFixed(1)}%`, fontSize: 10 }, name: '% encours', nameTextStyle: { fontSize: 10 } },
+        series: sampled.map((row, i) => ({
+          name: row.date, type: 'line',
+          data: row.buckets.map(v => +((v * 100).toFixed(4))),
+          symbol: 'none', lineStyle: { width: 1.5, color: BUCKET_COLORS[i % BUCKET_COLORS.length] },
+          itemStyle: { color: BUCKET_COLORS[i % BUCKET_COLORS.length] },
+          areaStyle: { opacity: 0.04, color: BUCKET_COLORS[i % BUCKET_COLORS.length] },
         })),
       });
     });
+    return () => { if (sviewer) { sviewer.dispose(); sviewer = null; } };
   });
 
   // ── Paires ───────────────────────────────────────────────────────────────────
@@ -487,15 +502,15 @@
           <!-- Onglets -->
           <div class="tabs">
             <button class="tab" class:tab--active={activeTab === 'vectors'}
-              onclick={() => activeTab = 'vectors'}>
+              onclick={() => { activeTab = 'vectors'; scheduleChartData = null; expandedScheduleId = null; }}>
               Vecteurs <span class="tab-count">{detail.vectors.length}</span>
             </button>
             <button class="tab" class:tab--active={activeTab === 'schedules'}
-              onclick={() => activeTab = 'schedules'}>
+              onclick={() => { activeTab = 'schedules'; vectorChartData = null; expandedVectorId = null; }}>
               Schedules <span class="tab-count">{detail.schedules.length}</span>
             </button>
             <button class="tab" class:tab--active={activeTab === 'pairs'}
-              onclick={() => activeTab = 'pairs'}>
+              onclick={() => { activeTab = 'pairs'; vectorChartData = null; scheduleChartData = null; expandedVectorId = null; expandedScheduleId = null; }}>
               Paires <span class="tab-count">{detail.pairs.length}</span>
             </button>
           </div>
@@ -584,16 +599,42 @@
                           </button>
                         </div>
                       </div>
-                      {#if expandedVectorId === v.id}
-                        <div class="chart-row">
-                          {#if !vectorChartData}
-                            <p class="loading">Chargement…</p>
-                          {:else}
-                            <div bind:this={vectorChartEl} style="height:180px;width:100%"></div>
-                          {/if}
-                        </div>
-                      {/if}
                     </div>
+
+                    {#if expandedVectorId === v.id}
+                      <div class="inline-viewer card">
+                        {#if !vectorChartData}
+                          <p class="loading" style="padding:16px">Chargement…</p>
+                        {:else}
+                          <div class="viewer-header">
+                            <div>
+                              <span class="viewer-title">Vecteur : {vectorChartData.name}</span>
+                              {#if vectorChartData.description}<span class="viewer-desc">{vectorChartData.description}</span>{/if}
+                            </div>
+                            <button class="icon-btn" onclick={() => { expandedVectorId = null; vectorChartData = null; }} title="Fermer">
+                              <X size={15} />
+                            </button>
+                          </div>
+                          <div class="viewer-body">
+                            <div bind:this={vectorViewerEl} style="height:260px;width:100%"></div>
+                            <div class="viewer-table-wrap">
+                              <table class="viewer-table">
+                                <thead><tr><th>Date</th><th>Type</th><th class="tr">Valeur</th></tr></thead>
+                                <tbody>
+                                  {#each vectorChartData.rows as r}
+                                    <tr class:row-projected={r.period_type === 'projected'}>
+                                      <td>{r.date}</td>
+                                      <td><span class="pt-badge pt-badge--{r.period_type}">{r.period_type}</span></td>
+                                      <td class="tr tnum">{r.value.toLocaleString('fr-FR', { maximumFractionDigits: 4 })}</td>
+                                    </tr>
+                                  {/each}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        {/if}
+                      </div>
+                    {/if}
                   {/each}
                 </div>
               {/if}
@@ -628,14 +669,40 @@
                     <div class="upload-form">
                       <label>Nom * <input bind:value={sName} placeholder="Nom du schedule" /></label>
                       <label>Description <input bind:value={sDesc} placeholder="Optionnelle" /></label>
+                      <div class="stype-row">
+                        <span class="stype-label">Type de schedule *</span>
+                        <div class="stype-toggle">
+                          <button
+                            type="button"
+                            class="stype-btn"
+                            class:stype-btn--active={sType === 'stock'}
+                            onclick={() => sType = 'stock'}>
+                            Stock
+                          </button>
+                          <button
+                            type="button"
+                            class="stype-btn"
+                            class:stype-btn--active={sType === 'new_production'}
+                            onclick={() => sType = 'new_production'}>
+                            Nouvelle production
+                          </button>
+                        </div>
+                        <div class="stype-hint">
+                          {#if sType === 'stock'}
+                            Book existant — amortissement du stock en cours
+                          {:else}
+                            Nouvelles originations — profil des flux entrants
+                          {/if}
+                        </div>
+                      </div>
                       <label>
                         Fichier (.xlsx, .ods) *
                         <input type="file" accept=".xlsx,.ods,.xlsm" bind:this={sFileInput}
                           onchange={e => sFile = (e.target as HTMLInputElement).files?.[0] ?? null} />
                       </label>
                       <div class="file-hint">
-                        Format attendu : <code>date_month | period_type | bucket_1 | … | bucket_n</code>
-                        (somme des buckets ≈ 1.0 par ligne)
+                        Format attendu : <code>date_month | period_type | 1 | 2 | 3 | … | N</code>
+                        — colonnes mensuelles (mois 1, 2, … jusqu'à la maturité max), somme ≈ 1.0 par ligne
                       </div>
                       <button class="btn-primary" onclick={uploadSchedule} disabled={sUploading}>
                         {sUploading ? 'Envoi…' : 'Uploader et associer'}
@@ -652,8 +719,10 @@
                             <div>
                               <div class="assoc-name">{s.name}</div>
                               <div class="assoc-meta">
-                                {s.date_from ?? '?'} → {s.date_to ?? '?'} ·
-                                buckets : {s.bucket_labels.join(', ')}
+                                <span class="stype-badge stype-badge--{s.schedule_type}">
+                                  {s.schedule_type === 'stock' ? 'Stock' : 'Nvl. prod.'}
+                                </span>
+                                {s.date_from ?? '?'} → {s.date_to ?? '?'} · {s.bucket_labels.length} mois
                               </div>
                             </div>
                             <button class="btn-sm btn-success" onclick={() => associateSchedule(s.id)}>
@@ -677,8 +746,11 @@
                         <div class="item-info">
                           <span class="item-name">{s.name}</span>
                           <span class="item-meta">
+                            <span class="stype-badge stype-badge--{s.schedule_type}">
+                              {s.schedule_type === 'stock' ? 'Stock' : 'Nvl. prod.'}
+                            </span>
                             {s.date_from ?? '?'} → {s.date_to ?? '?'} · {s.row_count} lignes ·
-                            <span class="buckets-hint">{s.bucket_labels.join(' | ')}</span>
+                            <span class="buckets-hint">{s.bucket_labels.length} mois</span>
                           </span>
                         </div>
                         <div class="item-actions">
@@ -690,16 +762,54 @@
                           </button>
                         </div>
                       </div>
-                      {#if expandedScheduleId === s.id}
-                        <div class="chart-row">
-                          {#if !scheduleChartData}
-                            <p class="loading">Chargement…</p>
-                          {:else}
-                            <div bind:this={scheduleChartEl} style="height:200px;width:100%"></div>
-                          {/if}
-                        </div>
-                      {/if}
                     </div>
+
+                    {#if expandedScheduleId === s.id}
+                      <div class="inline-viewer card">
+                        {#if !scheduleChartData}
+                          <p class="loading" style="padding:16px">Chargement…</p>
+                        {:else}
+                          <div class="viewer-header">
+                            <div>
+                              <span class="viewer-title">
+                                Schedule : {scheduleChartData.name}
+                                <span class="stype-badge stype-badge--{scheduleChartData.schedule_type}" style="margin-left:8px;vertical-align:middle">
+                                  {scheduleChartData.schedule_type === 'stock' ? 'Stock' : 'Nouvelle production'}
+                                </span>
+                              </span>
+                              {#if scheduleChartData.description}<span class="viewer-desc">{scheduleChartData.description}</span>{/if}
+                            </div>
+                            <button class="icon-btn" onclick={() => { expandedScheduleId = null; scheduleChartData = null; }} title="Fermer">
+                              <X size={15} />
+                            </button>
+                          </div>
+                          <div class="viewer-body">
+                            <div bind:this={scheduleViewerEl} style="height:260px;width:100%"></div>
+                            <div class="viewer-table-wrap">
+                              <table class="viewer-table">
+                                <thead>
+                                  <tr>
+                                    <th>Date</th><th>Type</th>
+                                    {#each scheduleChartData.bucket_labels as label}<th class="tr">{label}</th>{/each}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {#each scheduleChartData.rows as r}
+                                    <tr class:row-projected={r.period_type === 'projected'}>
+                                      <td>{r.date}</td>
+                                      <td><span class="pt-badge pt-badge--{r.period_type}">{r.period_type}</span></td>
+                                      {#each r.buckets as b}
+                                        <td class="tr tnum">{(b * 100).toFixed(2)}%</td>
+                                      {/each}
+                                    </tr>
+                                  {/each}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        {/if}
+                      </div>
+                    {/if}
                   {/each}
                 </div>
               {/if}
@@ -947,4 +1057,91 @@
     justify-content: center; gap: 14px;
     padding: 60px 32px; text-align: center; color: #9ca3af; font-size: 13px;
   }
+
+  /* ── Viewers de données (inline, sous l'élément déroulé) ── */
+  .inline-viewer {
+    padding: 16px 18px;
+    margin: 0 0 2px 0;
+    border-radius: 0 0 8px 8px;
+    border-top: 2px solid #e0e7ff;
+  }
+
+  .viewer-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px; margin-bottom: 16px;
+  }
+
+  .viewer-title { font-size: 14px; font-weight: 700; color: #1a1a2e; display: block; }
+  .viewer-desc  { font-size: 11.5px; color: #6b7280; display: block; margin-top: 3px; }
+
+  .viewer-body { display: flex; flex-direction: column; gap: 14px; }
+
+  .viewer-table-wrap {
+    overflow: auto;
+    max-height: 260px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+  }
+
+  .viewer-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .viewer-table th {
+    position: sticky; top: 0;
+    background: #f9fafb;
+    padding: 7px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 11px; font-weight: 600; color: #6b7280;
+    text-transform: uppercase; letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
+  .viewer-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    white-space: nowrap;
+    color: #374151;
+  }
+
+  .viewer-table tr:last-child td { border-bottom: none; }
+  .viewer-table tr:hover td { background: #f9fafb; }
+
+  .row-projected td { background: #fffbeb; }
+  .row-projected:hover td { background: #fef3c7; }
+
+  .tr { text-align: right; }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  .pt-badge {
+    display: inline-block; padding: 1px 6px;
+    border-radius: 4px; font-size: 10.5px; font-weight: 600;
+  }
+  .pt-badge--observed      { background: #f0fdf4; color: #166534; }
+  .pt-badge--projected     { background: #fefce8; color: #854d0e; }
+  .pt-badge--contrafactual { background: #eff6ff; color: #1e40af; }
+
+  /* ── Schedule type toggle (upload form) ── */
+  .stype-row { display: flex; flex-direction: column; gap: 6px; }
+  .stype-label { font-size: 12px; font-weight: 600; color: #374151; }
+  .stype-toggle { display: flex; gap: 0; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; width: fit-content; }
+  .stype-btn {
+    padding: 6px 14px; font-size: 12.5px; font-weight: 500; cursor: pointer;
+    background: #f9fafb; color: #6b7280; border: none; transition: all .15s;
+  }
+  .stype-btn:first-child { border-right: 1px solid #d1d5db; }
+  .stype-btn--active.stype-btn:first-child { background: #eff6ff; color: #1d4ed8; font-weight: 700; }
+  .stype-btn--active.stype-btn:last-child  { background: #f0fdf4; color: #166534; font-weight: 700; }
+  .stype-hint { font-size: 11.5px; color: #6b7280; font-style: italic; }
+
+  /* ── Schedule type badge (list + viewer) ── */
+  .stype-badge {
+    display: inline-block; padding: 1px 7px;
+    border-radius: 4px; font-size: 10px; font-weight: 700;
+    letter-spacing: .03em; text-transform: uppercase; margin-right: 4px;
+  }
+  .stype-badge--stock          { background: #eff6ff; color: #1d4ed8; }
+  .stype-badge--new_production { background: #f0fdf4; color: #166534; }
 </style>

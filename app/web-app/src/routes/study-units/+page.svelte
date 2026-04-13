@@ -56,9 +56,16 @@
   let aComboIdx         = $state('-1');    // string pour le select
   let aLabel            = $state('');
   let aIsExistingStock  = $state(false);
+  let aMethods          = $state<string[]>(['Stock']);
   let aFtpProfile       = $state<{ tenor: string; rate: string }[]>([]);
   let assignFormError   = $state<string | null>(null);
   let assignSaving      = $state(false);
+
+  const ALL_METHODS = ['Stock', 'Flux'] as const;
+
+  function selectMethod(m: string) {
+    aMethods = [m];
+  }
 
   // Buckets du schedule lié à la paire sélectionnée dans le formulaire
   let assignBuckets = $derived((() => {
@@ -210,6 +217,7 @@
     aComboIdx        = '-1';
     aLabel           = '';
     aIsExistingStock = false;
+    aMethods         = ['Stock'];
     aFtpProfile      = initProfile(pairId);
     assignFormError  = null;
     showAssignForm   = true;
@@ -225,6 +233,7 @@
     aComboIdx        = String(idx);
     aLabel           = a.label ?? '';
     aIsExistingStock = a.is_existing_stock;
+    aMethods         = [...(a.methods?.length ? a.methods : ['Stock'])];
     if (a.initial_ftp_profile_json?.length) {
       aFtpProfile = a.initial_ftp_profile_json.map(e => ({
         tenor: e.tenor, rate: String(e.rate),
@@ -256,17 +265,19 @@
     try {
       if (editingAssignId) {
         await studyUnits.updateAssignment(selectedId!, editingAssignId, {
-          combination_matrix_ids:  combo.matrix_ids,
-          label:                   aLabel || undefined,
-          is_existing_stock:       aIsExistingStock,
+          combination_matrix_ids:   combo.matrix_ids,
+          label:                    aLabel || undefined,
+          is_existing_stock:        aIsExistingStock,
+          methods:                  aMethods,
           initial_ftp_profile_json: ftpProfile,
         });
       } else {
         await studyUnits.createAssignment(selectedId!, {
-          pair_id:                 aPairId,
-          combination_matrix_ids:  combo.matrix_ids,
-          label:                   aLabel || undefined,
-          is_existing_stock:       aIsExistingStock,
+          pair_id:                  aPairId,
+          combination_matrix_ids:   combo.matrix_ids,
+          label:                    aLabel || undefined,
+          is_existing_stock:        aIsExistingStock,
+          methods:                  aMethods,
           initial_ftp_profile_json: ftpProfile,
         });
       }
@@ -333,10 +344,29 @@
   function pName(id: string) {
     return allPortfolios.find(p => p.id === id)?.name ?? id;
   }
+
 </script>
 
 <!-- ── Layout ────────────────────────────────────────────────────────────────── -->
-<div class="page">
+<div class="page-wrap">
+
+  <!-- ── Bannière méthode FTP ──────────────────────────────────────────────────── -->
+  <div class="method-info-banner">
+    <span class="method-info-title">Méthode : Maturité Appariée</span>
+    <div class="method-info-flavours">
+      <div class="flavour-card">
+        <span class="flavour-tag flavour-tag--stock">Stock</span>
+        <span>Encours existant — profil résiduel × courbe FTP</span>
+      </div>
+      <div class="flavour-card">
+        <span class="flavour-tag flavour-tag--flux">Flux</span>
+        <span>Nouvelle production — construction anti-diagonale par cohorte</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Panneau principal (liste + détail) ───────────────────────────────────── -->
+  <div class="page">
 
   <!-- Panneau gauche -->
   <aside class="left-panel card">
@@ -483,10 +513,16 @@
           {:else}
             {#each portfolioPairs as pair}
               {@const pairAssigns = assignsForPair(pair.id)}
+              {@const pairSchedType = allSchedules.find(s => s.id === pair.schedule_id)?.schedule_type ?? 'stock'}
               <div class="pair-block card">
                 <div class="pair-head">
                   <div class="pair-title">
-                    <strong>{pair.label ?? `${pair.vector_name} × ${pair.schedule_name}`}</strong>
+                    <span class="pair-title-line">
+                      <strong>{pair.label ?? `${pair.vector_name} × ${pair.schedule_name}`}</strong>
+                      <span class="stype-badge stype-badge--{pairSchedType}">
+                        {pairSchedType === 'stock' ? 'Stock' : 'Nvl. prod.'}
+                      </span>
+                    </span>
                     {#if pair.label}
                       <span class="pair-subtitle">{pair.vector_name} × {pair.schedule_name}</span>
                     {/if}
@@ -514,9 +550,14 @@
                               {a.combination_matrix_ids.join(', ')}
                             {/if}
                           </span>
-                          {#if a.is_existing_stock}
-                            <span class="badge badge-frozen" style="font-size:11px">Stock existant</span>
-                          {/if}
+                          <div class="assign-methods">
+                            {#each (a.methods ?? ['Stock']) as m}
+                              <span class="method-tag">{m}</span>
+                            {/each}
+                            {#if a.is_existing_stock}
+                              <span class="badge badge-frozen" style="font-size:11px">Stock existant</span>
+                            {/if}
+                          </div>
                         </div>
                         <div class="assign-btns">
                           <button class="btn-sm" onclick={() => openAssignEdit(a)}>
@@ -576,7 +617,8 @@
       {/if}
     {/if}
   </main>
-</div>
+  </div> <!-- end .page -->
+</div> <!-- end .page-wrap -->
 
 <!-- ── Modal : créer / modifier study unit ──────────────────────────────────── -->
 {#if showUnitForm}
@@ -683,6 +725,23 @@
           <input bind:value={aLabel} placeholder="Ex. Scénario central" />
         </label>
 
+        <div class="methods-pick">
+          <span class="methods-pick-label">Variante de calcul *</span>
+          <div class="methods-toggle-row">
+            {#each ALL_METHODS as m}
+              <button
+                type="button"
+                class="method-flavour-btn"
+                class:method-flavour-btn--on={aMethods.includes(m)}
+                class:method-flavour-btn--stock={m === 'Stock'}
+                class:method-flavour-btn--flux={m === 'Flux'}
+                onclick={() => selectMethod(m)}>
+                {m === 'Stock' ? 'Stock (encours existant)' : 'Flux (nouvelle production)'}
+              </button>
+            {/each}
+          </div>
+        </div>
+
         <div class="toggle-row">
           <label class="inline-check">
             <input type="checkbox" bind:checked={aIsExistingStock} />
@@ -729,7 +788,8 @@
   /* ── Layout ── */
   .page {
     display: flex;
-    height: 100vh;
+    flex: 1;
+    min-height: 0;
     overflow: hidden;
     gap: 0;
   }
@@ -1036,4 +1096,97 @@
   .ftp-tenor { font-size: 12.5px; font-weight: 600; color: #4b5563; }
   .ftp-input { width: 100%; }
   .ftp-unit  { font-size: 12px; color: #9ca3af; }
+
+  /* ── Layout ── */
+  .page-wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Méthode info banner ── */
+  .method-info-banner {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    background: #f5f3ff;
+    border-bottom: 1px solid #e0d9ff;
+  }
+  .method-info-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #4338ca;
+    white-space: nowrap;
+  }
+  .method-info-flavours {
+    display: flex;
+    gap: 12px;
+  }
+  .flavour-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: #374151;
+  }
+  .flavour-tag {
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 1px 7px;
+  }
+  .flavour-tag--stock { background: #eff6ff; color: #1d4ed8; }
+  .flavour-tag--flux  { background: #f0fdf4; color: #166534; }
+
+  /* ── Pair header title line ── */
+  .pair-title-line { display: flex; align-items: center; gap: 8px; }
+
+  /* ── stype badge ── */
+  .stype-badge {
+    display: inline-block; padding: 1px 7px;
+    border-radius: 4px; font-size: 10px; font-weight: 700;
+    letter-spacing: .03em; text-transform: uppercase;
+  }
+  .stype-badge--stock          { background: #eff6ff; color: #1d4ed8; }
+  .stype-badge--new_production { background: #f0fdf4; color: #166534; }
+
+  /* ── Method chips on assignment row ── */
+  .assign-methods { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .method-tag {
+    display: inline-block; padding: 1px 7px;
+    background: #eef2ff; color: #4338ca;
+    border-radius: 4px; font-size: 10.5px; font-weight: 600;
+    border: 1px solid #c7d2fe;
+  }
+
+  /* ── Method picker in assignment form ── */
+  .methods-pick { display: flex; flex-direction: column; gap: 8px; }
+  .methods-pick-label { font-size: 12px; font-weight: 600; color: #374151; }
+  .methods-toggle-row { display: flex; gap: 8px; }
+  .method-flavour-btn {
+    flex: 1;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
+    color: #6b7280;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: all .12s;
+    text-align: center;
+  }
+  .method-flavour-btn:hover { border-color: #a5b4fc; color: #4338ca; background: #f5f3ff; }
+  .method-flavour-btn--on.method-flavour-btn--stock {
+    background: #eff6ff; border-color: #3b82f6; color: #1d4ed8; font-weight: 700;
+  }
+  .method-flavour-btn--on.method-flavour-btn--flux {
+    background: #f0fdf4; border-color: #22c55e; color: #166534; font-weight: 700;
+  }
 </style>

@@ -106,7 +106,14 @@
       "Bash(sed -n '305,315p' /home/cet/Projects/ftp-calculator/app/backend/src/api/studies.rs)",
       "Bash(sed -n '375,383p' /home/cet/Projects/ftp-calculator/app/backend/src/api/studies.rs)",
       "Bash(sed -n '423,430p' /home/cet/Projects/ftp-calculator/app/backend/src/api/study_units.rs)",
-      "Bash(sed -n '863,870p' /home/cet/Projects/ftp-calculator/app/backend/src/api/study_units.rs)"
+      "Bash(sed -n '863,870p' /home/cet/Projects/ftp-calculator/app/backend/src/api/study_units.rs)",
+      "Bash(psql -U postgres -d ftp_simulator -c \"SELECT name, bucket_labels_json FROM amort_schedules LIMIT 5;\")",
+      "Bash(psql -c \"SELECT name, bucket_labels_json FROM amort_schedules LIMIT 5;\")",
+      "Bash(npx tsc:*)",
+      "Bash(SQLX_OFFLINE=true cargo check -p ftp-backend)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(pkill -f \"npm run dev\")",
+      "Bash(fuser -k 5173/tcp)"
     ]
   }
 }
